@@ -1,4 +1,4 @@
-/* @thoughtspot/visual-embed-sdk version 1.53.1 */
+/* @thoughtspot/visual-embed-sdk version 1.52.1 */
 'use client';
 function _mergeNamespaces(n, m) {
     m.forEach(function (e) {
@@ -471,7 +471,6 @@ var EmbedEvent;
      * })
      * ```
      * @returns isLoggedIn - A Boolean specifying whether authentication was successful.
-     * Payload: {@link AuthInitPayload}.
      */
     EmbedEvent["AuthInit"] = "authInit";
     /**
@@ -491,7 +490,6 @@ var EmbedEvent;
     /**
      * Data pertaining to an Answer, Liveboard or Spotter visualization is received.
      * The event payload includes the raw data of the object.
-     * Payload: {@link DataEventPayload}.
      * @return data -  Answer of Liveboard data
      * @version SDK: 1.1.0 | ThoughtSpot: ts7.may.cl, 8.4.1.sw
      * @example
@@ -505,7 +503,6 @@ var EmbedEvent;
     EmbedEvent["Data"] = "data";
     /**
      * Search query has been updated by the user.
-     * Payload: {@link QueryChangedPayload} or a string.
      * @version SDK: 1.4.0 | ThoughtSpot: ts7.sep.cl, 8.4.1.sw
      * @example
      * ```js
@@ -548,7 +545,6 @@ var EmbedEvent;
      *     })
      * })
      * ```
-     * Payload: {@link DrilldownPayload}.
      */
     EmbedEvent["Drilldown"] = "drillDown";
     /**
@@ -561,7 +557,6 @@ var EmbedEvent;
      *    console.log('DataSourceSelected', payload);
      * })
      * ```
-     * Payload: {@link DataSourceSelectedPayload} or string[].
      */
     EmbedEvent["DataSourceSelected"] = "dataSourceSelected";
     /**
@@ -574,7 +569,6 @@ var EmbedEvent;
      *   console.log('AddRemoveColumns', payload);
      * })
      * ```
-     * Payload: string[].
      */
     EmbedEvent["AddRemoveColumns"] = "addRemoveColumns";
     /**
@@ -592,7 +586,6 @@ var EmbedEvent;
      *     }
      * })
      * ```
-     * Payload: {@link CustomActionPayload} (on() enriches it to {@link CustomActionEventPayload}).
      */
     EmbedEvent["CustomAction"] = "customAction";
     /**
@@ -605,7 +598,6 @@ var EmbedEvent;
      *      console.log('VizPointDoubleClick', payload);
      * })
      * ```
-     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointDoubleClick"] = "vizPointDoubleClick";
     /**
@@ -625,7 +617,6 @@ var EmbedEvent;
      *   )
      * });
      * ```
-     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointClick"] = "vizPointClick";
     /**
@@ -678,7 +669,6 @@ var EmbedEvent;
      *   // { errorType: "API", message: '...', code: '...' }
      * });
      * ```
-     * Payload: {@link EmbedErrorPayload} or a string.
      */
     EmbedEvent["Error"] = "Error";
     /**
@@ -729,7 +719,6 @@ var EmbedEvent;
      * The center of visible iframe viewport is calculated.
      * @returns data - The center of the visible Iframe viewport.
      * @hidden
-     * Payload: none.
      */
     EmbedEvent["EmbedIframeCenter"] = "EmbedIframeCenter";
     /**
@@ -786,7 +775,6 @@ var EmbedEvent;
      *    console.log('dialog open', payload);
      *  })
      * ```
-     * Payload: none.
      */
     EmbedEvent["DialogOpen"] = "dialog-open";
     /**
@@ -798,19 +786,12 @@ var EmbedEvent;
      *     console.log('dialog close', payload);
      * })
      * ```
-     * Payload: none.
      */
     EmbedEvent["DialogClose"] = "dialog-close";
     /**
      * Emitted when the Liveboard shell loads.
      * You can use this event as a hook to trigger
      * other events on the rendered Liveboard.
-     *
-     * From SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl, the payload contains basic
-     * data about the rendered Liveboard. In earlier versions, the payload is empty.
-     * Make sure that a field is present before you use it.
-     * Payload: {@link LiveboardRenderedData}.
-     *
      * @version SDK: 1.9.1 | ThoughtSpot: 8.1.0.cl, 8.4.1.sw
      * @example
      * ```js
@@ -829,40 +810,6 @@ var EmbedEvent;
      * ```
      */
     EmbedEvent["LiveboardRendered"] = "PinboardRendered";
-    /**
-     * Emitted when the header of a Liveboard has loaded.
-     * The Liveboard header loads before the visualizations,
-     * so you can use this event to show early content or
-     * trigger actions without waiting for the full
-     * Liveboard to render.
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.on(EmbedEvent.LiveboardHeaderLoaded,
-     *     payload => {
-     *         console.log('Liveboard header is loaded',
-     *             payload);
-     *     })
-     * ```
-     * Payload: {@link LiveboardHeaderLoadedPayload}.
-     */
-    EmbedEvent["LiveboardHeaderLoaded"] = "LiveboardHeaderLoaded";
-    /**
-     * Emitted when the top users (recent viewers) of a
-     * Liveboard have been loaded. The payload contains the
-     * list of users who have recently viewed the Liveboard.
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.on(EmbedEvent.LiveboardTopUsersLoaded,
-     *     payload => {
-     *         console.log('Top users loaded',
-     *             payload);
-     *     })
-     * ```
-     * Payload: {@link LiveboardTopUsersLoadedPayload}.
-     */
-    EmbedEvent["LiveboardTopUsersLoaded"] = "LiveboardTopUsersLoaded";
     /**
      * Emits all events.
      * @version SDK: 1.10.0 | ThoughtSpot: 8.2.0.cl, 8.4.1.sw
@@ -891,7 +838,6 @@ var EmbedEvent;
      *    console.log('Save', payload)
      * })
      * ```
-     * Payload: {@link SaveEventPayload}.
      */
     EmbedEvent["Save"] = "save";
     /**
@@ -908,7 +854,6 @@ var EmbedEvent;
      * vizId: '730496d6-6903-4601-937e-2c691821af3c'
      * })
      * ```
-     * Payload: {@link VizScope}.
      */
     EmbedEvent["Download"] = "download";
     /**
@@ -928,7 +873,6 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsPng, payload => {
      *   console.log('download PNG', payload)})
      * ```
-     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsPng"] = "downloadAsPng";
     /**
@@ -948,7 +892,6 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsPdf, payload => {
      *   console.log('download PDF', payload)})
      * ```
-     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsPdf"] = "downloadAsPdf";
     /**
@@ -968,7 +911,6 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsCsv, payload => {
      *    console.log('download CSV', payload)})
      * ```
-     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsCsv"] = "downloadAsCsv";
     /**
@@ -988,7 +930,6 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsXlsx, payload => {
      *   console.log('download Xlsx', payload)})
      * ```
-     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsXlsx"] = "downloadAsXlsx";
     /**
@@ -1000,7 +941,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.DownloadLiveboardAsContinuousPDF, payload => {
      *   console.log('download liveboard as continuous PDF', payload)})
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["DownloadLiveboardAsContinuousPDF"] = "downloadLiveboardAsContinuousPDF";
     /**
@@ -1017,7 +957,6 @@ var EmbedEvent;
      * appEmbed.on(EmbedEvent.AnswerDelete, payload => {
      *    console.log('delete answer', payload)})
      * ```
-     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["AnswerDelete"] = "answerDelete";
     /**
@@ -1029,7 +968,6 @@ var EmbedEvent;
      *   console.log('AI Highlights', payload);
      * })
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["AIHighlights"] = "AIHighlights";
     /**
@@ -1051,7 +989,6 @@ var EmbedEvent;
      *    console.log('pin', payload)
      * })
      * ```
-     * Payload: {@link PinEventPayload}.
      */
     EmbedEvent["Pin"] = "pin";
     /**
@@ -1070,7 +1007,6 @@ var EmbedEvent;
      *   console.log('SpotIQ analyze', payload)
      * })
      * ```
-     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["SpotIQAnalyze"] = "spotIQAnalyze";
     /**
@@ -1124,7 +1060,6 @@ var EmbedEvent;
      *    console.log('copy to clipboard', payload);
      * })
      * ```
-     * Payload: {@link CopyToClipboardPayload}.
      */
     EmbedEvent["CopyToClipboard"] = "context-menu-item-copy-to-clipboard";
     /**
@@ -1136,7 +1071,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.UpdateTML)
      * })
      * ```
-     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["UpdateTML"] = "updateTSL";
     /**
@@ -1149,7 +1083,6 @@ var EmbedEvent;
      *    console.log('Edit TML', payload);
      * })
      * ```
-     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["EditTML"] = "editTSL";
     /**
@@ -1167,7 +1100,6 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.ExportTML, payload => {
      *     console.log('Export TML', payload)})
      * ```
-     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["ExportTML"] = "exportTSL";
     /**
@@ -1206,7 +1138,6 @@ var EmbedEvent;
      *    console.log('show data', payload);
      * })
      * ```
-     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["ShowUnderlyingData"] = "showUnderlyingData";
     /**
@@ -1218,7 +1149,6 @@ var EmbedEvent;
      *    console.log('switch view', payload);
      * })
      * ```
-     * Payload: {@link AnswerChartSwitcherPayload}.
      */
     EmbedEvent["AnswerChartSwitcher"] = "answerChartSwitcher";
     /**
@@ -1240,7 +1170,6 @@ var EmbedEvent;
      *    console.log('Liveboard details', payload);
      * })
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["LiveboardInfo"] = "pinboardInfo";
     /**
@@ -1252,7 +1181,6 @@ var EmbedEvent;
      *    console.log('favorites', payload);
      * })
      * ```
-     * Payload: {@link FavoritePayload}.
      */
     EmbedEvent["AddToFavorites"] = "addToFavorites";
     /**
@@ -1264,7 +1192,6 @@ var EmbedEvent;
      *    console.log('Liveboard schedule', payload);
      * })
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Schedule"] = "subscription";
     /**
@@ -1279,39 +1206,8 @@ var EmbedEvent;
      *    console.log('Liveboard edit', payload);
      * })
      * ```
-     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Edit"] = "edit";
-    /**
-     * Emitted when a user clicks **Edit** on a Liveboard.
-     *
-     * Fired alongside {@link EmbedEvent.Edit} for backward compatibility;
-     * listen to this instead of `Edit` to target the Liveboard surface only.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.on(EmbedEvent.EditLiveboard, payload => {
-     *    console.log('Liveboard edit', payload);
-     * })
-     * ```
-     */
-    EmbedEvent["EditLiveboard"] = "editLiveboard";
-    /**
-     * Emitted when a user clicks **Edit** on a visualization inside a
-     * Liveboard.
-     *
-     * Fired alongside {@link EmbedEvent.Edit} for backward compatibility;
-     * listen to this instead of `Edit` to target the visualization surface
-     * only.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.on(EmbedEvent.EditVisualization, payload => {
-     *    console.log('visualization edit', payload);
-     * })
-     * ```
-     */
-    EmbedEvent["EditVisualization"] = "editVisualization";
     /**
      * Emitted when a user clicks *Make a copy* on a Liveboard
      * @version SDK: 1.15.0 | ThoughtSpot: 8.7.0.cl, 8.8.1.sw
@@ -1321,7 +1217,6 @@ var EmbedEvent;
      *    console.log('Copy', payload);
      * })
      * ```
-     * Payload: {@link MakeACopyPayload}.
      */
     EmbedEvent["MakeACopy"] = "makeACopy";
     /**
@@ -1337,7 +1232,6 @@ var EmbedEvent;
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * })
      * ```
-     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Present"] = "present";
     /**
@@ -1348,7 +1242,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.Delete,
      *   {vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Delete"] = "delete";
     /**
@@ -1358,7 +1251,6 @@ var EmbedEvent;
      * ```js
      * liveboardEmbed.on(EmbedEvent.SchedulesList)
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["SchedulesList"] = "schedule-list";
     /**
@@ -1368,7 +1260,6 @@ var EmbedEvent;
      * ```js
      * liveboardEmbed.on(EmbedEvent.Cancel)
      * ```
-     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Cancel"] = "cancel";
     /**
@@ -1379,7 +1270,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.Explore,  {
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
-     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Explore"] = "explore";
     /**
@@ -1390,7 +1280,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.CopyLink, {
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
-     * Payload: {@link CopyLinkPayload}.
      */
     EmbedEvent["CopyLink"] = "embedDocument";
     /**
@@ -1402,7 +1291,6 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.CrossFilterChanged, {
      *    vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
-     * Payload: {@link CrossFilterChangedPayload}.
      */
     EmbedEvent["CrossFilterChanged"] = "cross-filter-changed";
     /**
@@ -1414,7 +1302,6 @@ var EmbedEvent;
      *    console.log('VizPointClick', payload)
      * })
      * ```
-     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointRightClick"] = "vizPointRightClick";
     /**
@@ -1442,7 +1329,6 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.23.0 | ThoughtSpot: 9.4.0.cl, 9.5.0.sw
-     * Payload: {@link FilterChangedPayload}.
      */
     EmbedEvent["FilterChanged"] = "filterChanged";
     /**
@@ -1465,7 +1351,6 @@ var EmbedEvent;
      * @returns isPublic: boolean
      * @version SDK: 1.26.0 | ThoughtSpot: 9.7.0.cl, 9.8.0.sw
      * @deprecated SDK: 1.48.0 | ThoughtSpot: 26.5.0.cl
-     * Payload: {@link PersonalisedViewPayload}.
      */
     EmbedEvent["UpdatePersonalisedView"] = "updatePersonalisedView";
     /**
@@ -1487,7 +1372,6 @@ var EmbedEvent;
      * @returns isPublic: boolean
      * @version SDK: 1.26.0 | ThoughtSpot: 9.7.0.cl, 9.8.0.sw
      * @deprecated SDK: 1.48.0 | ThoughtSpot: 26.5.0.cl
-     * Payload: {@link PersonalisedViewPayload}.
      */
     EmbedEvent["SavePersonalisedView"] = "savePersonalisedView";
     /**
@@ -1562,7 +1446,6 @@ var EmbedEvent;
     /**
      * Emitted when a Liveboard or visualization is renamed.
      * @version SDK: 1.28.0 | ThoughtSpot: 9.10.5.cl, 10.1.0.sw
-     * Payload: {@link RenamePayload}.
      */
     EmbedEvent["Rename"] = "rename";
     /**
@@ -1648,7 +1531,6 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.29.0 | ThoughtSpot: 10.3.0.cl
-     * Payload: {@link ParameterChangedPayload}.
      */
     EmbedEvent["ParameterChanged"] = "parameterChanged";
     /**
@@ -1692,7 +1574,6 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.37.0 | ThoughtSpot: 10.8.0.cl
-     * Payload: {@link TableVizRenderedPayload}.
      */
     EmbedEvent["TableVizRendered"] = "TableVizRendered";
     /**
@@ -1717,14 +1598,12 @@ var EmbedEvent;
      * @hidden
      * Emitted when a user exits present mode.
      * @version SDK: 1.40.0 | ThoughtSpot: 10.11.0.cl
-     * Payload: {@link ExitPresentModePayload}.
      */
     EmbedEvent["ExitPresentMode"] = "exitPresentMode";
     /**
      * Emitted when a user requests the full height lazy load data.
      * @version SDK: 1.39.0 | ThoughtSpot: 10.10.0.cl
      * @hidden
-     * Payload: none.
      */
     EmbedEvent["RequestVisibleEmbedCoordinates"] = "requestVisibleEmbedCoordinates";
     /**
@@ -1758,7 +1637,6 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.45.0 | ThoughtSpot: 26.2.0.cl
-     * Payload: {@link VizScope}.
      */
     EmbedEvent["AddToCoaching"] = "addToCoaching";
     /**
@@ -1848,7 +1726,6 @@ var EmbedEvent;
      *     console.log('EmbedListenerReady');
      * })
      * ```
-     * Payload: none.
      */
     EmbedEvent["EmbedListenerReady"] = "EmbedListenerReady";
     /**
@@ -2223,7 +2100,6 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.48.0 | ThoughtSpot Cloud: 26.5.0.cl
-     * Payload: {@link TestScheduleEmailPayload}.
      */
     EmbedEvent["SendTestScheduleEmail"] = "sendTestScheduleEmail";
     /**
@@ -2735,19 +2611,6 @@ var HostEvent;
      * ```
      */
     HostEvent["OpenAddParameterModal"] = "openAddParameterModal";
-    /**
-     * Add a tab to the Liveboard, the same action as the *Tab* option in the
-     * *Add* dropdown in the Liveboard edit header.
-     *
-     * The Liveboard must be in edit mode; the event is ignored otherwise.
-     *
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.trigger(HostEvent.OpenAddTabModal);
-     * ```
-     */
-    HostEvent["OpenAddTabModal"] = "openAddTabModal";
     /**
      * Open the parameter panel for a particular parameter on a Liveboard.
      * Mirrors {@link HostEvent.OpenFilter} for parameters.
@@ -3316,46 +3179,6 @@ var HostEvent;
      * @version SDK: 1.15.0 | ThoughtSpot: 8.7.0.cl, 8.8.1.sw
      */
     HostEvent["Edit"] = "edit";
-    /**
-     * Trigger the **Edit** action on a Liveboard only — does not affect a
-     * visualization's edit surface.
-     *
-     * Behaves like {@link HostEvent.Edit} restricted to the Liveboard
-     * surface. Use {@link HostEvent.EditVisualization} to target a
-     * visualization instead, or `HostEvent.Edit` to control whichever
-     * surface applies contextually (unchanged, existing behavior).
-     * @example
-     * ```js
-     * liveboardEmbed.trigger(HostEvent.EditLiveboard)
-     * ```
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     */
-    HostEvent["EditLiveboard"] = "editLiveboard";
-    /**
-     * Trigger the **Edit** action on a specific visualization inside a
-     * Liveboard only — does not affect the Liveboard-level edit surface.
-     * @param - Object parameter. Includes the following keys:
-     * - `vizId`: **Required.** The visualization to edit.
-     *
-     * @example
-     * ```js
-     * liveboardEmbed.trigger(HostEvent.EditVisualization, {vizId:
-     * '730496d6-6903-4601-937e-2c691821af3c'})
-     * ```
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     */
-    HostEvent["EditVisualization"] = "editVisualization";
-    /**
-     * Exits Liveboard edit mode , equivalent to clicking the
-     * *Cancel* button in the Liveboard edit header. The Liveboard returns to
-     * view mode and the embedded app emits the {@link EmbedEvent.Cancel} event.
-     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
-     * @example
-     * ```js
-     * liveboardEmbed.trigger(HostEvent.ExitEditMode);
-     * ```
-     */
-    HostEvent["ExitEditMode"] = "exitEditMode";
     /**
      * Trigger the **Copy link** action on a Liveboard or visualization
      * Payload: {@link VizScopedRequest}.
@@ -4891,39 +4714,6 @@ var HostEvent;
      * @version SDK: 1.49.0 | ThoughtSpot Cloud: 26.6.0.cl
      */
     HostEvent["RefreshLiveboardBrowserCache"] = "refreshLiveboardBrowserCache";
-    /**
-     * Switch the embed between dark appearance and its default appearance
-     * while it is open, without reloading it.
-     * Payload: {@link UpdateThemeRequest}.
-     *
-     * Use it to keep the embed in step with a theme switch in your
-     * application; the appearance the embed loads with is set by `isDarkMode`.
-     * The event resolves with the applied value, such as `{ isDarkMode: true }`.
-     * When dark appearance is not available in the embed, the embed does not
-     * change and the event rejects with an error message instead.
-     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
-     * @param - `isDarkMode` - `true` for dark appearance, `false` for the
-     * default appearance.
-     * @example
-     * ```js
-     * appEmbed.trigger(HostEvent.UpdateTheme, { isDarkMode: true });
-     * ```
-     * @example
-     * ```js
-     * // Follow a theme switch in your application
-     * const themeSwitch = document.querySelector('#theme-switch');
-     * themeSwitch.addEventListener('change', async (event) => {
-     *   try {
-     *     await appEmbed.trigger(HostEvent.UpdateTheme, {
-     *       isDarkMode: event.target.checked,
-     *     });
-     *   } catch (error) {
-     *     console.warn(error);
-     *   }
-     * });
-     * ```
-     */
-    HostEvent["UpdateTheme"] = "UpdateTheme";
 })(HostEvent || (HostEvent = {}));
 /**
  * The different visual modes that the data sources panel within
@@ -4951,23 +4741,6 @@ var DataSourceVisualMode;
 var Param;
 (function (Param) {
     Param["Tsmcp"] = "tsmcp";
-    /**
-     * Marker added by a host app replaying a stored conversation. Carries the
-     * analytical session (conversation) identifier, from which the renderer
-     * resolves the answer's current session parameters. Stripped before the
-     * URL reaches the ThoughtSpot application.
-     * @version SDK: 1.52.2 | ThoughtSpot Cloud: 26.9.0.cl
-     */
-    Param["TsmcpConversationId"] = "tsmcpConversationId";
-    /**
-     * Zero-based position of the answer within the conversation, counting only
-     * non-thinking answer items in message order. Accompanies
-     * {@link TsmcpConversationId}; defaults to 0 when absent. Stripped before
-     * the URL reaches the ThoughtSpot application.
-     * @version SDK: 1.52.2 | ThoughtSpot Cloud: 26.9.0.cl
-     */
-    Param["TsmcpAnswerIndex"] = "tsmcpAnswerIndex";
-    Param["IsMcpAnswerEmbed"] = "isMcpAnswerEmbed";
     Param["EmbedApp"] = "embedApp";
     Param["DataSources"] = "dataSources";
     Param["DataSourceMode"] = "dataSourceMode";
@@ -5131,9 +4904,6 @@ var Param;
     Param["SpotterDataSources"] = "spotterDataSources";
     Param["OpenSpotterOnLiveboardByDefault"] = "openSpotterOnLiveboardByDefault";
     Param["ShowAnswerEditPanel"] = "showAnswerEditPanel";
-    Param["IsDarkMode"] = "isDarkMode";
-    Param["RadiantThemeEnabled"] = "radiantThemeEnabled";
-    Param["SpotterExperienceVersion"] = "spotterExperienceVersion";
 })(Param || (Param = {}));
 /**
  * ThoughtSpot application pages include actions and menu commands
@@ -5170,21 +4940,6 @@ var Param;
 var Action;
 (function (Action) {
     /**
-     * The **Add** button on a Liveboard in edit mode.
-     * Controls the visibility and disabled state of the Add panel button
-     * in the Liveboard edit toolbar, which allows users to add
-     * visualizations, filters, parameters, and tabs.
-     * @example
-     * ```js
-     * hiddenActions: [Action.LiveboardAddPanel]
-     * // or
-     * disabledActions: [Action.LiveboardAddPanel]
-     * ```
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     */
-    Action["LiveboardAddPanel"] = "liveboardAddPanel";
-    /**
-     *
      * The **Save** action on an Answer or Liveboard.
      * Allows users to save the changes.
      * @example
@@ -5603,43 +5358,12 @@ var Action;
      * The *Edit* action on the Liveboard page and in the
      * visualization menu.
      * Opens a Liveboard or visualization in edit mode.
-     *
-     * Controls both surfaces together. To target one surface only, use
-     * {@link Action.EditLiveboard} or {@link Action.EditVisualization}.
      * @example
      * ```js
      * disabledActions: [Action.Edit]
      * ```
      */
     Action["Edit"] = "edit";
-    /**
-     * The *Edit* action on the Liveboard page only.
-     * Opens a Liveboard in edit mode.
-     *
-     * Does not affect the *Edit* action in the visualization menu; use
-     * {@link Action.EditVisualization} for that, or {@link Action.Edit} to
-     * control both surfaces together.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     * @example
-     * ```js
-     * disabledActions: [Action.EditLiveboard]
-     * ```
-     */
-    Action["EditLiveboard"] = "editLiveboard";
-    /**
-     * The *Edit* action in the visualization `...` menu only.
-     * Opens a visualization in the editor.
-     *
-     * Does not affect the *Edit* action on the Liveboard page; use
-     * {@link Action.EditLiveboard} for that, or {@link Action.Edit} to
-     * control both surfaces together.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
-     * @example
-     * ```js
-     * disabledActions: [Action.EditVisualization]
-     * ```
-     */
-    Action["EditVisualization"] = "editVisualization";
     /**
      * The text edit option for Liveboard and visualization titles.
      * @example
@@ -7185,28 +6909,6 @@ var Action;
      */
     Action["SpotterOnLiveboard"] = "spotterOnLiveboard";
     /**
-     * The **View explanation** button on Spotter answer cards, which opens the
-     * Answer Verification experience in `SpotterEmbed` (and the deprecated
-     * `ConversationEmbed`).
-     *
-     * Adding it to `hiddenActions` (or leaving it out of `visibleActions`)
-     * removes the button and restores the classic answer footer actions
-     * (Pin, Save, Download, Edit) with no explanation pane. Adding it to
-     * `disabledActions` keeps the button visible but inert, and shows the
-     * host's `disabledActionReason` as the tooltip.
-     *
-     * The button only exists when Answer Verification
-     * (`enableAnswerVerification`) is enabled on the cluster. This action
-     * controls its visibility; it does not turn the feature on.
-     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.11.0.cl
-     * @example
-     * ```js
-     * hiddenActions: [Action.SpotterViewExplanation]
-     * disabledActions: [Action.SpotterViewExplanation]
-     * ```
-     */
-    Action["SpotterViewExplanation"] = "spotterViewExplanation";
-    /***
      * Controls the visibility and disabled state of the "Chart Type" menu item
      * in Chart Settings V2.
      * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
@@ -7437,149 +7139,6 @@ var Action;
      * ```
      */
     Action["CustomizeHomepage"] = "customizeHomepage";
-    /**
-     * Controls the visibility and disabled state of the rename button next to the Liveboard title in the Liveboard header.
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.RenameLiveboard],
-     *     disabledActions: [Action.RenameLiveboard],
-     * }
-     * ```
-     */
-    Action["RenameLiveboard"] = "renameLiveboard";
-    /**
-     * Controls the visibility and disabled state of the filter toggle button in the Liveboard header that opens and closes the filter panel.
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.FilterPanelToggle],
-     *     disabledActions: [Action.FilterPanelToggle],
-     * }
-     * ```
-     */
-    Action["FilterPanelToggle"] = "filterPanelToggle";
-    /**
-     * Controls the visibility and disabled state of the "Add scenario" action on an Answer.
-     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.AddScenario],
-     *     disabledActions: [Action.AddScenario],
-     * }
-     * ```
-     */
-    Action["AddScenario"] = "addScenario";
-    /**
-     * Controls the visibility and disabled state of the *Cancel* button in the
-     * Liveboard edit header, the button that discards the changes made in edit
-     * mode and returns the Liveboard to view mode. The button is shown only
-     * while the Liveboard is in edit mode.
-     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
-     * @example
-     * ```js
-     * const liveboardEmbed = new LiveboardEmbed('#tsEmbed', {
-     *     ... // other embed view config
-     *     hiddenActions: [Action.Cancel],
-     * });
-     * ```
-     * @example
-     * ```js
-     * const liveboardEmbed = new LiveboardEmbed('#tsEmbed', {
-     *     ... // other embed view config
-     *     disabledActions: [Action.Cancel],
-     *     disabledActionReason: 'Save your changes to leave edit mode',
-     * });
-     * ```
-     */
-    Action["Cancel"] = "cancel";
-    /**
-     * Controls the visibility and disabled state of the "Version history" menu item for a Liveboard or Answer.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.8.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.ShowVersionHistory],
-     *     disabledActions: [Action.ShowVersionHistory],
-     * }
-     * ```
-     */
-    Action["ShowVersionHistory"] = "showVersionHistory";
-    /**
-     * Controls the visibility and disabled state of the "Enable version control" menu item for a Liveboard or Answer.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.10.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.EnableVersionControl],
-     *     disabledActions: [Action.EnableVersionControl],
-     * }
-     * ```
-     */
-    Action["EnableVersionControl"] = "enableVersionControl";
-    /**
-     * Controls the visibility and disabled state of the "Disable version control" menu item for a Liveboard or Answer.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.10.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.DisableVersionControl],
-     *     disabledActions: [Action.DisableVersionControl],
-     * }
-     * ```
-     */
-    Action["DisableVersionControl"] = "disableVersionControl";
-    /**
-     * Controls the visibility and disabled state of the "Withdraw verification" menu item for a verified Liveboard.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.8.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.WithdrawVerification],
-     *     disabledActions: [Action.WithdrawVerification],
-     * }
-     * ```
-     */
-    Action["WithdrawVerification"] = "withdrawVerification";
-    /**
-     * Controls the visibility and disabled state of the "Switch to new chart experience" menu item on an Answer.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.10.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.SwitchToNewChartExperience],
-     *     disabledActions: [Action.SwitchToNewChartExperience],
-     * }
-     * ```
-     */
-    Action["SwitchToNewChartExperience"] = "switchToNewChartExperience";
-    /**
-     * Controls the visibility and disabled state of the "Switch to classic chart experience" menu item on an Answer.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.10.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.SwitchToClassicChartExperience],
-     *     disabledActions: [Action.SwitchToClassicChartExperience],
-     * }
-     * ```
-     */
-    Action["SwitchToClassicChartExperience"] = "switchToClassicChartExperience";
-    /**
-     * Controls the visibility and disabled state of the "Monitor" menu item on an Answer, which includes the alert options.
-     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.5.0.cl
-     * @example
-     * ```js
-     * {
-     *     hiddenActions: [Action.Monitor],
-     *     disabledActions: [Action.Monitor],
-     * }
-     * ```
-     */
-    Action["Monitor"] = "monitor";
 })(Action || (Action = {}));
 var PrefetchFeatures;
 (function (PrefetchFeatures) {
@@ -8086,7 +7645,7 @@ var TableContentDensity;
     TableContentDensity["Compact"] = "COMPACT";
 })(TableContentDensity || (TableContentDensity = {}));
 
-var version$1="1.53.1";var pkg = {version:version$1};
+var version$1="1.52.1";var pkg = {version:version$1};
 
 const { version } = pkg;
 
@@ -8271,7 +7830,6 @@ const CUSTOM_ACTIONS_ERROR_MESSAGE = {
     INVALID_METADATA_IDS: (targetType, invalidIds, supportedIds) => `Invalid metadata IDs for ${targetType.toLowerCase()}-level custom actions: ${invalidIds.join(', ')}. Supported metadata IDs: ${supportedIds}`,
     INVALID_DATA_MODEL_IDS: (targetType, invalidIds, supportedIds) => `Invalid data model IDs for ${targetType.toLowerCase()}-level custom actions: ${invalidIds.join(', ')}. Supported data model IDs: ${supportedIds}`,
     INVALID_FIELDS: (targetType, invalidFields, supportedFields) => `Invalid fields for ${targetType.toLowerCase()}-level custom actions: ${invalidFields.join(', ')}. Supported fields: ${supportedFields}`,
-    INVALID_MENU_INDEX_POSITION: (id, position) => `Custom Action Validation Error for '${id}': 'menuIndex' is only valid for position: MENU, but got position '${position}'`,
     DUPLICATE_IDS: (id, duplicateNames, keptName) => `Duplicate custom action ID '${id}' found. Actions with names '${duplicateNames.join("', '")}' will be ignored. Keeping '${keptName}'.`,
     TOO_MANY_PRIMARY_ACTIONS: (id, targetType, max) => `Custom Action Validation Error for '${id}': Maximum of ${max} PRIMARY actions allowed for ${targetType.toLowerCase()}-level custom actions.`,
 };
@@ -11257,7 +10815,7 @@ class AnswerService {
     async getTML() {
         const { object } = await this.executeQuery(getAnswerTML, {});
         const edoc = object[0].edoc;
-        const YAML = await import('./index-CrBnZBZv.js');
+        const YAML = await import('./index-C1pmYb5H.js');
         const parsedDoc = YAML.parse(edoc);
         return {
             answer: {
@@ -11361,6 +10919,2620 @@ function getDisplayedViz(visualizations, displayMode) {
 }
 
 /**
+ * Appends the elements of `values` to `array`.
+ *
+ * @private
+ * @param {Array} array The array to modify.
+ * @param {Array} values The values to append.
+ * @returns {Array} Returns `array`.
+ */
+function arrayPush(array, values) {
+  var index = -1,
+      length = values.length,
+      offset = array.length;
+
+  while (++index < length) {
+    array[offset + index] = values[index];
+  }
+  return array;
+}
+
+var _arrayPush = arrayPush;
+
+/** Built-in value references. */
+var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
+
+/**
+ * Checks if `value` is a flattenable `arguments` object or array.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+ */
+function isFlattenable(value) {
+  return isArray_1(value) || isArguments_1(value) ||
+    !!(spreadableSymbol && value && value[spreadableSymbol]);
+}
+
+var _isFlattenable = isFlattenable;
+
+/**
+ * The base implementation of `_.flatten` with support for restricting flattening.
+ *
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth The maximum recursion depth.
+ * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+ * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+ * @param {Array} [result=[]] The initial result value.
+ * @returns {Array} Returns the new flattened array.
+ */
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1,
+      length = array.length;
+
+  predicate || (predicate = _isFlattenable);
+  result || (result = []);
+
+  while (++index < length) {
+    var value = array[index];
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        // Recursively flatten arrays (susceptible to call stack limits).
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
+      } else {
+        _arrayPush(result, value);
+      }
+    } else if (!isStrict) {
+      result[result.length] = value;
+    }
+  }
+  return result;
+}
+
+var _baseFlatten = baseFlatten;
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+var _arrayMap = arrayMap;
+
+/** `Object#toString` result references. */
+var symbolTag$1 = '[object Symbol]';
+
+/**
+ * Checks if `value` is classified as a `Symbol` primitive or object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @example
+ *
+ * _.isSymbol(Symbol.iterator);
+ * // => true
+ *
+ * _.isSymbol('abc');
+ * // => false
+ */
+function isSymbol(value) {
+  return typeof value == 'symbol' ||
+    (isObjectLike_1(value) && _baseGetTag(value) == symbolTag$1);
+}
+
+var isSymbol_1 = isSymbol;
+
+/** Used to match property names within property paths. */
+var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+    reIsPlainProp = /^\w*$/;
+
+/**
+ * Checks if `value` is a property name and not a property path.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+ */
+function isKey(value, object) {
+  if (isArray_1(value)) {
+    return false;
+  }
+  var type = typeof value;
+  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+      value == null || isSymbol_1(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+    (object != null && value in Object(object));
+}
+
+var _isKey = isKey;
+
+/* Built-in method references that are verified to be native. */
+var nativeCreate = _getNative(Object, 'create');
+
+var _nativeCreate = nativeCreate;
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = _nativeCreate ? _nativeCreate(null) : {};
+  this.size = 0;
+}
+
+var _hashClear = hashClear;
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+var _hashDelete = hashDelete;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
+
+/** Used for built-in method references. */
+var objectProto$6 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$6 = objectProto$6.hasOwnProperty;
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (_nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED$2 ? undefined : result;
+  }
+  return hasOwnProperty$6.call(data, key) ? data[key] : undefined;
+}
+
+var _hashGet = hashGet;
+
+/** Used for built-in method references. */
+var objectProto$5 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$5 = objectProto$5.hasOwnProperty;
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return _nativeCreate ? (data[key] !== undefined) : hasOwnProperty$5.call(data, key);
+}
+
+var _hashHas = hashHas;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED$1 = '__lodash_hash_undefined__';
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (_nativeCreate && value === undefined) ? HASH_UNDEFINED$1 : value;
+  return this;
+}
+
+var _hashSet = hashSet;
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = _hashClear;
+Hash.prototype['delete'] = _hashDelete;
+Hash.prototype.get = _hashGet;
+Hash.prototype.has = _hashHas;
+Hash.prototype.set = _hashSet;
+
+var _Hash = Hash;
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+var _listCacheClear = listCacheClear;
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+var eq_1 = eq;
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq_1(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+var _assocIndexOf = assocIndexOf;
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype;
+
+/** Built-in value references. */
+var splice = arrayProto.splice;
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+var _listCacheDelete = listCacheDelete;
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+var _listCacheGet = listCacheGet;
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return _assocIndexOf(this.__data__, key) > -1;
+}
+
+var _listCacheHas = listCacheHas;
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = _assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+var _listCacheSet = listCacheSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = _listCacheClear;
+ListCache.prototype['delete'] = _listCacheDelete;
+ListCache.prototype.get = _listCacheGet;
+ListCache.prototype.has = _listCacheHas;
+ListCache.prototype.set = _listCacheSet;
+
+var _ListCache = ListCache;
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new _Hash,
+    'map': new (_Map || _ListCache),
+    'string': new _Hash
+  };
+}
+
+var _mapCacheClear = mapCacheClear;
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+var _isKeyable = isKeyable;
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return _isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+var _getMapData = getMapData;
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = _getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+var _mapCacheDelete = mapCacheDelete;
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return _getMapData(this, key).get(key);
+}
+
+var _mapCacheGet = mapCacheGet;
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return _getMapData(this, key).has(key);
+}
+
+var _mapCacheHas = mapCacheHas;
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = _getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+var _mapCacheSet = mapCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = _mapCacheClear;
+MapCache.prototype['delete'] = _mapCacheDelete;
+MapCache.prototype.get = _mapCacheGet;
+MapCache.prototype.has = _mapCacheHas;
+MapCache.prototype.set = _mapCacheSet;
+
+var _MapCache = MapCache;
+
+/** Error message constants. */
+var FUNC_ERROR_TEXT = 'Expected a function';
+
+/**
+ * Creates a function that memoizes the result of `func`. If `resolver` is
+ * provided, it determines the cache key for storing the result based on the
+ * arguments provided to the memoized function. By default, the first argument
+ * provided to the memoized function is used as the map cache key. The `func`
+ * is invoked with the `this` binding of the memoized function.
+ *
+ * **Note:** The cache is exposed as the `cache` property on the memoized
+ * function. Its creation may be customized by replacing the `_.memoize.Cache`
+ * constructor with one whose instances implement the
+ * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+ * method interface of `clear`, `delete`, `get`, `has`, and `set`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Function
+ * @param {Function} func The function to have its output memoized.
+ * @param {Function} [resolver] The function to resolve the cache key.
+ * @returns {Function} Returns the new memoized function.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': 2 };
+ * var other = { 'c': 3, 'd': 4 };
+ *
+ * var values = _.memoize(_.values);
+ * values(object);
+ * // => [1, 2]
+ *
+ * values(other);
+ * // => [3, 4]
+ *
+ * object.a = 2;
+ * values(object);
+ * // => [1, 2]
+ *
+ * // Modify the result cache.
+ * values.cache.set(object, ['a', 'b']);
+ * values(object);
+ * // => ['a', 'b']
+ *
+ * // Replace `_.memoize.Cache`.
+ * _.memoize.Cache = WeakMap;
+ */
+function memoize(func, resolver) {
+  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments,
+        key = resolver ? resolver.apply(this, args) : args[0],
+        cache = memoized.cache;
+
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result) || cache;
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || _MapCache);
+  return memoized;
+}
+
+// Expose `MapCache`.
+memoize.Cache = _MapCache;
+
+var memoize_1 = memoize;
+
+/** Used as the maximum memoize cache size. */
+var MAX_MEMOIZE_SIZE = 500;
+
+/**
+ * A specialized version of `_.memoize` which clears the memoized function's
+ * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+ *
+ * @private
+ * @param {Function} func The function to have its output memoized.
+ * @returns {Function} Returns the new memoized function.
+ */
+function memoizeCapped(func) {
+  var result = memoize_1(func, function(key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+    return key;
+  });
+
+  var cache = result.cache;
+  return result;
+}
+
+var _memoizeCapped = memoizeCapped;
+
+/** Used to match property names within property paths. */
+var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+/** Used to match backslashes in property paths. */
+var reEscapeChar = /\\(\\)?/g;
+
+/**
+ * Converts `string` to a property path array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the property path array.
+ */
+var stringToPath = _memoizeCapped(function(string) {
+  var result = [];
+  if (string.charCodeAt(0) === 46 /* . */) {
+    result.push('');
+  }
+  string.replace(rePropName, function(match, number, quote, subString) {
+    result.push(quote ? subString.replace(reEscapeChar, '$1') : (number || match));
+  });
+  return result;
+});
+
+var _stringToPath = stringToPath;
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto$1 = _Symbol ? _Symbol.prototype : undefined,
+    symbolToString = symbolProto$1 ? symbolProto$1.toString : undefined;
+
+/**
+ * The base implementation of `_.toString` which doesn't convert nullish
+ * values to empty strings.
+ *
+ * @private
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ */
+function baseToString(value) {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value;
+  }
+  if (isArray_1(value)) {
+    // Recursively convert values (susceptible to call stack limits).
+    return _arrayMap(value, baseToString) + '';
+  }
+  if (isSymbol_1(value)) {
+    return symbolToString ? symbolToString.call(value) : '';
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
+}
+
+var _baseToString = baseToString;
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString$1(value) {
+  return value == null ? '' : _baseToString(value);
+}
+
+var toString_1 = toString$1;
+
+/**
+ * Casts `value` to a path array if it's not one.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @param {Object} [object] The object to query keys on.
+ * @returns {Array} Returns the cast property path array.
+ */
+function castPath(value, object) {
+  if (isArray_1(value)) {
+    return value;
+  }
+  return _isKey(value, object) ? [value] : _stringToPath(toString_1(value));
+}
+
+var _castPath = castPath;
+
+/**
+ * Converts `value` to a string key if it's not a string or symbol.
+ *
+ * @private
+ * @param {*} value The value to inspect.
+ * @returns {string|symbol} Returns the key.
+ */
+function toKey(value) {
+  if (typeof value == 'string' || isSymbol_1(value)) {
+    return value;
+  }
+  var result = (value + '');
+  return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
+}
+
+var _toKey = toKey;
+
+/**
+ * The base implementation of `_.get` without support for default values.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @returns {*} Returns the resolved value.
+ */
+function baseGet(object, path) {
+  path = _castPath(path, object);
+
+  var index = 0,
+      length = path.length;
+
+  while (object != null && index < length) {
+    object = object[_toKey(path[index++])];
+  }
+  return (index && index == length) ? object : undefined;
+}
+
+var _baseGet = baseGet;
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new _ListCache;
+  this.size = 0;
+}
+
+var _stackClear = stackClear;
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+var _stackDelete = stackDelete;
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+var _stackGet = stackGet;
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+var _stackHas = stackHas;
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof _ListCache) {
+    var pairs = data.__data__;
+    if (!_Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new _MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+var _stackSet = stackSet;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new _ListCache(entries);
+  this.size = data.size;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = _stackClear;
+Stack.prototype['delete'] = _stackDelete;
+Stack.prototype.get = _stackGet;
+Stack.prototype.has = _stackHas;
+Stack.prototype.set = _stackSet;
+
+var _Stack = Stack;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/**
+ * Adds `value` to the array cache.
+ *
+ * @private
+ * @name add
+ * @memberOf SetCache
+ * @alias push
+ * @param {*} value The value to cache.
+ * @returns {Object} Returns the cache instance.
+ */
+function setCacheAdd(value) {
+  this.__data__.set(value, HASH_UNDEFINED);
+  return this;
+}
+
+var _setCacheAdd = setCacheAdd;
+
+/**
+ * Checks if `value` is in the array cache.
+ *
+ * @private
+ * @name has
+ * @memberOf SetCache
+ * @param {*} value The value to search for.
+ * @returns {boolean} Returns `true` if `value` is found, else `false`.
+ */
+function setCacheHas(value) {
+  return this.__data__.has(value);
+}
+
+var _setCacheHas = setCacheHas;
+
+/**
+ *
+ * Creates an array cache object to store unique values.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [values] The values to cache.
+ */
+function SetCache(values) {
+  var index = -1,
+      length = values == null ? 0 : values.length;
+
+  this.__data__ = new _MapCache;
+  while (++index < length) {
+    this.add(values[index]);
+  }
+}
+
+// Add methods to `SetCache`.
+SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
+SetCache.prototype.has = _setCacheHas;
+
+var _SetCache = SetCache;
+
+/**
+ * A specialized version of `_.some` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {boolean} Returns `true` if any element passes the predicate check,
+ *  else `false`.
+ */
+function arraySome(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (predicate(array[index], index, array)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+var _arraySome = arraySome;
+
+/**
+ * Checks if a `cache` value for `key` exists.
+ *
+ * @private
+ * @param {Object} cache The cache to query.
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function cacheHas(cache, key) {
+  return cache.has(key);
+}
+
+var _cacheHas = cacheHas;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$5 = 1,
+    COMPARE_UNORDERED_FLAG$3 = 2;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for arrays with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Array} array The array to compare.
+ * @param {Array} other The other array to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `array` and `other` objects.
+ * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+ */
+function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$5,
+      arrLength = array.length,
+      othLength = other.length;
+
+  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+    return false;
+  }
+  // Check that cyclic values are equal.
+  var arrStacked = stack.get(array);
+  var othStacked = stack.get(other);
+  if (arrStacked && othStacked) {
+    return arrStacked == other && othStacked == array;
+  }
+  var index = -1,
+      result = true,
+      seen = (bitmask & COMPARE_UNORDERED_FLAG$3) ? new _SetCache : undefined;
+
+  stack.set(array, other);
+  stack.set(other, array);
+
+  // Ignore non-index properties.
+  while (++index < arrLength) {
+    var arrValue = array[index],
+        othValue = other[index];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, arrValue, index, other, array, stack)
+        : customizer(arrValue, othValue, index, array, other, stack);
+    }
+    if (compared !== undefined) {
+      if (compared) {
+        continue;
+      }
+      result = false;
+      break;
+    }
+    // Recursively compare arrays (susceptible to call stack limits).
+    if (seen) {
+      if (!_arraySome(other, function(othValue, othIndex) {
+            if (!_cacheHas(seen, othIndex) &&
+                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+              return seen.push(othIndex);
+            }
+          })) {
+        result = false;
+        break;
+      }
+    } else if (!(
+          arrValue === othValue ||
+            equalFunc(arrValue, othValue, bitmask, customizer, stack)
+        )) {
+      result = false;
+      break;
+    }
+  }
+  stack['delete'](array);
+  stack['delete'](other);
+  return result;
+}
+
+var _equalArrays = equalArrays;
+
+/** Built-in value references. */
+var Uint8Array$1 = _root.Uint8Array;
+
+var _Uint8Array = Uint8Array$1;
+
+/**
+ * Converts `map` to its key-value pairs.
+ *
+ * @private
+ * @param {Object} map The map to convert.
+ * @returns {Array} Returns the key-value pairs.
+ */
+function mapToArray(map) {
+  var index = -1,
+      result = Array(map.size);
+
+  map.forEach(function(value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+
+var _mapToArray = mapToArray;
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+      result = Array(set.size);
+
+  set.forEach(function(value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+var _setToArray = setToArray;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$4 = 1,
+    COMPARE_UNORDERED_FLAG$2 = 2;
+
+/** `Object#toString` result references. */
+var boolTag$1 = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag$1 = '[object String]',
+    symbolTag = '[object Symbol]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]';
+
+/** Used to convert symbols to primitives and strings. */
+var symbolProto = _Symbol ? _Symbol.prototype : undefined,
+    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for comparing objects of
+ * the same `toStringTag`.
+ *
+ * **Note:** This function only supports comparing values with tags of
+ * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {string} tag The `toStringTag` of the objects to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+  switch (tag) {
+    case dataViewTag:
+      if ((object.byteLength != other.byteLength) ||
+          (object.byteOffset != other.byteOffset)) {
+        return false;
+      }
+      object = object.buffer;
+      other = other.buffer;
+
+    case arrayBufferTag:
+      if ((object.byteLength != other.byteLength) ||
+          !equalFunc(new _Uint8Array(object), new _Uint8Array(other))) {
+        return false;
+      }
+      return true;
+
+    case boolTag$1:
+    case dateTag:
+    case numberTag:
+      // Coerce booleans to `1` or `0` and dates to milliseconds.
+      // Invalid dates are coerced to `NaN`.
+      return eq_1(+object, +other);
+
+    case errorTag:
+      return object.name == other.name && object.message == other.message;
+
+    case regexpTag:
+    case stringTag$1:
+      // Coerce regexes to strings and treat strings, primitives and objects,
+      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+      // for more details.
+      return object == (other + '');
+
+    case mapTag:
+      var convert = _mapToArray;
+
+    case setTag:
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$4;
+      convert || (convert = _setToArray);
+
+      if (object.size != other.size && !isPartial) {
+        return false;
+      }
+      // Assume cyclic values are equal.
+      var stacked = stack.get(object);
+      if (stacked) {
+        return stacked == other;
+      }
+      bitmask |= COMPARE_UNORDERED_FLAG$2;
+
+      // Recursively compare objects (susceptible to call stack limits).
+      stack.set(object, other);
+      var result = _equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+      stack['delete'](object);
+      return result;
+
+    case symbolTag:
+      if (symbolValueOf) {
+        return symbolValueOf.call(object) == symbolValueOf.call(other);
+      }
+  }
+  return false;
+}
+
+var _equalByTag = equalByTag;
+
+/**
+ * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+ * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+ * symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @param {Function} symbolsFunc The function to get the symbols of `object`.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray_1(object) ? result : _arrayPush(result, symbolsFunc(object));
+}
+
+var _baseGetAllKeys = baseGetAllKeys;
+
+/**
+ * A specialized version of `_.filter` for arrays without support for
+ * iteratee shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} predicate The function invoked per iteration.
+ * @returns {Array} Returns the new filtered array.
+ */
+function arrayFilter(array, predicate) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      resIndex = 0,
+      result = [];
+
+  while (++index < length) {
+    var value = array[index];
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+
+var _arrayFilter = arrayFilter;
+
+/**
+ * This method returns a new empty array.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {Array} Returns the new empty array.
+ * @example
+ *
+ * var arrays = _.times(2, _.stubArray);
+ *
+ * console.log(arrays);
+ * // => [[], []]
+ *
+ * console.log(arrays[0] === arrays[1]);
+ * // => false
+ */
+function stubArray() {
+  return [];
+}
+
+var stubArray_1 = stubArray;
+
+/** Used for built-in method references. */
+var objectProto$4 = Object.prototype;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto$4.propertyIsEnumerable;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeGetSymbols = Object.getOwnPropertySymbols;
+
+/**
+ * Creates an array of the own enumerable symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of symbols.
+ */
+var getSymbols = !nativeGetSymbols ? stubArray_1 : function(object) {
+  if (object == null) {
+    return [];
+  }
+  object = Object(object);
+  return _arrayFilter(nativeGetSymbols(object), function(symbol) {
+    return propertyIsEnumerable.call(object, symbol);
+  });
+};
+
+var _getSymbols = getSymbols;
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+var _baseTimes = baseTimes;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+var _isIndex = isIndex;
+
+/** Used for built-in method references. */
+var objectProto$3 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$4 = objectProto$3.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray_1(value),
+      isArg = !isArr && isArguments_1(value),
+      isBuff = !isArr && !isArg && isBuffer_1(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? _baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty$4.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           _isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+var _arrayLikeKeys = arrayLikeKeys;
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return isArrayLike_1(object) ? _arrayLikeKeys(object) : _baseKeys(object);
+}
+
+var keys_1 = keys;
+
+/**
+ * Creates an array of own enumerable property names and symbols of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names and symbols.
+ */
+function getAllKeys(object) {
+  return _baseGetAllKeys(object, keys_1, _getSymbols);
+}
+
+var _getAllKeys = getAllKeys;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$3 = 1;
+
+/** Used for built-in method references. */
+var objectProto$2 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$3 = objectProto$2.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqualDeep` for objects with support for
+ * partial deep comparisons.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} stack Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$3,
+      objProps = _getAllKeys(object),
+      objLength = objProps.length,
+      othProps = _getAllKeys(other),
+      othLength = othProps.length;
+
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+  var index = objLength;
+  while (index--) {
+    var key = objProps[index];
+    if (!(isPartial ? key in other : hasOwnProperty$3.call(other, key))) {
+      return false;
+    }
+  }
+  // Check that cyclic values are equal.
+  var objStacked = stack.get(object);
+  var othStacked = stack.get(other);
+  if (objStacked && othStacked) {
+    return objStacked == other && othStacked == object;
+  }
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+
+  var skipCtor = isPartial;
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key],
+        othValue = other[key];
+
+    if (customizer) {
+      var compared = isPartial
+        ? customizer(othValue, objValue, key, other, object, stack)
+        : customizer(objValue, othValue, key, object, other, stack);
+    }
+    // Recursively compare objects (susceptible to call stack limits).
+    if (!(compared === undefined
+          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
+          : compared
+        )) {
+      result = false;
+      break;
+    }
+    skipCtor || (skipCtor = key == 'constructor');
+  }
+  if (result && !skipCtor) {
+    var objCtor = object.constructor,
+        othCtor = other.constructor;
+
+    // Non `Object` object instances with different constructors are not equal.
+    if (objCtor != othCtor &&
+        ('constructor' in object && 'constructor' in other) &&
+        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+      result = false;
+    }
+  }
+  stack['delete'](object);
+  stack['delete'](other);
+  return result;
+}
+
+var _equalObjects = equalObjects;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$2 = 1;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    objectTag$1 = '[object Object]';
+
+/** Used for built-in method references. */
+var objectProto$1 = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty$2 = objectProto$1.hasOwnProperty;
+
+/**
+ * A specialized version of `baseIsEqual` for arrays and objects which performs
+ * deep comparisons and tracks traversed objects enabling objects with circular
+ * references to be compared.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+ * @param {Function} customizer The function to customize comparisons.
+ * @param {Function} equalFunc The function to determine equivalents of values.
+ * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+ * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+ */
+function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+  var objIsArr = isArray_1(object),
+      othIsArr = isArray_1(other),
+      objTag = objIsArr ? arrayTag : _getTag(object),
+      othTag = othIsArr ? arrayTag : _getTag(other);
+
+  objTag = objTag == argsTag ? objectTag$1 : objTag;
+  othTag = othTag == argsTag ? objectTag$1 : othTag;
+
+  var objIsObj = objTag == objectTag$1,
+      othIsObj = othTag == objectTag$1,
+      isSameTag = objTag == othTag;
+
+  if (isSameTag && isBuffer_1(object)) {
+    if (!isBuffer_1(other)) {
+      return false;
+    }
+    objIsArr = true;
+    objIsObj = false;
+  }
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new _Stack);
+    return (objIsArr || isTypedArray_1(object))
+      ? _equalArrays(object, other, bitmask, customizer, equalFunc, stack)
+      : _equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
+  }
+  if (!(bitmask & COMPARE_PARTIAL_FLAG$2)) {
+    var objIsWrapped = objIsObj && hasOwnProperty$2.call(object, '__wrapped__'),
+        othIsWrapped = othIsObj && hasOwnProperty$2.call(other, '__wrapped__');
+
+    if (objIsWrapped || othIsWrapped) {
+      var objUnwrapped = objIsWrapped ? object.value() : object,
+          othUnwrapped = othIsWrapped ? other.value() : other;
+
+      stack || (stack = new _Stack);
+      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+    }
+  }
+  if (!isSameTag) {
+    return false;
+  }
+  stack || (stack = new _Stack);
+  return _equalObjects(object, other, bitmask, customizer, equalFunc, stack);
+}
+
+var _baseIsEqualDeep = baseIsEqualDeep;
+
+/**
+ * The base implementation of `_.isEqual` which supports partial comparisons
+ * and tracks traversed objects.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {boolean} bitmask The bitmask flags.
+ *  1 - Unordered comparison
+ *  2 - Partial comparison
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ */
+function baseIsEqual(value, other, bitmask, customizer, stack) {
+  if (value === other) {
+    return true;
+  }
+  if (value == null || other == null || (!isObjectLike_1(value) && !isObjectLike_1(other))) {
+    return value !== value && other !== other;
+  }
+  return _baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
+}
+
+var _baseIsEqual = baseIsEqual;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG$1 = 1,
+    COMPARE_UNORDERED_FLAG$1 = 2;
+
+/**
+ * The base implementation of `_.isMatch` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to inspect.
+ * @param {Object} source The object of property values to match.
+ * @param {Array} matchData The property names, values, and compare flags to match.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+ */
+function baseIsMatch(object, source, matchData, customizer) {
+  var index = matchData.length,
+      length = index,
+      noCustomizer = !customizer;
+
+  if (object == null) {
+    return !length;
+  }
+  object = Object(object);
+  while (index--) {
+    var data = matchData[index];
+    if ((noCustomizer && data[2])
+          ? data[1] !== object[data[0]]
+          : !(data[0] in object)
+        ) {
+      return false;
+    }
+  }
+  while (++index < length) {
+    data = matchData[index];
+    var key = data[0],
+        objValue = object[key],
+        srcValue = data[1];
+
+    if (noCustomizer && data[2]) {
+      if (objValue === undefined && !(key in object)) {
+        return false;
+      }
+    } else {
+      var stack = new _Stack;
+      if (customizer) {
+        var result = customizer(objValue, srcValue, key, object, source, stack);
+      }
+      if (!(result === undefined
+            ? _baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG$1 | COMPARE_UNORDERED_FLAG$1, customizer, stack)
+            : result
+          )) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+var _baseIsMatch = baseIsMatch;
+
+/**
+ * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` if suitable for strict
+ *  equality comparisons, else `false`.
+ */
+function isStrictComparable(value) {
+  return value === value && !isObject_1(value);
+}
+
+var _isStrictComparable = isStrictComparable;
+
+/**
+ * Gets the property names, values, and compare flags of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the match data of `object`.
+ */
+function getMatchData(object) {
+  var result = keys_1(object),
+      length = result.length;
+
+  while (length--) {
+    var key = result[length],
+        value = object[key];
+
+    result[length] = [key, value, _isStrictComparable(value)];
+  }
+  return result;
+}
+
+var _getMatchData = getMatchData;
+
+/**
+ * A specialized version of `matchesProperty` for source values suitable
+ * for strict equality comparisons, i.e. `===`.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function matchesStrictComparable(key, srcValue) {
+  return function(object) {
+    if (object == null) {
+      return false;
+    }
+    return object[key] === srcValue &&
+      (srcValue !== undefined || (key in Object(object)));
+  };
+}
+
+var _matchesStrictComparable = matchesStrictComparable;
+
+/**
+ * The base implementation of `_.matches` which doesn't clone `source`.
+ *
+ * @private
+ * @param {Object} source The object of property values to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatches(source) {
+  var matchData = _getMatchData(source);
+  if (matchData.length == 1 && matchData[0][2]) {
+    return _matchesStrictComparable(matchData[0][0], matchData[0][1]);
+  }
+  return function(object) {
+    return object === source || _baseIsMatch(object, source, matchData);
+  };
+}
+
+var _baseMatches = baseMatches;
+
+/**
+ * Gets the value at `path` of `object`. If the resolved value is
+ * `undefined`, the `defaultValue` is returned in its place.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.7.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path of the property to get.
+ * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+ * @returns {*} Returns the resolved value.
+ * @example
+ *
+ * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+ *
+ * _.get(object, 'a[0].b.c');
+ * // => 3
+ *
+ * _.get(object, ['a', '0', 'b', 'c']);
+ * // => 3
+ *
+ * _.get(object, 'a.b.c', 'default');
+ * // => 'default'
+ */
+function get(object, path, defaultValue) {
+  var result = object == null ? undefined : _baseGet(object, path);
+  return result === undefined ? defaultValue : result;
+}
+
+var get_1 = get;
+
+/**
+ * The base implementation of `_.hasIn` without support for deep paths.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {Array|string} key The key to check.
+ * @returns {boolean} Returns `true` if `key` exists, else `false`.
+ */
+function baseHasIn(object, key) {
+  return object != null && key in Object(object);
+}
+
+var _baseHasIn = baseHasIn;
+
+/**
+ * Checks if `path` exists on `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @param {Function} hasFunc The function to check properties.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ */
+function hasPath(object, path, hasFunc) {
+  path = _castPath(path, object);
+
+  var index = -1,
+      length = path.length,
+      result = false;
+
+  while (++index < length) {
+    var key = _toKey(path[index]);
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+    object = object[key];
+  }
+  if (result || ++index != length) {
+    return result;
+  }
+  length = object == null ? 0 : object.length;
+  return !!length && isLength_1(length) && _isIndex(key, length) &&
+    (isArray_1(object) || isArguments_1(object));
+}
+
+var _hasPath = hasPath;
+
+/**
+ * Checks if `path` is a direct or inherited property of `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @param {Array|string} path The path to check.
+ * @returns {boolean} Returns `true` if `path` exists, else `false`.
+ * @example
+ *
+ * var object = _.create({ 'a': _.create({ 'b': 2 }) });
+ *
+ * _.hasIn(object, 'a');
+ * // => true
+ *
+ * _.hasIn(object, 'a.b');
+ * // => true
+ *
+ * _.hasIn(object, ['a', 'b']);
+ * // => true
+ *
+ * _.hasIn(object, 'b');
+ * // => false
+ */
+function hasIn(object, path) {
+  return object != null && _hasPath(object, path, _baseHasIn);
+}
+
+var hasIn_1 = hasIn;
+
+/** Used to compose bitmasks for value comparisons. */
+var COMPARE_PARTIAL_FLAG = 1,
+    COMPARE_UNORDERED_FLAG = 2;
+
+/**
+ * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
+ *
+ * @private
+ * @param {string} path The path of the property to get.
+ * @param {*} srcValue The value to match.
+ * @returns {Function} Returns the new spec function.
+ */
+function baseMatchesProperty(path, srcValue) {
+  if (_isKey(path) && _isStrictComparable(srcValue)) {
+    return _matchesStrictComparable(_toKey(path), srcValue);
+  }
+  return function(object) {
+    var objValue = get_1(object, path);
+    return (objValue === undefined && objValue === srcValue)
+      ? hasIn_1(object, path)
+      : _baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
+  };
+}
+
+var _baseMatchesProperty = baseMatchesProperty;
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+var identity_1 = identity;
+
+/**
+ * The base implementation of `_.property` without support for deep paths.
+ *
+ * @private
+ * @param {string} key The key of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function baseProperty(key) {
+  return function(object) {
+    return object == null ? undefined : object[key];
+  };
+}
+
+var _baseProperty = baseProperty;
+
+/**
+ * A specialized version of `baseProperty` which supports deep paths.
+ *
+ * @private
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ */
+function basePropertyDeep(path) {
+  return function(object) {
+    return _baseGet(object, path);
+  };
+}
+
+var _basePropertyDeep = basePropertyDeep;
+
+/**
+ * Creates a function that returns the value at `path` of a given object.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {Array|string} path The path of the property to get.
+ * @returns {Function} Returns the new accessor function.
+ * @example
+ *
+ * var objects = [
+ *   { 'a': { 'b': 2 } },
+ *   { 'a': { 'b': 1 } }
+ * ];
+ *
+ * _.map(objects, _.property('a.b'));
+ * // => [2, 1]
+ *
+ * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+ * // => [1, 2]
+ */
+function property(path) {
+  return _isKey(path) ? _baseProperty(_toKey(path)) : _basePropertyDeep(path);
+}
+
+var property_1 = property;
+
+/**
+ * The base implementation of `_.iteratee`.
+ *
+ * @private
+ * @param {*} [value=_.identity] The value to convert to an iteratee.
+ * @returns {Function} Returns the iteratee.
+ */
+function baseIteratee(value) {
+  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
+  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
+  if (typeof value == 'function') {
+    return value;
+  }
+  if (value == null) {
+    return identity_1;
+  }
+  if (typeof value == 'object') {
+    return isArray_1(value)
+      ? _baseMatchesProperty(value[0], value[1])
+      : _baseMatches(value);
+  }
+  return property_1(value);
+}
+
+var _baseIteratee = baseIteratee;
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+var _createBaseFor = createBaseFor;
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = _createBaseFor();
+
+var _baseFor = baseFor;
+
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+function baseForOwn(object, iteratee) {
+  return object && _baseFor(object, iteratee, keys_1);
+}
+
+var _baseForOwn = baseForOwn;
+
+/**
+ * Creates a `baseEach` or `baseEachRight` function.
+ *
+ * @private
+ * @param {Function} eachFunc The function to iterate over a collection.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseEach(eachFunc, fromRight) {
+  return function(collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!isArrayLike_1(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+
+    while ((fromRight ? index-- : ++index < length)) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
+  };
+}
+
+var _createBaseEach = createBaseEach;
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+var baseEach = _createBaseEach(_baseForOwn);
+
+var _baseEach = baseEach;
+
+/**
+ * The base implementation of `_.map` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function baseMap(collection, iteratee) {
+  var index = -1,
+      result = isArrayLike_1(collection) ? Array(collection.length) : [];
+
+  _baseEach(collection, function(value, key, collection) {
+    result[++index] = iteratee(value, key, collection);
+  });
+  return result;
+}
+
+var _baseMap = baseMap;
+
+/**
+ * The base implementation of `_.sortBy` which uses `comparer` to define the
+ * sort order of `array` and replaces criteria objects with their corresponding
+ * values.
+ *
+ * @private
+ * @param {Array} array The array to sort.
+ * @param {Function} comparer The function to define sort order.
+ * @returns {Array} Returns `array`.
+ */
+function baseSortBy(array, comparer) {
+  var length = array.length;
+
+  array.sort(comparer);
+  while (length--) {
+    array[length] = array[length].value;
+  }
+  return array;
+}
+
+var _baseSortBy = baseSortBy;
+
+/**
+ * Compares values to sort them in ascending order.
+ *
+ * @private
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {number} Returns the sort order indicator for `value`.
+ */
+function compareAscending(value, other) {
+  if (value !== other) {
+    var valIsDefined = value !== undefined,
+        valIsNull = value === null,
+        valIsReflexive = value === value,
+        valIsSymbol = isSymbol_1(value);
+
+    var othIsDefined = other !== undefined,
+        othIsNull = other === null,
+        othIsReflexive = other === other,
+        othIsSymbol = isSymbol_1(other);
+
+    if ((!othIsNull && !othIsSymbol && !valIsSymbol && value > other) ||
+        (valIsSymbol && othIsDefined && othIsReflexive && !othIsNull && !othIsSymbol) ||
+        (valIsNull && othIsDefined && othIsReflexive) ||
+        (!valIsDefined && othIsReflexive) ||
+        !valIsReflexive) {
+      return 1;
+    }
+    if ((!valIsNull && !valIsSymbol && !othIsSymbol && value < other) ||
+        (othIsSymbol && valIsDefined && valIsReflexive && !valIsNull && !valIsSymbol) ||
+        (othIsNull && valIsDefined && valIsReflexive) ||
+        (!othIsDefined && valIsReflexive) ||
+        !othIsReflexive) {
+      return -1;
+    }
+  }
+  return 0;
+}
+
+var _compareAscending = compareAscending;
+
+/**
+ * Used by `_.orderBy` to compare multiple properties of a value to another
+ * and stable sort them.
+ *
+ * If `orders` is unspecified, all values are sorted in ascending order. Otherwise,
+ * specify an order of "desc" for descending or "asc" for ascending sort order
+ * of corresponding values.
+ *
+ * @private
+ * @param {Object} object The object to compare.
+ * @param {Object} other The other object to compare.
+ * @param {boolean[]|string[]} orders The order to sort by for each property.
+ * @returns {number} Returns the sort order indicator for `object`.
+ */
+function compareMultiple(object, other, orders) {
+  var index = -1,
+      objCriteria = object.criteria,
+      othCriteria = other.criteria,
+      length = objCriteria.length,
+      ordersLength = orders.length;
+
+  while (++index < length) {
+    var result = _compareAscending(objCriteria[index], othCriteria[index]);
+    if (result) {
+      if (index >= ordersLength) {
+        return result;
+      }
+      var order = orders[index];
+      return result * (order == 'desc' ? -1 : 1);
+    }
+  }
+  // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
+  // that causes it, under certain circumstances, to provide the same value for
+  // `object` and `other`. See https://github.com/jashkenas/underscore/pull/1247
+  // for more details.
+  //
+  // This also ensures a stable sort in V8 and other engines.
+  // See https://bugs.chromium.org/p/v8/issues/detail?id=90 for more details.
+  return object.index - other.index;
+}
+
+var _compareMultiple = compareMultiple;
+
+/**
+ * The base implementation of `_.orderBy` without param guards.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+ * @param {string[]} orders The sort orders of `iteratees`.
+ * @returns {Array} Returns the new sorted array.
+ */
+function baseOrderBy(collection, iteratees, orders) {
+  if (iteratees.length) {
+    iteratees = _arrayMap(iteratees, function(iteratee) {
+      if (isArray_1(iteratee)) {
+        return function(value) {
+          return _baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
+        };
+      }
+      return iteratee;
+    });
+  } else {
+    iteratees = [identity_1];
+  }
+
+  var index = -1;
+  iteratees = _arrayMap(iteratees, _baseUnary(_baseIteratee));
+
+  var result = _baseMap(collection, function(value, key, collection) {
+    var criteria = _arrayMap(iteratees, function(iteratee) {
+      return iteratee(value);
+    });
+    return { 'criteria': criteria, 'index': ++index, 'value': value };
+  });
+
+  return _baseSortBy(result, function(object, other) {
+    return _compareMultiple(object, other, orders);
+  });
+}
+
+var _baseOrderBy = baseOrderBy;
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+var _apply = apply;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return _apply(func, this, otherArgs);
+  };
+}
+
+var _overRest = overRest;
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function() {
+    return value;
+  };
+}
+
+var constant_1 = constant;
+
+var defineProperty = (function() {
+  try {
+    var func = _getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+var _defineProperty = defineProperty;
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !_defineProperty ? identity_1 : function(func, string) {
+  return _defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant_1(string),
+    'writable': true
+  });
+};
+
+var _baseSetToString = baseSetToString;
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeNow = Date.now;
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function() {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+var _shortOut = shortOut;
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = _shortOut(_baseSetToString);
+
+var _setToString = setToString;
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return _setToString(_overRest(func, start, identity_1), func + '');
+}
+
+var _baseRest = baseRest;
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject_1(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike_1(object) && _isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq_1(object[index], value);
+  }
+  return false;
+}
+
+var _isIterateeCall = isIterateeCall;
+
+/**
+ * Creates an array of elements, sorted in ascending order by the results of
+ * running each element in a collection thru each iteratee. This method
+ * performs a stable sort, that is, it preserves the original sort order of
+ * equal elements. The iteratees are invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {...(Function|Function[])} [iteratees=[_.identity]]
+ *  The iteratees to sort by.
+ * @returns {Array} Returns the new sorted array.
+ * @example
+ *
+ * var users = [
+ *   { 'user': 'fred',   'age': 48 },
+ *   { 'user': 'barney', 'age': 36 },
+ *   { 'user': 'fred',   'age': 30 },
+ *   { 'user': 'barney', 'age': 34 }
+ * ];
+ *
+ * _.sortBy(users, [function(o) { return o.user; }]);
+ * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 30]]
+ *
+ * _.sortBy(users, ['user', 'age']);
+ * // => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
+ */
+var sortBy = _baseRest(function(collection, iteratees) {
+  if (collection == null) {
+    return [];
+  }
+  var length = iteratees.length;
+  if (length > 1 && _isIterateeCall(collection, iteratees[0], iteratees[1])) {
+    iteratees = [];
+  } else if (length > 2 && _isIterateeCall(iteratees[0], iteratees[1], iteratees[2])) {
+    iteratees = [iteratees[0]];
+  }
+  return _baseOrderBy(collection, _baseFlatten(iteratees, 1), []);
+});
+
+var sortBy_1 = sortBy;
+
+/**
  * Maximum number of PRIMARY-position custom actions allowed
  */
 const MAX_PRIMARY_ACTIONS_PER_TARGET = 2;
@@ -11375,25 +13547,25 @@ const customActionValidationConfig = {
         positions: [CustomActionsPosition.PRIMARY, CustomActionsPosition.MENU],
         allowedMetadataIds: ['liveboardIds'],
         allowedDataModelIds: [],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'menuIndex'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds'],
     },
     [CustomActionTarget.VIZ]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.PRIMARY, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: ['liveboardIds', 'vizIds', 'answerIds'],
         allowedDataModelIds: ['modelIds', 'modelColumnNames'],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds'],
     },
     [CustomActionTarget.ANSWER]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.PRIMARY, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: ['answerIds'],
         allowedDataModelIds: ['modelIds', 'modelColumnNames'],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds'],
     },
     [CustomActionTarget.SPOTTER]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: [],
         allowedDataModelIds: ['modelIds'],
-        allowedFields: ['name', 'id', 'position', 'target', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
+        allowedFields: ['name', 'id', 'position', 'target', 'orgIds', 'groupIds', 'dataModelIds'],
     },
 };
 /**
@@ -11418,10 +13590,6 @@ const validateCustomAction = (action, primaryActionsPerTarget) => {
     if (!arrayIncludesString(config.positions, position)) {
         const supportedPositions = config.positions.join(', ');
         errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.INVALID_POSITION(position, targetType, supportedPositions));
-    }
-    // menuIndex only makes sense for actions shown in the "More" menu
-    if (action.menuIndex != null && position !== CustomActionsPosition.MENU) {
-        errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.INVALID_MENU_INDEX_POSITION(actionId, position));
     }
     // Validate metadata IDs
     if (metadataIds) {
@@ -11551,20 +13719,7 @@ const getCustomActions = (customActions) => {
     if (warnings.length > 0) {
         logger$3.warn(warnings);
     }
-    // Actions with menuIndex keep their given order
-    // Remaining are sorted alphabetically.
-    const actionsWithMenuIndex = [];
-    const actionsWithoutMenuIndex = [];
-    finalValidActions.forEach((action) => {
-        if (action.menuIndex != null) {
-            actionsWithMenuIndex.push(action);
-        }
-        else {
-            actionsWithoutMenuIndex.push(action);
-        }
-    });
-    actionsWithoutMenuIndex.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()));
-    const sortedActions = [...actionsWithMenuIndex, ...actionsWithoutMenuIndex];
+    const sortedActions = sortBy_1(finalValidActions, (a) => a.name.toLocaleLowerCase());
     return {
         actions: sortedActions,
         errors: errors,
@@ -11605,7 +13760,7 @@ var FuncProto = Function.prototype;
 var ObjProto = Object.prototype;
 var slice = ArrayProto.slice;
 var toString = ObjProto.toString;
-var hasOwnProperty$6 = ObjProto.hasOwnProperty;
+var hasOwnProperty$1 = ObjProto.hasOwnProperty;
 var windowConsole = window$1.console;
 var navigator = window$1.navigator;
 var document$1 = window$1.document;
@@ -11742,7 +13897,7 @@ _.each = function(obj, iterator, context) {
         }
     } else {
         for (var key in obj) {
-            if (hasOwnProperty$6.call(obj, key)) {
+            if (hasOwnProperty$1.call(obj, key)) {
                 if (iterator.call(context, obj[key], key, obj) === breaker) {
                     return;
                 }
@@ -11778,7 +13933,7 @@ _.isFunction = function(f) {
 };
 
 _.isArguments = function(obj) {
-    return !!(obj && hasOwnProperty$6.call(obj, 'callee'));
+    return !!(obj && hasOwnProperty$1.call(obj, 'callee'));
 };
 
 _.toArray = function(iterable) {
@@ -11866,7 +14021,7 @@ _.isObject = function(obj) {
 _.isEmptyObject = function(obj) {
     if (_.isObject(obj)) {
         for (var key in obj) {
-            if (hasOwnProperty$6.call(obj, key)) {
+            if (hasOwnProperty$1.call(obj, key)) {
                 return false;
             }
         }
@@ -12058,7 +14213,7 @@ _.JSONEncode = (function() {
 
                     // Iterate through all of the keys in the object.
                     for (k in value) {
-                        if (hasOwnProperty$6.call(value, k)) {
+                        if (hasOwnProperty$1.call(value, k)) {
                             v = str(k, value);
                             if (v) {
                                 partial.push(quote(k) + (gap ? ': ' : ':') + v);
@@ -17720,7 +19875,6 @@ let mixpanelInstance;
 const MIXPANEL_EVENT = {
     VISUAL_SDK_RENDER_START: 'visual-sdk-render-start',
     VISUAL_SDK_CALLED_INIT: 'visual-sdk-called-init',
-    VISUAL_SDK_INIT_ACTIONS: 'visual-sdk-init-actions',
     VISUAL_SDK_RENDER_COMPLETE: 'visual-sdk-render-complete',
     VISUAL_SDK_RENDER_FAILED: 'visual-sdk-render-failed',
     VISUAL_SDK_TRIGGER: 'visual-sdk-trigger',
@@ -17794,32 +19948,6 @@ function initMixpanel(sessionInfo) {
         logger$3.error('Error initializing mixpanel', e);
     }
 }
-
-// Membership is checked, not just the key: a bare key allowlist would upload an
-// arbitrary customer string sitting under `operator` verbatim.
-const isEnumMember = (enumObject, value) => typeof value === 'string' && Object.values(enumObject).includes(value);
-const uniqueEnumMembers = (enumObject, values) => Array.from(new Set(values.filter((v) => isEnumMember(enumObject, v))));
-const describeRuntimeFilters = (runtimeFilters) => ({
-    count: runtimeFilters.length,
-    operators: uniqueEnumMembers(RuntimeFilterOp, runtimeFilters.map((filter) => filter === null || filter === void 0 ? void 0 : filter.operator)),
-});
-const describeRuntimeParameters = (runtimeParameters) => ({
-    count: runtimeParameters.length,
-    applicabilityLevels: uniqueEnumMembers(ApplicabilityLevel, runtimeParameters.map((parameter) => { var _a; return (_a = parameter === null || parameter === void 0 ? void 0 : parameter.applicability) === null || _a === void 0 ? void 0 : _a.level; })),
-});
-// Column names, parameter names and operands are customer data and must never
-// reach Mixpanel; an unrecognized shape is dropped rather than forwarded.
-const summarizeRuntimeDataForTelemetry = (viewConfig) => {
-    const { runtimeFilters, runtimeParameters, ...rest } = viewConfig !== null && viewConfig !== void 0 ? viewConfig : {};
-    const telemetryProps = { ...rest };
-    if (Array.isArray(runtimeFilters)) {
-        telemetryProps.runtimeFilters = describeRuntimeFilters(runtimeFilters);
-    }
-    if (Array.isArray(runtimeParameters)) {
-        telemetryProps.runtimeParameters = describeRuntimeParameters(runtimeParameters);
-    }
-    return telemetryProps;
-};
 
 var eventemitter3 = createCommonjsModule(function (module) {
 
@@ -18778,13 +20906,11 @@ const doBasicAuth = async (embedConfig) => {
  * @param ssoURL
  * @param triggerContainer
  * @param triggerText
- * @param thoughtSpotHost
  */
-async function samlPopupFlow(ssoURL, triggerContainer, triggerText, thoughtSpotHost) {
-    const thoughtSpotOrigin = new URL(thoughtSpotHost).origin;
+async function samlPopupFlow(ssoURL, triggerContainer, triggerText) {
     let popupClosedCheck;
     const openPopup = () => {
-        if (!samlAuthWindow || samlAuthWindow.closed) {
+        if (samlAuthWindow === null || samlAuthWindow.closed) {
             samlAuthWindow = window.open(ssoURL, '_blank', 'location=no,height=570,width=520,scrollbars=yes,status=yes');
             if (samlAuthWindow) {
                 popupClosedCheck = setInterval(() => {
@@ -18812,14 +20938,7 @@ async function samlPopupFlow(ssoURL, triggerContainer, triggerText, thoughtSpotH
     }
     samlCompletionPromise = samlCompletionPromise || new Promise((resolve, reject) => {
         window.addEventListener('message', (e) => {
-            var _a;
-            // Only the SSO popup we opened, on the ThoughtSpot origin, may
-            // complete the flow or hand us a token; anything else could
-            // inject an attacker's token into the auth cache.
-            if (e.origin !== thoughtSpotOrigin || !samlAuthWindow || e.source !== samlAuthWindow) {
-                return;
-            }
-            if (((_a = e.data) === null || _a === void 0 ? void 0 : _a.type) === EmbedEvent.SAMLComplete) {
+            if (e.data.type === EmbedEvent.SAMLComplete) {
                 if (e.data.accessToken) {
                     const decodedToken = decodeURIComponent(e.data.accessToken);
                     storeAuthTokenInCache(decodedToken);
@@ -18860,7 +20979,7 @@ const doSSOAuth = async (embedConfig, ssoEndPoint) => {
     }
     const ssoURL = `${thoughtSpotHost}${ssoEndPoint}`;
     if (embedConfig.inPopup) {
-        await samlPopupFlow(ssoURL, embedConfig.authTriggerContainer, embedConfig.authTriggerText, thoughtSpotHost);
+        await samlPopupFlow(ssoURL, embedConfig.authTriggerContainer, embedConfig.authTriggerText);
         const cachedToken = getCacheAuthToken();
         if (cachedToken) {
             loggedInStatus = true;
@@ -18872,22 +20991,12 @@ const doSSOAuth = async (embedConfig, ssoEndPoint) => {
     }
     window.location.href = ssoURL;
 };
-/**
- * The popup's SSO completion page. hostAppOrigin tells ThoughtSpot which
- * origin opened the popup; the cluster only posts a token back to it if it
- * is an allowed redirect domain.
- * @param thoughtSpotHost
- */
-const getSSOCompletePageUrl = (thoughtSpotHost) => {
-    const hostAppOrigin = encodeURIComponent(window.location.origin);
-    return `${thoughtSpotHost}/v2/#/embed/saml-complete?hostAppOrigin=${hostAppOrigin}`;
-};
 const doSamlAuth = async (embedConfig) => {
     const { thoughtSpotHost } = embedConfig;
     // redirect for SSO, when the SSO authentication is done, this page will be
     // loaded again and the same JS will execute again.
     const ssoRedirectUrl = embedConfig.inPopup
-        ? getSSOCompletePageUrl(thoughtSpotHost)
+        ? `${thoughtSpotHost}/v2/#/embed/saml-complete`
         : getRedirectUrl(window.location.href, SSO_REDIRECTION_MARKER_GUID, embedConfig.redirectPath);
     // bring back the page to the same URL
     const ssoEndPoint = `${EndPoints.SAML_LOGIN_TEMPLATE(encodeURIComponent(ssoRedirectUrl))}`;
@@ -18899,7 +21008,7 @@ const doOIDCAuth = async (embedConfig) => {
     // redirect for SSO, when the SSO authentication is done, this page will be
     // loaded again and the same JS will execute again.
     const ssoRedirectUrl = embedConfig.noRedirect || embedConfig.inPopup
-        ? getSSOCompletePageUrl(thoughtSpotHost)
+        ? `${thoughtSpotHost}/v2/#/embed/saml-complete`
         : getRedirectUrl(window.location.href, SSO_REDIRECTION_MARKER_GUID, embedConfig.redirectPath);
     // bring back the page to the same URL
     const baseEndpoint = `${EndPoints.OIDC_LOGIN_TEMPLATE(encodeURIComponent(ssoRedirectUrl))}`;
@@ -19529,17 +21638,17 @@ var getPrototype = _overArg(Object.getPrototypeOf, Object);
 var _getPrototype = getPrototype;
 
 /** `Object#toString` result references. */
-var objectTag$1 = '[object Object]';
+var objectTag = '[object Object]';
 
 /** Used for built-in method references. */
 var funcProto = Function.prototype,
-    objectProto$6 = Object.prototype;
+    objectProto = Object.prototype;
 
 /** Used to resolve the decompiled source of functions. */
 var funcToString = funcProto.toString;
 
 /** Used to check objects for own properties. */
-var hasOwnProperty$5 = objectProto$6.hasOwnProperty;
+var hasOwnProperty = objectProto.hasOwnProperty;
 
 /** Used to infer the `Object` constructor. */
 var objectCtorString = funcToString.call(Object);
@@ -19573,14 +21682,14 @@ var objectCtorString = funcToString.call(Object);
  * // => true
  */
 function isPlainObject(value) {
-  if (!isObjectLike_1(value) || _baseGetTag(value) != objectTag$1) {
+  if (!isObjectLike_1(value) || _baseGetTag(value) != objectTag) {
     return false;
   }
   var proto = _getPrototype(value);
   if (proto === null) {
     return true;
   }
-  var Ctor = hasOwnProperty$5.call(proto, 'constructor') && proto.constructor;
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
   return typeof Ctor == 'function' && Ctor instanceof Ctor &&
     funcToString.call(Ctor) == objectCtorString;
 }
@@ -19588,7 +21697,7 @@ function isPlainObject(value) {
 var isPlainObject_1 = isPlainObject;
 
 /** `Object#toString` result references. */
-var stringTag$1 = '[object String]';
+var stringTag = '[object String]';
 
 /**
  * Checks if `value` is classified as a `String` primitive or object.
@@ -19609,7 +21718,7 @@ var stringTag$1 = '[object String]';
  */
 function isString(value) {
   return typeof value == 'string' ||
-    (!isArray_1(value) && isObjectLike_1(value) && _baseGetTag(value) == stringTag$1);
+    (!isArray_1(value) && isObjectLike_1(value) && _baseGetTag(value) == stringTag);
 }
 
 var isString_1 = isString;
@@ -20148,9 +22257,6 @@ const TS_EMBED_ID = '_thoughtspot-embed';
  */
 const PRERENDER_CONTAINER_ORIGINAL_POSITION_KEY = 'tsEmbedOriginalPosition';
 const PRERENDER_WRAPPER_ID_PREFIX = 'tsEmbed-pre-render-wrapper-';
-const PRERENDER_PARKED_TRANSFORM = 'translateY(-100%)';
-/** The height createPreRenderWrapper() seeds before anything is measured. */
-const UNMEASURED_WRAPPER_HEIGHT = '100vh';
 // The container applies UpdateEmbedParams through React state, so a delivered
 // post is not the same as the params being in effect.
 const UPDATE_EMBED_PARAMS_SETTLE_MS = 200;
@@ -20158,97 +22264,6 @@ const UPDATE_EMBED_PARAMS_SETTLE_MS = 200;
 // truthy, so null or '' leaves the previous embed's values in place. '&' is
 // truthy and parses to {}.
 const NO_RUNTIME_PARAMS = '&';
-/**
- * Params kept on the iframe `src` when `excludeConfigFromURL` is set. The rest
- * are sent in the APP_INIT payload.
- * @internal
- */
-const BOOTSTRAP_URL_PARAMS = new Set([
-    // Marks the app as embedded.
-    Param.EmbedApp,
-    // The host page URL, used to validate the postMessage origin.
-    Param.HostAppUrl,
-    // The SDK version.
-    Param.Version,
-    // The authentication type set in init.
-    Param.AuthType,
-    // Whether the app signs the user in automatically.
-    Param.AutoLogin,
-    // Stops the app from redirecting to its login page.
-    Param.DisableLoginRedirect,
-    // Forces the SAML redirect for EmbeddedSSO.
-    Param.ForceSAMLAutoRedirect,
-    // Set for cookieless trusted authentication.
-    Param.cookieless,
-    // Lets the app use the pre-fetched auth info.
-    Param.preAuthCache,
-    // Blocks access to the full app outside the embed.
-    Param.blockNonEmbedFullAppAccess,
-    // The org to load, which the auth info depends on.
-    Param.OverrideOrgId,
-    // The host window height when the iframe loads.
-    Param.ViewPortHeight,
-    // The host window width when the iframe loads.
-    Param.ViewPortWidth,
-    // The app's client log level.
-    Param.ClientLogLevel,
-    // Lets the app override the native console.
-    Param.OverrideNativeConsole,
-    // An extra Pendo tracking key.
-    Param.PendoTrackingKey,
-    // The locale for number formatting.
-    Param.NumberFormatLocale,
-    // The locale for date formatting.
-    Param.DateFormatLocale,
-    // The currency format.
-    Param.CurrencyFormat,
-    // The UI language.
-    Param.Locale,
-    // Turns on dark mode.
-    Param.IsDarkMode,
-    // Turns on the radiant theme that dark mode needs.
-    Param.RadiantThemeEnabled,
-    // Marks a SearchEmbed or SearchBarEmbed.
-    Param.searchEmbed,
-    // Marks a LiveboardEmbed.
-    Param.livedBoardEmbed,
-    // Marks a SpotterAgentEmbed.
-    Param.isSpotterAgentEmbed,
-    // Marks a SpotterEmbed.
-    Param.SpotterEnabled,
-    // Marks an AppEmbed.
-    Param.IsFullAppEmbed,
-    // Legacy flag for the onBeforeGetVizData API intercept.
-    Param.IsOnBeforeGetVizDataInterceptEnabled,
-    // Lets the host override links in the app.
-    Param.LinkOverride,
-    // Turns on version 2 of the link overrides.
-    Param.EnableLinkOverridesV2,
-    // Stops links from opening in a new tab.
-    Param.DisableRedirectionLinksInNewTab,
-    // Uses replaceState instead of pushState for app navigation.
-    Param.OverrideHistoryState,
-    // Shows search results as a table.
-    Param.ForceTable,
-    // The URL of the custom string IDs file.
-    Param.StringIDsUrl,
-    // The data sources that search opens with.
-    Param.DataSources,
-    // Exposes translation IDs in the app.
-    Param.ExposeTranslationIDs,
-    // The URL of the custom icon sprite.
-    Param.IconSpriteUrl,
-    // The tag that filters the metadata lists in an AppEmbed.
-    Param.Tag,
-    // Set when a Liveboard embed shows a single visualization (vizId).
-    Param.vizEmbed,
-    // Whether search opens with the last-selected data sources.
-    Param.UseLastSelectedDataSource,
-    // The query mode Spotter opens in.
-    Param.DefaultQueryMode,
-    // The initial search query. Omitted with excludeSearchTokenStringFromURL.
-    Param.searchTokenString,
-]);
 /**
  * The event id map from v2 event names to v1 event id
  * v1 events are the classic embed events implemented in Blink v1
@@ -20277,7 +22292,6 @@ class TsEmbed {
         this.embedNodeKey = '__tsEmbed';
         this.embedContainerLoadedKey = '__tsEmbedContainerLoaded';
         this.isAppInitialized = false;
-        this.initDataParams = {};
         /**
          * Should we encode URL Query Params using base64 encoding which ThoughtSpot
          * will generate for embedding. This provides additional security to
@@ -20287,6 +22301,7 @@ class TsEmbed {
         this.shouldEncodeUrlQueryParams = false;
         this.defaultHiddenActions = [Action.ReportError];
         this.preRenderContainerEl = document.body;
+        this.containerScrollListener = null;
         /**
          * Handler for fullscreen change events
          */
@@ -20312,7 +22327,7 @@ class TsEmbed {
          */
         this.appInitCb = async (_, responder) => {
             try {
-                const appInitData = this.withInitDataParams(await this.getAppInitData());
+                const appInitData = await this.getAppInitData();
                 this.isAppInitialized = true;
                 responder({
                     type: EmbedEvent.APP_INIT,
@@ -20466,7 +22481,9 @@ class TsEmbed {
             ...viewConfig,
         };
         this.registerAppInit();
-        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_EMBED_CREATE, summarizeRuntimeDataForTelemetry(viewConfig));
+        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_EMBED_CREATE, {
+            ...viewConfig,
+        });
         const embedConfig = getEmbedConfig();
         if (embedConfig) {
             this.embedConfig = embedConfig;
@@ -20738,18 +22755,6 @@ class TsEmbed {
     async getAppInitData() {
         return this.getDefaultAppInitData();
     }
-    withInitDataParams(appInitData) {
-        if (isEmpty_1(this.initDataParams)) {
-            return appInitData;
-        }
-        return {
-            ...appInitData,
-            embedParams: {
-                ...this.initDataParams,
-                ...(appInitData.embedParams || {}),
-            },
-        };
-    }
     /**
      * Helper method to refresh/update auth token for TrustedAuthTokenCookieless auth type
      * @param responder - Function to send response back
@@ -20809,7 +22814,7 @@ class TsEmbed {
      * @returns queryParams
      */
     getBaseQueryParams(queryParams = {}) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         let hostAppUrl = ((_a = window === null || window === void 0 ? void 0 : window.location) === null || _a === void 0 ? void 0 : _a.host) || '';
         // The below check is needed because TS Cloud firewall, blocks
         // localhost/127.0.0.1 in any url param.
@@ -20845,15 +22850,6 @@ class TsEmbed {
         }
         if (this.embedConfig.currencyFormat) {
             queryParams[Param.CurrencyFormat] = this.embedConfig.currencyFormat;
-        }
-        // The view config wins over init, so an embed can opt out of a dark
-        // mode set in `init`. `??` and not `||`, so that an explicit `false`
-        // overrides an init-level `true`.
-        const isDarkMode = (_c = this.viewConfig.isDarkMode) !== null && _c !== void 0 ? _c : this.embedConfig.isDarkMode;
-        setParamIfDefined(queryParams, Param.IsDarkMode, isDarkMode, true);
-        // The app's dark mode lives in its radiant theme, so turn that on too.
-        if (isDarkMode) {
-            queryParams[Param.RadiantThemeEnabled] = true;
         }
         const { disabledActions, disabledActionReason, hiddenActions, visibleActions, hiddenTabs, visibleTabs, showAlerts, additionalFlags: additionalFlagsFromView, locale, customizations, contextMenuTrigger, linkOverride, enableLinkOverridesV2, insertInToSlide, disableRedirectionLinksInNewTab, overrideOrgId, overrideHistoryState, exposeTranslationIDs, primaryAction, } = this.viewConfig;
         const { additionalFlags: additionalFlagsFromInit } = this.embedConfig;
@@ -20920,7 +22916,7 @@ class TsEmbed {
         if (spriteUrl) {
             queryParams[Param.IconSpriteUrl] = spriteUrl.replace('https://', '');
         }
-        const stringIDsUrl = ((_d = customizations === null || customizations === void 0 ? void 0 : customizations.content) === null || _d === void 0 ? void 0 : _d.stringIDsUrl) || ((_e = embedCustomizations === null || embedCustomizations === void 0 ? void 0 : embedCustomizations.content) === null || _e === void 0 ? void 0 : _e.stringIDsUrl);
+        const stringIDsUrl = ((_c = customizations === null || customizations === void 0 ? void 0 : customizations.content) === null || _c === void 0 ? void 0 : _c.stringIDsUrl) || ((_d = embedCustomizations === null || embedCustomizations === void 0 ? void 0 : embedCustomizations.content) === null || _d === void 0 ? void 0 : _d.stringIDsUrl);
         if (stringIDsUrl) {
             queryParams[Param.StringIDsUrl] = stringIDsUrl;
         }
@@ -20974,31 +22970,12 @@ class TsEmbed {
         return path;
     }
     getEmbedParams() {
-        const queryParams = this.getUrlQueryParamsObject();
+        const queryParams = this.getEmbedParamsObject();
         return getQueryParamString(queryParams);
     }
     getEmbedParamsObject() {
         const params = this.getBaseQueryParams();
         return params;
-    }
-    getUrlQueryParamsObject() {
-        const queryParams = this.getEmbedParamsObject();
-        if (!this.isConfigExcludedFromUrl()) {
-            this.initDataParams = {};
-            return queryParams;
-        }
-        const urlParams = {};
-        const excludedParams = {};
-        Object.entries(queryParams).forEach(([key, value]) => {
-            if (BOOTSTRAP_URL_PARAMS.has(key)) {
-                urlParams[key] = value;
-            }
-            else {
-                excludedParams[key] = deserializeParam(value);
-            }
-        });
-        this.initDataParams = excludedParams;
-        return urlParams;
     }
     getRootIframeSrc() {
         const query = this.getEmbedParams();
@@ -21170,7 +23147,7 @@ class TsEmbed {
             top: '0',
             left: '0',
             width: '100vw',
-            height: UNMEASURED_WRAPPER_HEIGHT,
+            height: '100vh',
         };
         setStyleProperties(preRenderWrapper, initialPreRenderWrapperStyle);
         return preRenderWrapper;
@@ -21238,12 +23215,10 @@ class TsEmbed {
         return placeholder;
     }
     /**
-     * Resolves the configured preRenderContainer, or defaults to the host's
-     * nearest scrolling ancestor (document.body if none). The absolutely
-     * positioned wrapper only follows the page while it sits inside what
-     * scrolls, so body is right only when the document itself scrolls — an inner
-     * scroller left the frame pinned to the viewport (SCAL-338563). A string
-     * selector is re-queried each call so a remounted container resolves fresh.
+     * Resolves the configured preRenderContainer to a live element, falling
+     * back to `document.body`. A string selector is re-queried on every call so
+     * a remounted container (E.g.: React replacing the node) resolves to the
+     * fresh element; an element passed directly cannot be re-resolved.
      */
     resolvePreRenderContainerTarget() {
         var _a;
@@ -21263,13 +23238,7 @@ class TsEmbed {
         else if (containerConfig) {
             container = containerConfig;
         }
-        if (container) {
-            return container;
-        }
-        if (!this.hostElement) {
-            return document.body;
-        }
-        return (_a = getScrollableAncestors(this.hostElement)[0]) !== null && _a !== void 0 ? _a : document.body;
+        return (_a = container) !== null && _a !== void 0 ? _a : document.body;
     }
     inheritPreRenderContainer() {
         var _a;
@@ -21314,9 +23283,8 @@ class TsEmbed {
      * Re-attaches the wrapper to a live container when the previously resolved
      * one has been detached or no longer holds the wrapper — e.g. the host app
      * remounted a custom preRenderContainer, which would otherwise leave a stale
-     * reference and collapse the wrapper. Selectors and the auto-resolved
-     * scrolling ancestor are both re-resolved; a container passed as an element
-     * is left untouched, as there is nothing to re-query.
+     * reference and collapse the wrapper. Only string selectors can be
+     * re-resolved; a container passed as an element is left untouched.
      */
     reconcilePreRenderContainer() {
         const wrapper = this.preRenderWrapper;
@@ -21334,6 +23302,14 @@ class TsEmbed {
         // do, e.g. a detached container passed as an HTMLElement.
         if (resolved === stored && stored.contains(wrapper)) {
             return;
+        }
+        if (this.containerScrollListener && stored !== resolved) {
+            if (stored !== document.body) {
+                stored.removeEventListener('scroll', this.containerScrollListener);
+            }
+            if (resolved !== document.body) {
+                resolved.addEventListener('scroll', this.containerScrollListener);
+            }
         }
         this.preRenderContainerEl = resolved;
         this.applyPreRenderContainerPositioning();
@@ -21396,12 +23372,11 @@ class TsEmbed {
      */
     setIFrameHeight(height) {
         if (this.isPreRendered) {
-            const next = getCssDimension(height);
             if (this.insertedDomEl) {
-                this.insertedDomEl.style.height = next;
+                this.insertedDomEl.style.height = getCssDimension(height);
             }
             else if (this.preRenderWrapper) {
-                this.preRenderWrapper.style.height = next;
+                this.preRenderWrapper.style.height = getCssDimension(height);
             }
         }
         else {
@@ -21685,15 +23660,8 @@ class TsEmbed {
      * @param args
      */
     async render() {
-        var _a, _b, _c;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_RENDER_CALLED, {
             embedComponentType: this.viewConfig.embedComponentType,
-        });
-        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_INIT_ACTIONS, {
-            embedComponentType: this.viewConfig.embedComponentType,
-            hiddenActions: (_a = this.viewConfig.hiddenActions) !== null && _a !== void 0 ? _a : [],
-            visibleActions: (_b = this.viewConfig.visibleActions) !== null && _b !== void 0 ? _b : [],
-            disabledActions: (_c = this.viewConfig.disabledActions) !== null && _c !== void 0 ? _c : [],
         });
         if (!getIsInitCalled()) {
             logger$3.error(ERROR_MESSAGE.RENDER_CALLED_BEFORE_INIT);
@@ -21843,47 +23811,34 @@ class TsEmbed {
         delete container.dataset[PRERENDER_CONTAINER_ORIGINAL_POSITION_KEY];
     }
     /**
-     * Re-sizes the wrapper when its placeholder changes size.
-     *
-     * Position deliberately has no equivalent. An absolutely positioned wrapper
-     * follows its containing block for free, so a correctly placed frame is the
-     * browser's job and costs nothing; repositioning it on scroll would mean a
-     * layout read and a style write per frame to compensate for placing it in
-     * the wrong box. Size is the one thing the browser will not do for us: the
-     * placeholder grows when the embedded app reports a new height, and the
-     * wrapper has to be told.
+     * Detaches and clears the container scroll listener, if one is attached.
      */
-    observePreRenderSize() {
-        var _a;
-        if (this.getPreRenderConfig().doNotTrackSize || typeof ResizeObserver === 'undefined') {
+    removeContainerScrollListener() {
+        if (!this.containerScrollListener) {
             return;
         }
-        const placeholder = this.getPreRenderPlaceHolderElement();
-        if (!placeholder) {
-            return;
-        }
-        (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
-        this.resizeObserver = new ResizeObserver(() => this.syncPreRenderStyle());
-        this.resizeObserver.observe(placeholder);
+        const customContainer = this.getCustomPreRenderContainer();
+        customContainer === null || customContainer === void 0 ? void 0 : customContainer.removeEventListener('scroll', this.containerScrollListener);
+        this.containerScrollListener = null;
     }
     /**
      * Destroys the ThoughtSpot embed, and remove any nodes from the DOM.
      * @version SDK: 1.19.1 | ThoughtSpot: *
      */
     destroy() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         try {
             this.removeFullscreenChangeHandler();
-            (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+            this.removeContainerScrollListener();
             this.unsubscribeToEvents();
-            (_b = this.preRenderWrapper) === null || _b === void 0 ? void 0 : _b.remove();
+            (_a = this.preRenderWrapper) === null || _a === void 0 ? void 0 : _a.remove();
             this.restorePreRenderContainerPosition();
             if (!this.isRendered) {
                 return;
             }
             if (!getEmbedConfig().waitForCleanupOnDestroy) {
                 this.trigger(HostEvent.DestroyEmbed);
-                (_d = (_c = this.insertedDomEl) === null || _c === void 0 ? void 0 : _c.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(this.insertedDomEl);
+                (_c = (_b = this.insertedDomEl) === null || _b === void 0 ? void 0 : _b.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(this.insertedDomEl);
             }
             else {
                 const cleanupTimeout = getEmbedConfig().cleanupTimeout;
@@ -21929,26 +23884,6 @@ class TsEmbed {
         this.isRendered = true;
         return this.renderIFrame(prerenderFrameSrc);
     }
-    isConfigExcludedFromUrl() {
-        var _a, _b, _c;
-        const flag = (_b = (_a = this.viewConfig.additionalFlags) === null || _a === void 0 ? void 0 : _a.excludeConfigFromURL) !== null && _b !== void 0 ? _b : (_c = this.embedConfig.additionalFlags) === null || _c === void 0 ? void 0 : _c.excludeConfigFromURL;
-        return flag === true || flag === 'true';
-    }
-    async triggerUpdateEmbedParams() {
-        try {
-            const params = await this.getUpdateEmbedParamsObject();
-            this.trigger(HostEvent.UpdateEmbedParams, params);
-        }
-        catch (error) {
-            logger$3.error(ERROR_MESSAGE.UPDATE_PARAMS_FAILED, error);
-            this.handleError({
-                errorType: ErrorDetailsTypes.API,
-                message: (error === null || error === void 0 ? void 0 : error.message) || ERROR_MESSAGE.UPDATE_PARAMS_FAILED,
-                code: EmbedErrorCodes.UPDATE_PARAMS_FAILED,
-                error: (error === null || error === void 0 ? void 0 : error.message) || error,
-            });
-        }
-    }
     beforePrerenderVisible() {
         // We can ignore this as its a bit expensive and the newer customers
         // have moved on to UpdateEmbedParams supported clusters
@@ -21959,7 +23894,17 @@ class TsEmbed {
         this.preRenderParamsApplied = new Promise((resolve) => {
             this.executeAfterEmbedContainerLoaded(async () => {
                 try {
-                    await this.triggerUpdateEmbedParams();
+                    const params = await this.getUpdateEmbedParamsObject();
+                    this.trigger(HostEvent.UpdateEmbedParams, params);
+                }
+                catch (error) {
+                    logger$3.error(ERROR_MESSAGE.UPDATE_PARAMS_FAILED, error);
+                    this.handleError({
+                        errorType: ErrorDetailsTypes.API,
+                        message: (error === null || error === void 0 ? void 0 : error.message) || ERROR_MESSAGE.UPDATE_PARAMS_FAILED,
+                        code: EmbedErrorCodes.UPDATE_PARAMS_FAILED,
+                        error: (error === null || error === void 0 ? void 0 : error.message) || error,
+                    });
                 }
                 finally {
                     setTimeout(resolve, UPDATE_EMBED_PARAMS_SETTLE_MS);
@@ -21974,7 +23919,7 @@ class TsEmbed {
      * wrapper to overlay it.
      */
     async showPreRender() {
-        var _a;
+        var _a, _b;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_SHOW_PRE_RENDER, {
             preRenderId: this.getPreRenderConfig().id,
             embedComponentType: this.viewConfig.embedComponentType,
@@ -21993,16 +23938,14 @@ class TsEmbed {
         this.beforePrerenderVisible();
         if (this.hostElement) {
             this.insertedDomEl = this.createPreRenderPlaceholder();
-            // Carry a height fullHeight has already measured onto the fresh
-            // placeholder, so a re-show does not flash at frameParams height.
-            // UNMEASURED_WRAPPER_HEIGHT is what createPreRenderWrapper() seeds
-            // before anything has been measured; treating that as a measurement
-            // is what made a first reveal overshoot to a full viewport.
-            const wrapperHeight = this.preRenderWrapper.style.height;
-            if (this.viewConfig.fullHeight
-                && wrapperHeight
-                && wrapperHeight !== UNMEASURED_WRAPPER_HEIGHT) {
-                this.insertedDomEl.style.height = wrapperHeight;
+            if (this.viewConfig.fullHeight) {
+                // If fullHeight has already sized the wrapper, seed the
+                // placeholder with the same height so syncPreRenderStyle gets
+                // an accurate rect.
+                const existingHeight = this.preRenderWrapper.style.height;
+                if (existingHeight) {
+                    this.insertedDomEl.style.height = existingHeight;
+                }
             }
             const placeHolderId = this.getPreRenderIds().placeHolder;
             // Remove any stale placeholder from a previous cycle. It is located
@@ -22016,19 +23959,29 @@ class TsEmbed {
             (_a = this.hostElement.querySelector(`#${placeHolderId}`)) === null || _a === void 0 ? void 0 : _a.remove();
             this.hostElement.appendChild(this.insertedDomEl);
             this.syncPreRenderStyle();
-            this.observePreRenderSize();
+            const customContainer = this.getCustomPreRenderContainer();
+            if (customContainer && !this.containerScrollListener) {
+                this.containerScrollListener = () => this.syncPreRenderStyle();
+                customContainer.addEventListener('scroll', this.containerScrollListener);
+            }
+            if (!this.getPreRenderConfig().doNotTrackSize) {
+                const observeTarget = (_b = this.insertedDomEl) !== null && _b !== void 0 ? _b : this.hostElement;
+                this.resizeObserver = new ResizeObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.target === observeTarget) {
+                            this.syncPreRenderStyle();
+                        }
+                    });
+                });
+                this.resizeObserver.observe(observeTarget);
+            }
         }
         removeStyleProperties(this.preRenderWrapper, [
             'z-index',
             'opacity',
+            'pointer-events',
             'overflow',
-            'transform',
         ]);
-        // Set rather than removed: a container that carries `pointer-events:
-        // none` — the usual styling for a parking root that must not swallow
-        // clicks — passes it down, and dropping the property here would leave
-        // the inherited `none` in force and the frame dead to input.
-        setStyleProperties(this.preRenderWrapper, { pointerEvents: 'auto' });
         this.subscribeToEvents();
         // Setup fullscreen change handler for prerendered components
         if (this.iFrame) {
@@ -22081,7 +24034,6 @@ class TsEmbed {
      * If the component is not preRendered, it issues a warning.
      */
     hidePreRender() {
-        var _a;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_HIDE_PRE_RENDER, {
             preRenderId: this.getPreRenderConfig().id,
             embedComponentType: this.viewConfig.embedComponentType,
@@ -22093,25 +24045,20 @@ class TsEmbed {
             return;
         }
         const { zIndex } = this.getPreRenderConfig();
-        // A hidden pre-render frame must add no scroll space to the host page.
         const preRenderHideStyles = {
             opacity: '0',
             pointerEvents: 'none',
             zIndex: zIndex !== undefined ? String(zIndex) : '-1000',
-            // Resolves to the viewport, so the hidden frame belongs to no
-            // scroll container's overflow; syncPreRenderStyle restores absolute
-            // on show.
-            position: 'fixed',
+            position: 'absolute',
             top: '0',
             left: '0',
             overflow: 'hidden',
-            // The one exception: a transformed or contained ancestor captures
-            // `fixed`; parking above the top edge keeps it out of that
-            // overflow.
-            transform: PRERENDER_PARKED_TRANSFORM,
         };
         setStyleProperties(this.preRenderWrapper, preRenderHideStyles);
-        (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+        this.removeContainerScrollListener();
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
         const placeHolderEle = this.getPreRenderPlaceHolderElement();
         if (placeHolderEle) {
             placeHolderEle.parentElement.removeChild(placeHolderEle);
@@ -22277,11 +24224,8 @@ function buildSpotterSidebarAppInitData(defaultAppInitData, viewConfig, handleEr
             embedParams: { visualOverridesParams: visualOverrides },
         };
     }
-    // The app reads enableSpotterInstructionAndMoreSettings from the top level
-    // of embedParams, so lift it out of the sidebar config.
-    const { enableSpotterInstructionAndMoreSettings, ...sidebarConfigRest } = spotterSidebarConfig || {};
     const resolvedSidebarConfig = {
-        ...sidebarConfigRest,
+        ...spotterSidebarConfig,
         ...(resolvedEnablePastConversations !== undefined && {
             enablePastConversationsSidebar: resolvedEnablePastConversations,
         }),
@@ -22303,9 +24247,6 @@ function buildSpotterSidebarAppInitData(defaultAppInitData, viewConfig, handleEr
         embedParams: {
             ...(defaultAppInitData.embedParams || {}),
             spotterSidebarConfig: resolvedSidebarConfig,
-            ...(enableSpotterInstructionAndMoreSettings !== undefined
-                ? { enableSpotterInstructionAndMoreSettings }
-                : {}),
             ...(visualOverrides !== undefined ? { visualOverridesParams: visualOverrides } : {}),
         },
     };
@@ -22347,18 +24288,6 @@ function buildSpotterAnalystAppInitData(initData, viewConfig) {
         },
     };
 }
-/**
- * The Spotter experience version to load in the embedded view.
- * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
- * @group Embed components
- */
-var SpotterExperienceVersion;
-(function (SpotterExperienceVersion) {
-    /**
-     * The Spotter experience version introduced in ThoughtSpot 26.11.
-     */
-    SpotterExperienceVersion["SPOTTER_2026_11"] = "spotter_2026_11";
-})(SpotterExperienceVersion || (SpotterExperienceVersion = {}));
 
 function buildSpotterVizAppInitData(initData, viewConfig) {
     const { spotterViz } = viewConfig;
@@ -22555,12 +24484,12 @@ class AppEmbed extends V1Embed {
      * embedded Liveboard or visualization.
      */
     getEmbedParams() {
-        const params = this.getUrlQueryParamsObject();
+        const params = this.getEmbedParamsObject();
         return getQueryParamString(params, true);
     }
     getEmbedParamsObject() {
         var _a;
-        const { tag, hideTagFilterChips, hideObjects, liveboardV2, showPrimaryNavbar, disableProfileAndHelp, hideHamburger, hideObjectSearch, hideNotification, hideApplicationSwitcher, hideOrgSwitcher, enableSearchAssist, newConnectionsExperience, dataPanelV2 = true, updatedSpotterExperience, hideLiveboardHeader = false, showLiveboardTitle = true, showLiveboardDescription = true, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, hideHomepageLeftNav = false, modularHomeExperience, isLiveboardHeaderSticky = true, enableAskSage, collapseSearchBarInitially = false, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, enableCustomColumnGroups = false, dataPanelCustomGroupsAccordionInitialState = DataPanelCustomColumnGroupsAccordionState$1.EXPAND_ALL, collapseSearchBar = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, isEnhancedFilterInteractivityEnabled, homePageSearchBarMode, isUnifiedSearchExperienceEnabled = true, enablePendoHelp = true, discoveryExperience, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, defaultQueryMode, enableStopAnswerGenerationEmbed, spotterChatConfig, spotterDataSources, isThisPeriodInDateFiltersEnabled, enableHomepageAnnouncement = false, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, hideAnswerEditPanel, spotterExperienceVersion, } = this.viewConfig;
+        const { tag, hideTagFilterChips, hideObjects, liveboardV2, showPrimaryNavbar, disableProfileAndHelp, hideHamburger, hideObjectSearch, hideNotification, hideApplicationSwitcher, hideOrgSwitcher, enableSearchAssist, newConnectionsExperience, dataPanelV2 = true, updatedSpotterExperience, hideLiveboardHeader = false, showLiveboardTitle = true, showLiveboardDescription = true, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, hideHomepageLeftNav = false, modularHomeExperience, isLiveboardHeaderSticky = true, enableAskSage, collapseSearchBarInitially = false, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, enableCustomColumnGroups = false, dataPanelCustomGroupsAccordionInitialState = DataPanelCustomColumnGroupsAccordionState$1.EXPAND_ALL, collapseSearchBar = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, isEnhancedFilterInteractivityEnabled, homePageSearchBarMode, isUnifiedSearchExperienceEnabled = true, enablePendoHelp = true, discoveryExperience, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, defaultQueryMode, enableStopAnswerGenerationEmbed, spotterChatConfig, spotterDataSources, isThisPeriodInDateFiltersEnabled, enableHomepageAnnouncement = false, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, hideAnswerEditPanel, } = this.viewConfig;
         let params = {};
         params[Param.PrimaryNavHidden] = !showPrimaryNavbar;
         params[Param.HideProfleAndHelp] = !!disableProfileAndHelp;
@@ -22614,9 +24543,6 @@ class AppEmbed extends V1Embed {
         }
         if (spotterDataSources && spotterDataSources.length) {
             params[Param.SpotterDataSources] = JSON.stringify(spotterDataSources);
-        }
-        if (spotterExperienceVersion !== undefined) {
-            params[Param.SpotterExperienceVersion] = spotterExperienceVersion;
         }
         // Handle spotterChatConfig params
         if (spotterChatConfig) {
@@ -22736,7 +24662,7 @@ class AppEmbed extends V1Embed {
         }
         // Navigation V1/V2 and home page V1/V2 are deprecated. V3 is now the
         // default experience, Need to send navigationVersion=v3 and
-        // homepageVersion=v3 even when the no discoveryExperience /
+        // homepageVersion=v3 even when the no discoveryExperience / 
         // modularHomeExperience config is set. Without these
         // params, older TSA versions (< 26.7) fall back to V2 for nav and
         // home page, so the defaults must be sent explicitly from the SDK.
@@ -22875,1406 +24801,6 @@ class AppEmbed extends V1Embed {
     }
 }
 
-/**
- * Removes all key-value entries from the list cache.
- *
- * @private
- * @name clear
- * @memberOf ListCache
- */
-function listCacheClear() {
-  this.__data__ = [];
-  this.size = 0;
-}
-
-var _listCacheClear = listCacheClear;
-
-/**
- * Performs a
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * comparison between two values to determine if they are equivalent.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.eq(object, object);
- * // => true
- *
- * _.eq(object, other);
- * // => false
- *
- * _.eq('a', 'a');
- * // => true
- *
- * _.eq('a', Object('a'));
- * // => false
- *
- * _.eq(NaN, NaN);
- * // => true
- */
-function eq(value, other) {
-  return value === other || (value !== value && other !== other);
-}
-
-var eq_1 = eq;
-
-/**
- * Gets the index at which the `key` is found in `array` of key-value pairs.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} key The key to search for.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function assocIndexOf(array, key) {
-  var length = array.length;
-  while (length--) {
-    if (eq_1(array[length][0], key)) {
-      return length;
-    }
-  }
-  return -1;
-}
-
-var _assocIndexOf = assocIndexOf;
-
-/** Used for built-in method references. */
-var arrayProto = Array.prototype;
-
-/** Built-in value references. */
-var splice = arrayProto.splice;
-
-/**
- * Removes `key` and its value from the list cache.
- *
- * @private
- * @name delete
- * @memberOf ListCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function listCacheDelete(key) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  if (index < 0) {
-    return false;
-  }
-  var lastIndex = data.length - 1;
-  if (index == lastIndex) {
-    data.pop();
-  } else {
-    splice.call(data, index, 1);
-  }
-  --this.size;
-  return true;
-}
-
-var _listCacheDelete = listCacheDelete;
-
-/**
- * Gets the list cache value for `key`.
- *
- * @private
- * @name get
- * @memberOf ListCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function listCacheGet(key) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  return index < 0 ? undefined : data[index][1];
-}
-
-var _listCacheGet = listCacheGet;
-
-/**
- * Checks if a list cache value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf ListCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function listCacheHas(key) {
-  return _assocIndexOf(this.__data__, key) > -1;
-}
-
-var _listCacheHas = listCacheHas;
-
-/**
- * Sets the list cache `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf ListCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the list cache instance.
- */
-function listCacheSet(key, value) {
-  var data = this.__data__,
-      index = _assocIndexOf(data, key);
-
-  if (index < 0) {
-    ++this.size;
-    data.push([key, value]);
-  } else {
-    data[index][1] = value;
-  }
-  return this;
-}
-
-var _listCacheSet = listCacheSet;
-
-/**
- * Creates an list cache object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function ListCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `ListCache`.
-ListCache.prototype.clear = _listCacheClear;
-ListCache.prototype['delete'] = _listCacheDelete;
-ListCache.prototype.get = _listCacheGet;
-ListCache.prototype.has = _listCacheHas;
-ListCache.prototype.set = _listCacheSet;
-
-var _ListCache = ListCache;
-
-/**
- * Removes all key-value entries from the stack.
- *
- * @private
- * @name clear
- * @memberOf Stack
- */
-function stackClear() {
-  this.__data__ = new _ListCache;
-  this.size = 0;
-}
-
-var _stackClear = stackClear;
-
-/**
- * Removes `key` and its value from the stack.
- *
- * @private
- * @name delete
- * @memberOf Stack
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function stackDelete(key) {
-  var data = this.__data__,
-      result = data['delete'](key);
-
-  this.size = data.size;
-  return result;
-}
-
-var _stackDelete = stackDelete;
-
-/**
- * Gets the stack value for `key`.
- *
- * @private
- * @name get
- * @memberOf Stack
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function stackGet(key) {
-  return this.__data__.get(key);
-}
-
-var _stackGet = stackGet;
-
-/**
- * Checks if a stack value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Stack
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function stackHas(key) {
-  return this.__data__.has(key);
-}
-
-var _stackHas = stackHas;
-
-/* Built-in method references that are verified to be native. */
-var nativeCreate = _getNative(Object, 'create');
-
-var _nativeCreate = nativeCreate;
-
-/**
- * Removes all key-value entries from the hash.
- *
- * @private
- * @name clear
- * @memberOf Hash
- */
-function hashClear() {
-  this.__data__ = _nativeCreate ? _nativeCreate(null) : {};
-  this.size = 0;
-}
-
-var _hashClear = hashClear;
-
-/**
- * Removes `key` and its value from the hash.
- *
- * @private
- * @name delete
- * @memberOf Hash
- * @param {Object} hash The hash to modify.
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function hashDelete(key) {
-  var result = this.has(key) && delete this.__data__[key];
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-var _hashDelete = hashDelete;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED$2 = '__lodash_hash_undefined__';
-
-/** Used for built-in method references. */
-var objectProto$5 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$4 = objectProto$5.hasOwnProperty;
-
-/**
- * Gets the hash value for `key`.
- *
- * @private
- * @name get
- * @memberOf Hash
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function hashGet(key) {
-  var data = this.__data__;
-  if (_nativeCreate) {
-    var result = data[key];
-    return result === HASH_UNDEFINED$2 ? undefined : result;
-  }
-  return hasOwnProperty$4.call(data, key) ? data[key] : undefined;
-}
-
-var _hashGet = hashGet;
-
-/** Used for built-in method references. */
-var objectProto$4 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$3 = objectProto$4.hasOwnProperty;
-
-/**
- * Checks if a hash value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf Hash
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function hashHas(key) {
-  var data = this.__data__;
-  return _nativeCreate ? (data[key] !== undefined) : hasOwnProperty$3.call(data, key);
-}
-
-var _hashHas = hashHas;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED$1 = '__lodash_hash_undefined__';
-
-/**
- * Sets the hash `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Hash
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the hash instance.
- */
-function hashSet(key, value) {
-  var data = this.__data__;
-  this.size += this.has(key) ? 0 : 1;
-  data[key] = (_nativeCreate && value === undefined) ? HASH_UNDEFINED$1 : value;
-  return this;
-}
-
-var _hashSet = hashSet;
-
-/**
- * Creates a hash object.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Hash(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `Hash`.
-Hash.prototype.clear = _hashClear;
-Hash.prototype['delete'] = _hashDelete;
-Hash.prototype.get = _hashGet;
-Hash.prototype.has = _hashHas;
-Hash.prototype.set = _hashSet;
-
-var _Hash = Hash;
-
-/**
- * Removes all key-value entries from the map.
- *
- * @private
- * @name clear
- * @memberOf MapCache
- */
-function mapCacheClear() {
-  this.size = 0;
-  this.__data__ = {
-    'hash': new _Hash,
-    'map': new (_Map || _ListCache),
-    'string': new _Hash
-  };
-}
-
-var _mapCacheClear = mapCacheClear;
-
-/**
- * Checks if `value` is suitable for use as unique object key.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  var type = typeof value;
-  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
-    ? (value !== '__proto__')
-    : (value === null);
-}
-
-var _isKeyable = isKeyable;
-
-/**
- * Gets the data for `map`.
- *
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData(map, key) {
-  var data = map.__data__;
-  return _isKeyable(key)
-    ? data[typeof key == 'string' ? 'string' : 'hash']
-    : data.map;
-}
-
-var _getMapData = getMapData;
-
-/**
- * Removes `key` and its value from the map.
- *
- * @private
- * @name delete
- * @memberOf MapCache
- * @param {string} key The key of the value to remove.
- * @returns {boolean} Returns `true` if the entry was removed, else `false`.
- */
-function mapCacheDelete(key) {
-  var result = _getMapData(this, key)['delete'](key);
-  this.size -= result ? 1 : 0;
-  return result;
-}
-
-var _mapCacheDelete = mapCacheDelete;
-
-/**
- * Gets the map value for `key`.
- *
- * @private
- * @name get
- * @memberOf MapCache
- * @param {string} key The key of the value to get.
- * @returns {*} Returns the entry value.
- */
-function mapCacheGet(key) {
-  return _getMapData(this, key).get(key);
-}
-
-var _mapCacheGet = mapCacheGet;
-
-/**
- * Checks if a map value for `key` exists.
- *
- * @private
- * @name has
- * @memberOf MapCache
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function mapCacheHas(key) {
-  return _getMapData(this, key).has(key);
-}
-
-var _mapCacheHas = mapCacheHas;
-
-/**
- * Sets the map `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf MapCache
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the map cache instance.
- */
-function mapCacheSet(key, value) {
-  var data = _getMapData(this, key),
-      size = data.size;
-
-  data.set(key, value);
-  this.size += data.size == size ? 0 : 1;
-  return this;
-}
-
-var _mapCacheSet = mapCacheSet;
-
-/**
- * Creates a map cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function MapCache(entries) {
-  var index = -1,
-      length = entries == null ? 0 : entries.length;
-
-  this.clear();
-  while (++index < length) {
-    var entry = entries[index];
-    this.set(entry[0], entry[1]);
-  }
-}
-
-// Add methods to `MapCache`.
-MapCache.prototype.clear = _mapCacheClear;
-MapCache.prototype['delete'] = _mapCacheDelete;
-MapCache.prototype.get = _mapCacheGet;
-MapCache.prototype.has = _mapCacheHas;
-MapCache.prototype.set = _mapCacheSet;
-
-var _MapCache = MapCache;
-
-/** Used as the size to enable large array optimizations. */
-var LARGE_ARRAY_SIZE = 200;
-
-/**
- * Sets the stack `key` to `value`.
- *
- * @private
- * @name set
- * @memberOf Stack
- * @param {string} key The key of the value to set.
- * @param {*} value The value to set.
- * @returns {Object} Returns the stack cache instance.
- */
-function stackSet(key, value) {
-  var data = this.__data__;
-  if (data instanceof _ListCache) {
-    var pairs = data.__data__;
-    if (!_Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
-      pairs.push([key, value]);
-      this.size = ++data.size;
-      return this;
-    }
-    data = this.__data__ = new _MapCache(pairs);
-  }
-  data.set(key, value);
-  this.size = data.size;
-  return this;
-}
-
-var _stackSet = stackSet;
-
-/**
- * Creates a stack cache object to store key-value pairs.
- *
- * @private
- * @constructor
- * @param {Array} [entries] The key-value pairs to cache.
- */
-function Stack(entries) {
-  var data = this.__data__ = new _ListCache(entries);
-  this.size = data.size;
-}
-
-// Add methods to `Stack`.
-Stack.prototype.clear = _stackClear;
-Stack.prototype['delete'] = _stackDelete;
-Stack.prototype.get = _stackGet;
-Stack.prototype.has = _stackHas;
-Stack.prototype.set = _stackSet;
-
-var _Stack = Stack;
-
-/** Used to stand-in for `undefined` hash values. */
-var HASH_UNDEFINED = '__lodash_hash_undefined__';
-
-/**
- * Adds `value` to the array cache.
- *
- * @private
- * @name add
- * @memberOf SetCache
- * @alias push
- * @param {*} value The value to cache.
- * @returns {Object} Returns the cache instance.
- */
-function setCacheAdd(value) {
-  this.__data__.set(value, HASH_UNDEFINED);
-  return this;
-}
-
-var _setCacheAdd = setCacheAdd;
-
-/**
- * Checks if `value` is in the array cache.
- *
- * @private
- * @name has
- * @memberOf SetCache
- * @param {*} value The value to search for.
- * @returns {boolean} Returns `true` if `value` is found, else `false`.
- */
-function setCacheHas(value) {
-  return this.__data__.has(value);
-}
-
-var _setCacheHas = setCacheHas;
-
-/**
- *
- * Creates an array cache object to store unique values.
- *
- * @private
- * @constructor
- * @param {Array} [values] The values to cache.
- */
-function SetCache(values) {
-  var index = -1,
-      length = values == null ? 0 : values.length;
-
-  this.__data__ = new _MapCache;
-  while (++index < length) {
-    this.add(values[index]);
-  }
-}
-
-// Add methods to `SetCache`.
-SetCache.prototype.add = SetCache.prototype.push = _setCacheAdd;
-SetCache.prototype.has = _setCacheHas;
-
-var _SetCache = SetCache;
-
-/**
- * A specialized version of `_.some` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {boolean} Returns `true` if any element passes the predicate check,
- *  else `false`.
- */
-function arraySome(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (predicate(array[index], index, array)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-var _arraySome = arraySome;
-
-/**
- * Checks if a `cache` value for `key` exists.
- *
- * @private
- * @param {Object} cache The cache to query.
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function cacheHas(cache, key) {
-  return cache.has(key);
-}
-
-var _cacheHas = cacheHas;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$3 = 1,
-    COMPARE_UNORDERED_FLAG$1 = 2;
-
-/**
- * A specialized version of `baseIsEqualDeep` for arrays with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Array} array The array to compare.
- * @param {Array} other The other array to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `array` and `other` objects.
- * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
- */
-function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$3,
-      arrLength = array.length,
-      othLength = other.length;
-
-  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
-    return false;
-  }
-  // Check that cyclic values are equal.
-  var arrStacked = stack.get(array);
-  var othStacked = stack.get(other);
-  if (arrStacked && othStacked) {
-    return arrStacked == other && othStacked == array;
-  }
-  var index = -1,
-      result = true,
-      seen = (bitmask & COMPARE_UNORDERED_FLAG$1) ? new _SetCache : undefined;
-
-  stack.set(array, other);
-  stack.set(other, array);
-
-  // Ignore non-index properties.
-  while (++index < arrLength) {
-    var arrValue = array[index],
-        othValue = other[index];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, arrValue, index, other, array, stack)
-        : customizer(arrValue, othValue, index, array, other, stack);
-    }
-    if (compared !== undefined) {
-      if (compared) {
-        continue;
-      }
-      result = false;
-      break;
-    }
-    // Recursively compare arrays (susceptible to call stack limits).
-    if (seen) {
-      if (!_arraySome(other, function(othValue, othIndex) {
-            if (!_cacheHas(seen, othIndex) &&
-                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
-              return seen.push(othIndex);
-            }
-          })) {
-        result = false;
-        break;
-      }
-    } else if (!(
-          arrValue === othValue ||
-            equalFunc(arrValue, othValue, bitmask, customizer, stack)
-        )) {
-      result = false;
-      break;
-    }
-  }
-  stack['delete'](array);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalArrays = equalArrays;
-
-/** Built-in value references. */
-var Uint8Array$1 = _root.Uint8Array;
-
-var _Uint8Array = Uint8Array$1;
-
-/**
- * Converts `map` to its key-value pairs.
- *
- * @private
- * @param {Object} map The map to convert.
- * @returns {Array} Returns the key-value pairs.
- */
-function mapToArray(map) {
-  var index = -1,
-      result = Array(map.size);
-
-  map.forEach(function(value, key) {
-    result[++index] = [key, value];
-  });
-  return result;
-}
-
-var _mapToArray = mapToArray;
-
-/**
- * Converts `set` to an array of its values.
- *
- * @private
- * @param {Object} set The set to convert.
- * @returns {Array} Returns the values.
- */
-function setToArray(set) {
-  var index = -1,
-      result = Array(set.size);
-
-  set.forEach(function(value) {
-    result[++index] = value;
-  });
-  return result;
-}
-
-var _setToArray = setToArray;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$2 = 1,
-    COMPARE_UNORDERED_FLAG = 2;
-
-/** `Object#toString` result references. */
-var boolTag$1 = '[object Boolean]',
-    dateTag = '[object Date]',
-    errorTag = '[object Error]',
-    mapTag = '[object Map]',
-    numberTag = '[object Number]',
-    regexpTag = '[object RegExp]',
-    setTag = '[object Set]',
-    stringTag = '[object String]',
-    symbolTag = '[object Symbol]';
-
-var arrayBufferTag = '[object ArrayBuffer]',
-    dataViewTag = '[object DataView]';
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = _Symbol ? _Symbol.prototype : undefined,
-    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-
-/**
- * A specialized version of `baseIsEqualDeep` for comparing objects of
- * the same `toStringTag`.
- *
- * **Note:** This function only supports comparing values with tags of
- * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {string} tag The `toStringTag` of the objects to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
-  switch (tag) {
-    case dataViewTag:
-      if ((object.byteLength != other.byteLength) ||
-          (object.byteOffset != other.byteOffset)) {
-        return false;
-      }
-      object = object.buffer;
-      other = other.buffer;
-
-    case arrayBufferTag:
-      if ((object.byteLength != other.byteLength) ||
-          !equalFunc(new _Uint8Array(object), new _Uint8Array(other))) {
-        return false;
-      }
-      return true;
-
-    case boolTag$1:
-    case dateTag:
-    case numberTag:
-      // Coerce booleans to `1` or `0` and dates to milliseconds.
-      // Invalid dates are coerced to `NaN`.
-      return eq_1(+object, +other);
-
-    case errorTag:
-      return object.name == other.name && object.message == other.message;
-
-    case regexpTag:
-    case stringTag:
-      // Coerce regexes to strings and treat strings, primitives and objects,
-      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
-      // for more details.
-      return object == (other + '');
-
-    case mapTag:
-      var convert = _mapToArray;
-
-    case setTag:
-      var isPartial = bitmask & COMPARE_PARTIAL_FLAG$2;
-      convert || (convert = _setToArray);
-
-      if (object.size != other.size && !isPartial) {
-        return false;
-      }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(object);
-      if (stacked) {
-        return stacked == other;
-      }
-      bitmask |= COMPARE_UNORDERED_FLAG;
-
-      // Recursively compare objects (susceptible to call stack limits).
-      stack.set(object, other);
-      var result = _equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
-      stack['delete'](object);
-      return result;
-
-    case symbolTag:
-      if (symbolValueOf) {
-        return symbolValueOf.call(object) == symbolValueOf.call(other);
-      }
-  }
-  return false;
-}
-
-var _equalByTag = equalByTag;
-
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-var _arrayPush = arrayPush;
-
-/**
- * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
- * `keysFunc` and `symbolsFunc` to get the enumerable property names and
- * symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @param {Function} symbolsFunc The function to get the symbols of `object`.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function baseGetAllKeys(object, keysFunc, symbolsFunc) {
-  var result = keysFunc(object);
-  return isArray_1(object) ? result : _arrayPush(result, symbolsFunc(object));
-}
-
-var _baseGetAllKeys = baseGetAllKeys;
-
-/**
- * A specialized version of `_.filter` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Array} Returns the new filtered array.
- */
-function arrayFilter(array, predicate) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      resIndex = 0,
-      result = [];
-
-  while (++index < length) {
-    var value = array[index];
-    if (predicate(value, index, array)) {
-      result[resIndex++] = value;
-    }
-  }
-  return result;
-}
-
-var _arrayFilter = arrayFilter;
-
-/**
- * This method returns a new empty array.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {Array} Returns the new empty array.
- * @example
- *
- * var arrays = _.times(2, _.stubArray);
- *
- * console.log(arrays);
- * // => [[], []]
- *
- * console.log(arrays[0] === arrays[1]);
- * // => false
- */
-function stubArray() {
-  return [];
-}
-
-var stubArray_1 = stubArray;
-
-/** Used for built-in method references. */
-var objectProto$3 = Object.prototype;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto$3.propertyIsEnumerable;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeGetSymbols = Object.getOwnPropertySymbols;
-
-/**
- * Creates an array of the own enumerable symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of symbols.
- */
-var getSymbols = !nativeGetSymbols ? stubArray_1 : function(object) {
-  if (object == null) {
-    return [];
-  }
-  object = Object(object);
-  return _arrayFilter(nativeGetSymbols(object), function(symbol) {
-    return propertyIsEnumerable.call(object, symbol);
-  });
-};
-
-var _getSymbols = getSymbols;
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-var _baseTimes = baseTimes;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  var type = typeof value;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-
-  return !!length &&
-    (type == 'number' ||
-      (type != 'symbol' && reIsUint.test(value))) &&
-        (value > -1 && value % 1 == 0 && value < length);
-}
-
-var _isIndex = isIndex;
-
-/** Used for built-in method references. */
-var objectProto$2 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$2 = objectProto$2.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray_1(value),
-      isArg = !isArr && isArguments_1(value),
-      isBuff = !isArr && !isArg && isBuffer_1(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray_1(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? _baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty$2.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           _isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-var _arrayLikeKeys = arrayLikeKeys;
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike_1(object) ? _arrayLikeKeys(object) : _baseKeys(object);
-}
-
-var keys_1 = keys;
-
-/**
- * Creates an array of own enumerable property names and symbols of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names and symbols.
- */
-function getAllKeys(object) {
-  return _baseGetAllKeys(object, keys_1, _getSymbols);
-}
-
-var _getAllKeys = getAllKeys;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG$1 = 1;
-
-/** Used for built-in method references. */
-var objectProto$1 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$1 = objectProto$1.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqualDeep` for objects with support for
- * partial deep comparisons.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} stack Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
-  var isPartial = bitmask & COMPARE_PARTIAL_FLAG$1,
-      objProps = _getAllKeys(object),
-      objLength = objProps.length,
-      othProps = _getAllKeys(other),
-      othLength = othProps.length;
-
-  if (objLength != othLength && !isPartial) {
-    return false;
-  }
-  var index = objLength;
-  while (index--) {
-    var key = objProps[index];
-    if (!(isPartial ? key in other : hasOwnProperty$1.call(other, key))) {
-      return false;
-    }
-  }
-  // Check that cyclic values are equal.
-  var objStacked = stack.get(object);
-  var othStacked = stack.get(other);
-  if (objStacked && othStacked) {
-    return objStacked == other && othStacked == object;
-  }
-  var result = true;
-  stack.set(object, other);
-  stack.set(other, object);
-
-  var skipCtor = isPartial;
-  while (++index < objLength) {
-    key = objProps[index];
-    var objValue = object[key],
-        othValue = other[key];
-
-    if (customizer) {
-      var compared = isPartial
-        ? customizer(othValue, objValue, key, other, object, stack)
-        : customizer(objValue, othValue, key, object, other, stack);
-    }
-    // Recursively compare objects (susceptible to call stack limits).
-    if (!(compared === undefined
-          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
-          : compared
-        )) {
-      result = false;
-      break;
-    }
-    skipCtor || (skipCtor = key == 'constructor');
-  }
-  if (result && !skipCtor) {
-    var objCtor = object.constructor,
-        othCtor = other.constructor;
-
-    // Non `Object` object instances with different constructors are not equal.
-    if (objCtor != othCtor &&
-        ('constructor' in object && 'constructor' in other) &&
-        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
-          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
-      result = false;
-    }
-  }
-  stack['delete'](object);
-  stack['delete'](other);
-  return result;
-}
-
-var _equalObjects = equalObjects;
-
-/** Used to compose bitmasks for value comparisons. */
-var COMPARE_PARTIAL_FLAG = 1;
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]',
-    arrayTag = '[object Array]',
-    objectTag = '[object Object]';
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * A specialized version of `baseIsEqual` for arrays and objects which performs
- * deep comparisons and tracks traversed objects enabling objects with circular
- * references to be compared.
- *
- * @private
- * @param {Object} object The object to compare.
- * @param {Object} other The other object to compare.
- * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
- * @param {Function} customizer The function to customize comparisons.
- * @param {Function} equalFunc The function to determine equivalents of values.
- * @param {Object} [stack] Tracks traversed `object` and `other` objects.
- * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
- */
-function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
-  var objIsArr = isArray_1(object),
-      othIsArr = isArray_1(other),
-      objTag = objIsArr ? arrayTag : _getTag(object),
-      othTag = othIsArr ? arrayTag : _getTag(other);
-
-  objTag = objTag == argsTag ? objectTag : objTag;
-  othTag = othTag == argsTag ? objectTag : othTag;
-
-  var objIsObj = objTag == objectTag,
-      othIsObj = othTag == objectTag,
-      isSameTag = objTag == othTag;
-
-  if (isSameTag && isBuffer_1(object)) {
-    if (!isBuffer_1(other)) {
-      return false;
-    }
-    objIsArr = true;
-    objIsObj = false;
-  }
-  if (isSameTag && !objIsObj) {
-    stack || (stack = new _Stack);
-    return (objIsArr || isTypedArray_1(object))
-      ? _equalArrays(object, other, bitmask, customizer, equalFunc, stack)
-      : _equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
-  }
-  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
-    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
-        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
-
-    if (objIsWrapped || othIsWrapped) {
-      var objUnwrapped = objIsWrapped ? object.value() : object,
-          othUnwrapped = othIsWrapped ? other.value() : other;
-
-      stack || (stack = new _Stack);
-      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
-    }
-  }
-  if (!isSameTag) {
-    return false;
-  }
-  stack || (stack = new _Stack);
-  return _equalObjects(object, other, bitmask, customizer, equalFunc, stack);
-}
-
-var _baseIsEqualDeep = baseIsEqualDeep;
-
-/**
- * The base implementation of `_.isEqual` which supports partial comparisons
- * and tracks traversed objects.
- *
- * @private
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @param {boolean} bitmask The bitmask flags.
- *  1 - Unordered comparison
- *  2 - Partial comparison
- * @param {Function} [customizer] The function to customize comparisons.
- * @param {Object} [stack] Tracks traversed `value` and `other` objects.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- */
-function baseIsEqual(value, other, bitmask, customizer, stack) {
-  if (value === other) {
-    return true;
-  }
-  if (value == null || other == null || (!isObjectLike_1(value) && !isObjectLike_1(other))) {
-    return value !== value && other !== other;
-  }
-  return _baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
-}
-
-var _baseIsEqual = baseIsEqual;
-
-/**
- * This method is like `_.isEqual` except that it accepts `customizer` which
- * is invoked to compare values. If `customizer` returns `undefined`, comparisons
- * are handled by the method instead. The `customizer` is invoked with up to
- * six arguments: (objValue, othValue [, index|key, object, other, stack]).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @param {Function} [customizer] The function to customize comparisons.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * function isGreeting(value) {
- *   return /^h(?:i|ello)$/.test(value);
- * }
- *
- * function customizer(objValue, othValue) {
- *   if (isGreeting(objValue) && isGreeting(othValue)) {
- *     return true;
- *   }
- * }
- *
- * var array = ['hello', 'goodbye'];
- * var other = ['hi', 'goodbye'];
- *
- * _.isEqualWith(array, other, customizer);
- * // => true
- */
-function isEqualWith(value, other, customizer) {
-  customizer = typeof customizer == 'function' ? customizer : undefined;
-  var result = customizer ? customizer(value, other) : undefined;
-  return result === undefined ? _baseIsEqual(value, other, undefined, customizer) : !!result;
-}
-
-var isEqualWith_1 = isEqualWith;
-
 const getPreviewQuery = `
 query GetEurekaVizSnapshots(
     $vizId: String!, $liveboardId: String!) {
@@ -24389,11 +24915,6 @@ const HOME_SETTLE_MS = 200;
  * })
  * ```
  */
-/**
- * A shallow copy without the keys whose value is `undefined`, so a key that was
- * assigned `undefined` compares equal to one that was never set.
- */
-const definedEntries = (config = {}) => Object.fromEntries(Object.entries(config).filter(([, value]) => value !== undefined));
 class LiveboardEmbed extends V1Embed {
     constructor(domSelector, viewConfig) {
         viewConfig.embedComponentType = 'LiveboardEmbed';
@@ -24437,7 +24958,7 @@ class LiveboardEmbed extends V1Embed {
      * embedded Liveboard or visualization.
      */
     getEmbedParams() {
-        const params = this.getUrlQueryParamsObject();
+        const params = this.getEmbedParamsObject();
         const queryParams = getQueryParamString(params, true);
         return queryParams;
     }
@@ -24445,7 +24966,7 @@ class LiveboardEmbed extends V1Embed {
         var _a;
         let params = {};
         params = this.getBaseQueryParams(params);
-        const { enableVizTransformations, visibleVizs, liveboardV2, vizId, hideTabPanel, activeTabId, hideLiveboardHeader, showLiveboardDescription, showLiveboardTitle, isLiveboardHeaderSticky = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, isEnhancedFilterInteractivityEnabled, enableAskSage, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, dataPanelV2 = true, updatedSpotterExperience, enableCustomColumnGroups = false, oAuthPollingInterval, isForceRedirect, dataSourceId, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, showSpotterLimitations, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, enableStopAnswerGenerationEmbed, spotterChatConfig, isThisPeriodInDateFiltersEnabled, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, spotterExperienceVersion, } = this.viewConfig;
+        const { enableVizTransformations, visibleVizs, liveboardV2, vizId, hideTabPanel, activeTabId, hideLiveboardHeader, showLiveboardDescription, showLiveboardTitle, isLiveboardHeaderSticky = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, isEnhancedFilterInteractivityEnabled, enableAskSage, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, dataPanelV2 = true, updatedSpotterExperience, enableCustomColumnGroups = false, oAuthPollingInterval, isForceRedirect, dataSourceId, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, showSpotterLimitations, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, enableStopAnswerGenerationEmbed, spotterChatConfig, isThisPeriodInDateFiltersEnabled, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, } = this.viewConfig;
         const preventLiveboardFilterRemoval = this.viewConfig.preventLiveboardFilterRemoval
             || this.viewConfig.preventPinboardFilterRemoval;
         (_a = this.fullHeightController) === null || _a === void 0 ? void 0 : _a.addQueryParams(params);
@@ -24506,9 +25027,6 @@ class LiveboardEmbed extends V1Embed {
         }
         if (isLiveboardStylingAndGroupingEnabled !== undefined) {
             params[Param.IsLiveboardStylingAndGroupingEnabled] = isLiveboardStylingAndGroupingEnabled;
-        }
-        if (spotterExperienceVersion !== undefined) {
-            params[Param.SpotterExperienceVersion] = spotterExperienceVersion;
         }
         if (liveboardGutter !== undefined) {
             params[Param.LiveboardGutter] = liveboardGutter;
@@ -24679,18 +25197,16 @@ class LiveboardEmbed extends V1Embed {
     beforePrerenderVisible() {
         super.beforePrerenderVisible();
         // Captured before showPreRender() hands the wrapper over to this
-        // instance. React builds a new instance per mount, so an equal config
-        // is a hide/show, not a hand-over: there is nothing stale to clear.
+        // instance. Itself means a hide/show, not a hand-over, so there is
+        // nothing stale to clear.
         const previous = this.getPreRenderObj();
-        const previousRoute = this.isSameEmbedConfig(previous)
-            ? undefined
-            : previous === null || previous === void 0 ? void 0 : previous.currentLiveboardState;
+        const showing = previous === this ? undefined : previous === null || previous === void 0 ? void 0 : previous.currentLiveboardState;
         this.executeAfterEmbedContainerLoaded(async () => {
             // Without this the params callback suspends on its await and
             // Navigate goes out first, so the container loads with the previous
             // config's filters.
             await this.preRenderParamsApplied;
-            if (this.isAlreadyOnSameRoute(previousRoute)) {
+            if (this.isShowingLiveboardRoute(showing)) {
                 // Navigate to the route we are already on is a no-op, so the
                 // liveboard keeps its state. Home unmounts the container, which
                 // clears it.
@@ -24711,27 +25227,17 @@ class LiveboardEmbed extends V1Embed {
             };
         });
     }
-    // definedEntries drops undefined-valued keys: a shown instance carries
-    // vizId/activeTabId/etc as undefined, so a raw isEqual never matches again.
-    // Functions compare equal, since React passes a fresh closure per render.
-    isSameEmbedConfig(previous) {
-        if (!previous)
-            return false;
-        if (previous === this)
-            return true;
-        return isEqualWith_1(definedEntries(previous.viewConfig), definedEntries(this.viewConfig), (a, b) => (typeof a === 'function' && typeof b === 'function' ? true : undefined));
-    }
     // The whole route, not just the liveboard id: the path is built from the
     // viz, tab and view too, so a same-liveboard show onto another tab is a
     // real navigation.
-    isAlreadyOnSameRoute(previousRoute) {
-        if (!(previousRoute === null || previousRoute === void 0 ? void 0 : previousRoute.liveboardId))
+    isShowingLiveboardRoute(showing) {
+        if (!(showing === null || showing === void 0 ? void 0 : showing.liveboardId))
             return false;
         const { liveboardId, vizId, activeTabId, personalizedViewId, } = this.viewConfig;
-        return previousRoute.liveboardId === liveboardId
-            && previousRoute.vizId === vizId
-            && previousRoute.activeTabId === activeTabId
-            && previousRoute.personalizedViewId === personalizedViewId;
+        return showing.liveboardId === liveboardId
+            && showing.vizId === vizId
+            && showing.activeTabId === activeTabId
+            && showing.personalizedViewId === personalizedViewId;
     }
     async handleRenderForPrerender() {
         if (isUndefined$1(this.viewConfig.liveboardId)) {
@@ -24983,7 +25489,7 @@ class SearchEmbed extends TsEmbed {
     }
     getEmbedParams() {
         const { runtimeParameters, runtimeFilters, excludeRuntimeParametersfromURL, excludeRuntimeFiltersfromURL, } = this.viewConfig;
-        const queryParams = this.getUrlQueryParamsObject();
+        const queryParams = this.getEmbedParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -25071,7 +25577,7 @@ class SearchBarEmbed extends TsEmbed {
      * @param dataSources A list of data source GUIDs
      */
     getIFrameSrc() {
-        const queryParams = this.getUrlQueryParamsObject();
+        const queryParams = this.getEmbedParamsObject();
         const path = 'search-bar-embed';
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
@@ -25505,7 +26011,7 @@ class ConversationMessage extends TsEmbed {
     getIframeSrc() {
         const { sessionId, genNo, acSessionId, acGenNo, convId, messageId, } = this.viewConfig;
         const path = 'conv-assist-answer';
-        const queryParams = this.getUrlQueryParamsObject();
+        const queryParams = this.getEmbedParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -25702,22 +26208,18 @@ class SpotterEmbed extends TsEmbed {
             }
         }
         setParamIfDefined(queryParams, Param.UpdatedSpotterExperience, updatedSpotterExperience, true);
-        setParamIfDefined(queryParams, Param.SpotterExperienceVersion, this.viewConfig.spotterExperienceVersion);
         return queryParams;
     }
     getIframeSrc() {
-        const { worksheetId, searchOptions, runtimeFilters, excludeRuntimeFiltersfromURL, runtimeParameters, excludeRuntimeParametersfromURL, sharedConversationId, dataSources, spotterExperienceVersion, } = this.viewConfig;
+        const { worksheetId, searchOptions, runtimeFilters, excludeRuntimeFiltersfromURL, runtimeParameters, excludeRuntimeParametersfromURL, sharedConversationId, dataSources, } = this.viewConfig;
         // Deep-link into the read-only shared-conversation reader view when a
         // shared conversation id is supplied (e.g. a recipient landing from a
         // host-configured CONVERSATION_URL share link); otherwise the normal
         // Spotter conversation surface.
-        let path = sharedConversationId
+        const path = sharedConversationId
             ? `insights/conv-assist/s/${encodeURIComponent(sharedConversationId)}`
             : 'insights/conv-assist';
-        if (spotterExperienceVersion === SpotterExperienceVersion.SPOTTER_2026_11) {
-            path = path.replace('insights/conv-assist', 'insights/spotter');
-        }
-        const queryParams = this.getUrlQueryParamsObject();
+        const queryParams = this.getEmbedParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -26508,41 +27010,6 @@ function convertFilterChangedToUpdateFiltersPayload(filterChangedPayload) {
 }
 
 /**
- * Route the ThoughtSpot application uses to render a single conversational
- * answer. Used when a replayed frame carries no route of its own.
- */
-const CONV_ASSIST_ANSWER_ROUTE = '/embed/conv-assist-answer';
-/**
- * Base path of the conversation service, proxied by the cluster's nginx as
- * the `convex` upstream. These are the same handlers the public
- * `/api/rest/2.0/ai/agent/conversations/...` endpoints proxy to, so the
- * response shapes are identical, but calling them directly skips the prism
- * hop and its error re-wrapping.
- */
-const CONVERSATION_SERVICE_PATH = '/conversation/v2';
-const DEFAULT_STALE_ANSWER_NOTICE = 'This data may have changed since the last time you had a chat.';
-/**
- * Actions hidden by default on Answers rendered by the ThoughtSpot MCP server
- * (iframes carrying the `tsmcp=true` marker). Applied automatically by
- * {@link AutoFrameRenderer} so the auto-rendered answer exposes a curated set of
- * controls: Pin/Save/Download at the top level, Aggregate/Filter/Sort/Position in
- * the column menu, and Exclude/Only include/Drill down/Show underlying data in the
- * axis menu remain visible, while the actions below are removed.
- *
- * This is a denylist merged into {@link Param.HideActions}; anything not listed
- * here stays visible. It is skipped when the caller supplies a `visibleActions`
- * allowlist (see {@link AutoFrameRenderer.getEmbedParamsObject}).
- */
-const HiddenActionItemByDefaultForMCPAnswers = [
-    Action.Edit,
-    Action.InConversationTraining,
-    Action.AxisMenuConditionalFormat,
-    Action.AxisMenuRename,
-    Action.AxisMenuEdit,
-    Action.AxisMenuRemove,
-    Action.MakeACopy,
-];
-/**
  * Starts an automatic renderer that watches the DOM for iframes containing
  * the `tsmcp=true` query parameter and replaces them with fully configured
  * ThoughtSpot embed iframes. The query parameter is automatically added by
@@ -26604,141 +27071,6 @@ function startAutoMCPFrameRenderer(viewConfig = {}) {
     observer.observe(document.body, { childList: true, subtree: true });
     return observer;
 }
-/**
- * Writes resolved session parameters into the route's hash query string,
- * preserving the route and any other hash params the source URL carried.
- *
- * @param sourceHash - The source URL's hash, with or without a leading `#`.
- *   Falls back to the conversational-answer route when empty, so a host app
- *   replaying a chat need only supply the conversation identifier.
- */
-function buildAnswerHash(sourceHash, resolved) {
-    const withoutHash = (sourceHash || '').replace('#', '');
-    const [route, existingQuery] = withoutHash.split('?');
-    const params = new URLSearchParams(existingQuery || '');
-    Object.entries(resolved).forEach(([key, value]) => params.set(key, value));
-    return `${route || CONV_ASSIST_ANSWER_ROUTE}?${params.toString()}`;
-}
-/**
- * Reads {@link Param.TsmcpAnswerIndex} as a whole, non-negative array index.
- *
- * Anything else - absent, malformed, fractional, negative - falls back to the
- * first answer rather than indexing with a value that can never match.
- */
-function answerIndexFromParam(raw) {
-    const parsed = Number(raw);
-    return Number.isInteger(parsed) && parsed >= 0 ? parsed : 0;
-}
-/**
- * In-flight answer-id list requests, keyed by conversation-service URL.
- *
- * Replaying a stored chat mounts every one of its frames at once, and each
- * frame resolves on its own. Without this, N frames from one conversation make
- * N identical list calls. Sharing the in-flight request collapses them to one.
- *
- * Only the id list is shared, and only while its request is in flight: the
- * entry is dropped once the request settles, whether it succeeded or not. A
- * failed response is therefore never reused, and a frame mounted later always
- * reads a fresh list. The per-answer load call is never shared - it returns
- * live session state with its own expiry.
- */
-const answerIdListRequests = new Map();
-/**
- * Lists a conversation's answer ids: its non-thinking `answer` items, in
- * message order. The host app counts answers the same way, so the Nth id here
- * is the Nth stored answer.
- *
- * @param conversationUrl - The conversation's base URL on the conversation
- *   service, `{host}/conversation/v2/{encoded id}`.
- * @param conversationId - The conversation identifier, used in log messages.
- * @returns The ids, or `null` when the conversation cannot be read. Never
- *   rejects, so callers sharing the request need no error handling of their own.
- */
-async function fetchAnswerIds(conversationUrl, conversationId) {
-    try {
-        const messagesResponse = await tokenizedFetch(`${conversationUrl}/public`, {
-            credentials: 'include',
-            headers: { Accept: 'application/json' },
-        });
-        if (!messagesResponse.ok) {
-            logger$3.warn(`[AutoFrameRenderer] Conversation fetch failed for ${conversationId}: ${messagesResponse.status}`);
-            return null;
-        }
-        const messagesBody = await messagesResponse.json();
-        const messages = messagesBody === null || messagesBody === void 0 ? void 0 : messagesBody.messages;
-        const answerIds = [];
-        for (const message of Array.isArray(messages) ? messages : []) {
-            for (const item of (message === null || message === void 0 ? void 0 : message.response_items) || []) {
-                if ((item === null || item === void 0 ? void 0 : item.type) === 'answer' && (item === null || item === void 0 ? void 0 : item.is_thinking) === false && (item === null || item === void 0 ? void 0 : item.answer_id)) {
-                    answerIds.push(item.answer_id);
-                }
-            }
-        }
-        return answerIds;
-    }
-    catch (e) {
-        logger$3.warn(`[AutoFrameRenderer] Failed to list answers for ${conversationId}: ${e}`);
-        return null;
-    }
-}
-/**
- * The answer-id list for a conversation, joining a request already in flight
- * for it.
- *
- * @param conversationUrl - The conversation's base URL on the conversation
- *   service. Also the key requests are shared under.
- * @param conversationId - The conversation identifier, used in log messages.
- * @param stale - A request the caller already read and found too short. It is
- *   not reused; the first caller to pass it starts a new request, and the
- *   others join that one.
- * @returns The shared request: the ids, or `null` when the conversation cannot
- *   be read. Never rejects.
- */
-function getAnswerIds(conversationUrl, conversationId, stale) {
-    const inFlight = answerIdListRequests.get(conversationUrl);
-    if (inFlight && inFlight !== stale) {
-        return inFlight;
-    }
-    const request = fetchAnswerIds(conversationUrl, conversationId);
-    answerIdListRequests.set(conversationUrl, request);
-    const release = () => {
-        if (answerIdListRequests.get(conversationUrl) === request) {
-            answerIdListRequests.delete(conversationUrl);
-        }
-    };
-    request.then(release, release);
-    return request;
-}
-/**
- * Normalizes a `hideAction` value into an array of action ids. The SDK-side value
- * is already an `Action[]`; a value coming off the source iframe URL is a string
- * that may be a JSON array (`["edit","save"]`) or a comma-separated list.
- */
-function parseHideActions(value) {
-    if (Array.isArray(value)) {
-        return value;
-    }
-    if (typeof value !== 'string' || value === '') {
-        return [];
-    }
-    try {
-        const parsed = JSON.parse(value);
-        if (Array.isArray(parsed)) {
-            return parsed.map(String);
-        }
-    }
-    catch (e) {
-        // Not JSON — fall back to a comma-separated list.
-    }
-    return value.split(',').map((s) => s.trim()).filter(Boolean);
-}
-/**
- * Unions two `hideAction` values (SDK-computed and source-iframe) into a single
- * de-duplicated array of action ids.
- */
-function unionHideActions(sdkValue, sourceValue) {
-    return Array.from(new Set([...parseHideActions(sdkValue), ...parseHideActions(sourceValue)]));
-}
 function isTSMCPIframe(iframe) {
     try {
         const url = new URL(iframe.src);
@@ -26766,155 +27098,25 @@ class AutoFrameRenderer extends TsEmbed {
         this.viewConfig = viewConfig;
     }
     /**
-     * Extends the base embed params with the curated MCP-answer denylist
-     * ({@link HiddenActionItemByDefaultForMCPAnswers}) and a marker letting
-     * the ThoughtSpot app detect this answer was rendered via the MCP
-     * auto-frame-renderer ({@link Param.IsMcpAnswerEmbed}).
-     *
-     * Precedence — merge, allowlist wins:
-     * - When the caller supplies a `visibleActions` allowlist, the base already
-     *   set {@link Param.VisibleActions}; the denylist is skipped so the allowlist
-     *   fully controls visibility.
-     * - Otherwise the denylist is unioned onto {@link Param.HideActions}, which the
-     *   base has already populated with the default hidden actions plus any
-     *   caller-supplied `hiddenActions`.
-     */
-    getEmbedParamsObject() {
-        const queryParams = super.getEmbedParamsObject();
-        if (!queryParams[Param.VisibleActions]) {
-            // `additionalFlags` can override this with a non-array value, so
-            // normalize it rather than spreading it directly.
-            queryParams[Param.HideActions] = unionHideActions(queryParams[Param.HideActions], HiddenActionItemByDefaultForMCPAnswers);
-        }
-        queryParams[Param.IsMcpAnswerEmbed] = true;
-        return queryParams;
-    }
-    /**
      * Builds the final iframe `src` by merging the SDK embed parameters
      * with the query parameters already present on the source iframe URL.
-     *
      * The `tsmcp` marker param is removed so it does not propagate to the
-     * ThoughtSpot application. This is not just cosmetic: `tsmcp=true` is
-     * also how {@link isTSMCPIframe} recognizes an iframe as one this
-     * renderer must process. If the marker survived onto the iframe this
-     * class inserts, the same {@link MutationObserver} would immediately
-     * detect its own output as a new MCP iframe and re-process it, causing
-     * infinite recursive replacement. Do not re-add `tsmcp` here.
+     * ThoughtSpot application.
      *
      * @param sourceSrc - The original iframe's `src` URL string.
-     * @param preserveSourceUrl - When true, return the source URL unchanged.
      * @returns The constructed URL to use for the ThoughtSpot embed iframe.
      */
-    getMCPIframeSrc(sourceSrc, resolved, preserveSourceUrl = false) {
-        if (preserveSourceUrl) {
-            return sourceSrc;
-        }
-        const queryParams = this.getUrlQueryParamsObject();
+    getMCPIframeSrc(sourceSrc) {
+        const queryParams = this.getEmbedParamsObject();
         const sourceURL = new URL(sourceSrc);
         const existingQueryParams = sourceURL.searchParams;
         const existingQueryParamsObject = Object.fromEntries(existingQueryParams);
         delete existingQueryParamsObject[Param.Tsmcp];
-        // Replay markers address the SDK, not the ThoughtSpot application.
-        delete existingQueryParamsObject[Param.TsmcpConversationId];
-        delete existingQueryParamsObject[Param.TsmcpAnswerIndex];
-        // Source-iframe params win over SDK params on merge. Hidden actions
-        // are the exception: union them so a `hideAction` on the source iframe
-        // does not clobber the SDK-computed denylist (and vice versa).
-        const mergedHideActions = unionHideActions(queryParams[Param.HideActions], existingQueryParamsObject[Param.HideActions]);
-        delete existingQueryParamsObject[Param.HideActions];
         const mergedQueryParams = { ...queryParams, ...existingQueryParamsObject };
-        if (mergedHideActions.length) {
-            mergedQueryParams[Param.HideActions] = mergedHideActions;
-        }
         const mergedQueryParamsString = getQueryParamString(mergedQueryParams, true);
         const queryString = mergedQueryParamsString ? `?${mergedQueryParamsString}` : '';
-        const hash = resolved
-            ? buildAnswerHash(sourceURL.hash, resolved)
-            : sourceURL.hash.replace('#', '');
-        const frameSrc = `${this.getEmbedBasePath(queryString)}${hash}`;
+        const frameSrc = `${this.getEmbedBasePath(queryString)}${sourceURL.hash.replace('#', '')}`;
         return frameSrc;
-    }
-    /**
-     * Resolves the current session parameters for an answer stored only as a
-     * conversation identifier plus an ordinal position.
-     *
-     * The answer object behind `sessionId`/`genNo` expires (roughly 8 hours),
-     * so a host app replaying a stored chat cannot persist those values. It
-     * persists the conversation identifier instead, and this walks the two
-     * conversation-service APIs to rebuild them:
-     *
-     * 1. `GET {conv}/public` lists the conversation's messages; the
-     *    non-thinking `answer` items, in message order, give the answer ids.
-     *    Frames from the same conversation share one in-flight call - see
-     *    {@link getAnswerIds}.
-     * 2. `POST {conv}/message/{id}/load/public` turns the answer id at
-     *    `answerIndex` into a live session identifier, generation number and
-     *    agent-context state.
-     *
-     * @returns The resolved parameters, or `null` when resolution fails - the
-     *   caller then falls back to whatever the source URL already carried.
-     */
-    async resolveAnswerSessionParams(conversationId, answerIndex) {
-        const base = `${this.thoughtSpotHost}${CONVERSATION_SERVICE_PATH}/${encodeURIComponent(conversationId)}`;
-        try {
-            const listRequest = getAnswerIds(base, conversationId);
-            let answerIds = await listRequest;
-            if (answerIds && !answerIds[answerIndex]) {
-                // The list only grows, so a short one may predate this answer:
-                // a frame that joined a request started before it was added.
-                // Read the list once more before giving up.
-                answerIds = await getAnswerIds(base, conversationId, listRequest);
-            }
-            if (!answerIds) {
-                return null;
-            }
-            const answerId = answerIds[answerIndex];
-            if (!answerId) {
-                logger$3.warn(`[AutoFrameRenderer] No answer at index ${answerIndex} in conversation ${conversationId} (found ${answerIds.length}).`);
-                return null;
-            }
-            // The load handler is a POST upstream; the public REST endpoint
-            // exposed it as a GET and supplied this body on the caller's
-            // behalf.
-            const detailsResponse = await tokenizedFetch(`${base}/message/${encodeURIComponent(answerId)}/load/public`, {
-                credentials: 'include',
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'x-requested-by': 'ThoughtSpot',
-                },
-                body: JSON.stringify({ type: 'TS_ANSWER' }),
-            });
-            if (!detailsResponse.ok) {
-                logger$3.warn(`[AutoFrameRenderer] Answer load failed for ${answerId}: ${detailsResponse.status}`);
-                return null;
-            }
-            const detailsBody = await detailsResponse.json();
-            const answer = detailsBody === null || detailsBody === void 0 ? void 0 : detailsBody.answer;
-            const acState = answer === null || answer === void 0 ? void 0 : answer.ac_state;
-            // All four are nullable in the load-answer response. A missing
-            // generation number is as unusable as a missing session id:
-            // stringifying it would put a literal "null" in the hash. Fail
-            // the resolve instead and let the caller fall back.
-            if (!(answer === null || answer === void 0 ? void 0 : answer.session_identifier)
-                || !(acState === null || acState === void 0 ? void 0 : acState.transaction_identifier)
-                || !(Number.isInteger(answer.generation_number) && answer.generation_number > 0)
-                || !(Number.isInteger(acState.generation_number) && acState.generation_number > 0)) {
-                logger$3.warn(`[AutoFrameRenderer] Answer load returned incomplete session state for ${answerId}.`);
-                return null;
-            }
-            return {
-                sessionId: answer.session_identifier,
-                genNo: String(answer.generation_number),
-                acSessionId: acState.transaction_identifier,
-                acGenNo: String(acState.generation_number),
-            };
-        }
-        catch (e) {
-            logger$3.warn(`[AutoFrameRenderer] Failed to resolve stored answer: ${e}`);
-            return null;
-        }
     }
     /**
      * Overrides the base insertion behavior so the new embed iframe
@@ -26944,37 +27146,10 @@ class AutoFrameRenderer extends TsEmbed {
         if (this.shouldWaitForRenderPromise) {
             await this.isReadyForRenderPromise;
         }
-        // Only frames that ask for it take the replay path. A frame straight
-        // from the MCP server carries its own session params and no
-        // conversation id, so it renders exactly as it always has.
-        const sourceParams = new URL(iframe.src).searchParams;
-        const conversationId = sourceParams.get(Param.TsmcpConversationId);
-        let resolved = null;
-        if (conversationId) {
-            resolved = await this.resolveAnswerSessionParams(conversationId, answerIndexFromParam(sourceParams.get(Param.TsmcpAnswerIndex)));
-        }
-        const src = this.getMCPIframeSrc(iframe.src, resolved !== null && resolved !== void 0 ? resolved : undefined, Boolean(conversationId) && !resolved);
+        const src = this.getMCPIframeSrc(iframe.src);
         await this.renderIFrame(src);
-        // Mark only answers actually re-resolved: their numbers were computed
-        // now, not when the conversation happened.
-        if (resolved && !this.viewConfig.suppressStaleAnswerNotice) {
-            this.markAsStaleAnswer();
-        }
         this.isRendered = true;
-    }
-    /**
-     * Adds the "data may have changed" notice to the rendered frame as a
-     * native tooltip, so it needs no stylesheet and cannot disturb the host
-     * app's layout.
-     */
-    markAsStaleAnswer() {
-        if (!this.iFrame) {
-            return;
-        }
-        this.iFrame.title = this.viewConfig.staleAnswerNoticeText || DEFAULT_STALE_ANSWER_NOTICE;
-        // Exposed so a host app can style or replace the native tooltip.
-        this.iFrame.dataset.tsStaleAnswer = 'true';
     }
 }
 
-export { Action, AnswerService, AppEmbed, ApplicabilityLevel, AuthEvent, AuthFailureType, AuthStatus, AuthType, BackgroundFormatType, BodylessConversation, ConditionalFormattingComparisonType, ConditionalFormattingOperator, ContextMenuTriggerOptions, ContextType, ConversationEmbed, CustomActionTarget, CustomActionsPosition, DataLabelFilterOperator, DataPanelCustomColumnGroupsAccordionState$1 as DataPanelCustomColumnGroupsAccordionState, DataSourceVisualMode, EmbedErrorCodes, EmbedErrorSeverity, EmbedEvent, ErrorDetailsTypes, HomeLeftNavItem, HomePage, HomePageSearchBarMode, HomepageModule, HostEvent, InterceptedApiType, LegendPosition, ListPage, ListPageColumns, LiveboardEmbed, LogLevel, MIXPANEL_EVENT, Page, PinboardEmbed, PrefetchFeatures, PrimaryNavbarVersion, RuntimeFilterOp, SearchBarEmbed, SearchEmbed, SpotterAgentEmbed, SpotterEmbed, SpotterExperienceVersion, SpotterQueryMode, TableContentDensity, TableTheme, UIPassthroughEvent, convertFilterChangedToUpdateFiltersPayload, createLiveboardWithAnswers, executeTML, exportTML, getAnswerFromQuery, getEmbedConfig as getInitConfig, getSessionInfo, init, logout, prefetch, reloadIframe, resetCachedAuthToken, startAutoMCPFrameRenderer, tokenizedFetch, uploadMixpanelEvent };
+export { Action, AnswerService, AppEmbed, ApplicabilityLevel, AuthEvent, AuthFailureType, AuthStatus, AuthType, BackgroundFormatType, BodylessConversation, ConditionalFormattingComparisonType, ConditionalFormattingOperator, ContextMenuTriggerOptions, ContextType, ConversationEmbed, CustomActionTarget, CustomActionsPosition, DataLabelFilterOperator, DataPanelCustomColumnGroupsAccordionState$1 as DataPanelCustomColumnGroupsAccordionState, DataSourceVisualMode, EmbedErrorCodes, EmbedErrorSeverity, EmbedEvent, ErrorDetailsTypes, HomeLeftNavItem, HomePage, HomePageSearchBarMode, HomepageModule, HostEvent, InterceptedApiType, LegendPosition, ListPage, ListPageColumns, LiveboardEmbed, LogLevel, MIXPANEL_EVENT, Page, PinboardEmbed, PrefetchFeatures, PrimaryNavbarVersion, RuntimeFilterOp, SearchBarEmbed, SearchEmbed, SpotterAgentEmbed, SpotterEmbed, SpotterQueryMode, TableContentDensity, TableTheme, UIPassthroughEvent, convertFilterChangedToUpdateFiltersPayload, createLiveboardWithAnswers, executeTML, exportTML, getAnswerFromQuery, getEmbedConfig as getInitConfig, getSessionInfo, init, logout, prefetch, reloadIframe, resetCachedAuthToken, startAutoMCPFrameRenderer, tokenizedFetch, uploadMixpanelEvent };

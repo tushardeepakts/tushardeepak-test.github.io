@@ -1,9 +1,10 @@
 import {
-  AppEmbed,
   AuthType,
+  CustomActionsPosition,
+  CustomActionTarget,
   EmbedEvent,
   init,
-  Page
+  SearchEmbed
 } from "./tsembed.es.js";
 init({
   thoughtSpotHost: "https://172.32.90.211:8443/",
@@ -13,16 +14,34 @@ const app = document.getElementById("app");
 const div = document.createElement("div");
 div.classList.add("tile");
 app?.appendChild(div);
-const appEmbed = new AppEmbed(div, {
-  pageId: Page.Home,
-  showPrimaryNavbar: true,
-  // SCAL-301123: hide the "Customize homepage" button via the standard
-  // hiddenActions mechanism.
-  hiddenActions: [],
-  disabledActions: []
-  // disabledActionReason: 'This action is disabled for this embed',
+const searchEmbed = new SearchEmbed(div, {
+  // SCAL-324479: up to 2 PRIMARY custom actions per target are allowed.
+  // The 3rd PRIMARY action below should be dropped with a console warning.
+  customActions: [
+    {
+      id: "primary-action-1",
+      name: "Primary Action 1",
+      position: CustomActionsPosition.PRIMARY,
+      target: CustomActionTarget.ANSWER
+    },
+    {
+      id: "primary-action-2",
+      name: "Primary Action 2",
+      position: CustomActionsPosition.PRIMARY,
+      target: CustomActionTarget.ANSWER
+    },
+    {
+      id: "primary-action-3",
+      name: "Primary Action 3 (should be dropped)",
+      position: CustomActionsPosition.PRIMARY,
+      target: CustomActionTarget.ANSWER
+    }
+  ]
 });
-appEmbed.on(EmbedEvent.Load, () => {
-  console.log("AppEmbed loaded");
+searchEmbed.on(EmbedEvent.Load, () => {
+  console.log("SearchEmbed loaded");
 });
-appEmbed.render();
+searchEmbed.on(EmbedEvent.CustomAction, (payload) => {
+  console.log("Custom action clicked:", payload);
+});
+searchEmbed.render();
