@@ -1,4 +1,4 @@
-/* @thoughtspot/visual-embed-sdk version 1.52.1 */
+/* @thoughtspot/visual-embed-sdk version 1.53.1 */
 'use client';
 function _mergeNamespaces(n, m) {
     m.forEach(function (e) {
@@ -471,6 +471,7 @@ var EmbedEvent;
      * })
      * ```
      * @returns isLoggedIn - A Boolean specifying whether authentication was successful.
+     * Payload: {@link AuthInitPayload}.
      */
     EmbedEvent["AuthInit"] = "authInit";
     /**
@@ -490,6 +491,7 @@ var EmbedEvent;
     /**
      * Data pertaining to an Answer, Liveboard or Spotter visualization is received.
      * The event payload includes the raw data of the object.
+     * Payload: {@link DataEventPayload}.
      * @return data -  Answer of Liveboard data
      * @version SDK: 1.1.0 | ThoughtSpot: ts7.may.cl, 8.4.1.sw
      * @example
@@ -503,6 +505,7 @@ var EmbedEvent;
     EmbedEvent["Data"] = "data";
     /**
      * Search query has been updated by the user.
+     * Payload: {@link QueryChangedPayload} or a string.
      * @version SDK: 1.4.0 | ThoughtSpot: ts7.sep.cl, 8.4.1.sw
      * @example
      * ```js
@@ -545,6 +548,7 @@ var EmbedEvent;
      *     })
      * })
      * ```
+     * Payload: {@link DrilldownPayload}.
      */
     EmbedEvent["Drilldown"] = "drillDown";
     /**
@@ -557,6 +561,7 @@ var EmbedEvent;
      *    console.log('DataSourceSelected', payload);
      * })
      * ```
+     * Payload: {@link DataSourceSelectedPayload} or string[].
      */
     EmbedEvent["DataSourceSelected"] = "dataSourceSelected";
     /**
@@ -569,6 +574,7 @@ var EmbedEvent;
      *   console.log('AddRemoveColumns', payload);
      * })
      * ```
+     * Payload: string[].
      */
     EmbedEvent["AddRemoveColumns"] = "addRemoveColumns";
     /**
@@ -586,6 +592,7 @@ var EmbedEvent;
      *     }
      * })
      * ```
+     * Payload: {@link CustomActionPayload} (on() enriches it to {@link CustomActionEventPayload}).
      */
     EmbedEvent["CustomAction"] = "customAction";
     /**
@@ -598,6 +605,7 @@ var EmbedEvent;
      *      console.log('VizPointDoubleClick', payload);
      * })
      * ```
+     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointDoubleClick"] = "vizPointDoubleClick";
     /**
@@ -617,6 +625,7 @@ var EmbedEvent;
      *   )
      * });
      * ```
+     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointClick"] = "vizPointClick";
     /**
@@ -669,6 +678,7 @@ var EmbedEvent;
      *   // { errorType: "API", message: '...', code: '...' }
      * });
      * ```
+     * Payload: {@link EmbedErrorPayload} or a string.
      */
     EmbedEvent["Error"] = "Error";
     /**
@@ -719,6 +729,7 @@ var EmbedEvent;
      * The center of visible iframe viewport is calculated.
      * @returns data - The center of the visible Iframe viewport.
      * @hidden
+     * Payload: none.
      */
     EmbedEvent["EmbedIframeCenter"] = "EmbedIframeCenter";
     /**
@@ -775,6 +786,7 @@ var EmbedEvent;
      *    console.log('dialog open', payload);
      *  })
      * ```
+     * Payload: none.
      */
     EmbedEvent["DialogOpen"] = "dialog-open";
     /**
@@ -786,12 +798,19 @@ var EmbedEvent;
      *     console.log('dialog close', payload);
      * })
      * ```
+     * Payload: none.
      */
     EmbedEvent["DialogClose"] = "dialog-close";
     /**
      * Emitted when the Liveboard shell loads.
      * You can use this event as a hook to trigger
      * other events on the rendered Liveboard.
+     *
+     * From SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl, the payload contains basic
+     * data about the rendered Liveboard. In earlier versions, the payload is empty.
+     * Make sure that a field is present before you use it.
+     * Payload: {@link LiveboardRenderedData}.
+     *
      * @version SDK: 1.9.1 | ThoughtSpot: 8.1.0.cl, 8.4.1.sw
      * @example
      * ```js
@@ -810,6 +829,40 @@ var EmbedEvent;
      * ```
      */
     EmbedEvent["LiveboardRendered"] = "PinboardRendered";
+    /**
+     * Emitted when the header of a Liveboard has loaded.
+     * The Liveboard header loads before the visualizations,
+     * so you can use this event to show early content or
+     * trigger actions without waiting for the full
+     * Liveboard to render.
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.on(EmbedEvent.LiveboardHeaderLoaded,
+     *     payload => {
+     *         console.log('Liveboard header is loaded',
+     *             payload);
+     *     })
+     * ```
+     * Payload: {@link LiveboardHeaderLoadedPayload}.
+     */
+    EmbedEvent["LiveboardHeaderLoaded"] = "LiveboardHeaderLoaded";
+    /**
+     * Emitted when the top users (recent viewers) of a
+     * Liveboard have been loaded. The payload contains the
+     * list of users who have recently viewed the Liveboard.
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.on(EmbedEvent.LiveboardTopUsersLoaded,
+     *     payload => {
+     *         console.log('Top users loaded',
+     *             payload);
+     *     })
+     * ```
+     * Payload: {@link LiveboardTopUsersLoadedPayload}.
+     */
+    EmbedEvent["LiveboardTopUsersLoaded"] = "LiveboardTopUsersLoaded";
     /**
      * Emits all events.
      * @version SDK: 1.10.0 | ThoughtSpot: 8.2.0.cl, 8.4.1.sw
@@ -838,6 +891,7 @@ var EmbedEvent;
      *    console.log('Save', payload)
      * })
      * ```
+     * Payload: {@link SaveEventPayload}.
      */
     EmbedEvent["Save"] = "save";
     /**
@@ -854,6 +908,7 @@ var EmbedEvent;
      * vizId: '730496d6-6903-4601-937e-2c691821af3c'
      * })
      * ```
+     * Payload: {@link VizScope}.
      */
     EmbedEvent["Download"] = "download";
     /**
@@ -873,6 +928,7 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsPng, payload => {
      *   console.log('download PNG', payload)})
      * ```
+     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsPng"] = "downloadAsPng";
     /**
@@ -892,6 +948,7 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsPdf, payload => {
      *   console.log('download PDF', payload)})
      * ```
+     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsPdf"] = "downloadAsPdf";
     /**
@@ -911,6 +968,7 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsCsv, payload => {
      *    console.log('download CSV', payload)})
      * ```
+     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsCsv"] = "downloadAsCsv";
     /**
@@ -930,6 +988,7 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.DownloadAsXlsx, payload => {
      *   console.log('download Xlsx', payload)})
      * ```
+     * Payload: {@link DownloadEventPayload}.
      */
     EmbedEvent["DownloadAsXlsx"] = "downloadAsXlsx";
     /**
@@ -941,6 +1000,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.DownloadLiveboardAsContinuousPDF, payload => {
      *   console.log('download liveboard as continuous PDF', payload)})
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["DownloadLiveboardAsContinuousPDF"] = "downloadLiveboardAsContinuousPDF";
     /**
@@ -957,6 +1017,7 @@ var EmbedEvent;
      * appEmbed.on(EmbedEvent.AnswerDelete, payload => {
      *    console.log('delete answer', payload)})
      * ```
+     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["AnswerDelete"] = "answerDelete";
     /**
@@ -968,6 +1029,7 @@ var EmbedEvent;
      *   console.log('AI Highlights', payload);
      * })
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["AIHighlights"] = "AIHighlights";
     /**
@@ -989,6 +1051,7 @@ var EmbedEvent;
      *    console.log('pin', payload)
      * })
      * ```
+     * Payload: {@link PinEventPayload}.
      */
     EmbedEvent["Pin"] = "pin";
     /**
@@ -1007,6 +1070,7 @@ var EmbedEvent;
      *   console.log('SpotIQ analyze', payload)
      * })
      * ```
+     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["SpotIQAnalyze"] = "spotIQAnalyze";
     /**
@@ -1060,6 +1124,7 @@ var EmbedEvent;
      *    console.log('copy to clipboard', payload);
      * })
      * ```
+     * Payload: {@link CopyToClipboardPayload}.
      */
     EmbedEvent["CopyToClipboard"] = "context-menu-item-copy-to-clipboard";
     /**
@@ -1071,6 +1136,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.UpdateTML)
      * })
      * ```
+     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["UpdateTML"] = "updateTSL";
     /**
@@ -1083,6 +1149,7 @@ var EmbedEvent;
      *    console.log('Edit TML', payload);
      * })
      * ```
+     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["EditTML"] = "editTSL";
     /**
@@ -1100,6 +1167,7 @@ var EmbedEvent;
      * searchEmbed.on(EmbedEvent.ExportTML, payload => {
      *     console.log('Export TML', payload)})
      * ```
+     * Payload: {@link TmlEventPayload}.
      */
     EmbedEvent["ExportTML"] = "exportTSL";
     /**
@@ -1138,6 +1206,7 @@ var EmbedEvent;
      *    console.log('show data', payload);
      * })
      * ```
+     * Payload: {@link AnswerScope}.
      */
     EmbedEvent["ShowUnderlyingData"] = "showUnderlyingData";
     /**
@@ -1149,6 +1218,7 @@ var EmbedEvent;
      *    console.log('switch view', payload);
      * })
      * ```
+     * Payload: {@link AnswerChartSwitcherPayload}.
      */
     EmbedEvent["AnswerChartSwitcher"] = "answerChartSwitcher";
     /**
@@ -1170,6 +1240,7 @@ var EmbedEvent;
      *    console.log('Liveboard details', payload);
      * })
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["LiveboardInfo"] = "pinboardInfo";
     /**
@@ -1181,6 +1252,7 @@ var EmbedEvent;
      *    console.log('favorites', payload);
      * })
      * ```
+     * Payload: {@link FavoritePayload}.
      */
     EmbedEvent["AddToFavorites"] = "addToFavorites";
     /**
@@ -1192,6 +1264,7 @@ var EmbedEvent;
      *    console.log('Liveboard schedule', payload);
      * })
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Schedule"] = "subscription";
     /**
@@ -1206,8 +1279,39 @@ var EmbedEvent;
      *    console.log('Liveboard edit', payload);
      * })
      * ```
+     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Edit"] = "edit";
+    /**
+     * Emitted when a user clicks **Edit** on a Liveboard.
+     *
+     * Fired alongside {@link EmbedEvent.Edit} for backward compatibility;
+     * listen to this instead of `Edit` to target the Liveboard surface only.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.on(EmbedEvent.EditLiveboard, payload => {
+     *    console.log('Liveboard edit', payload);
+     * })
+     * ```
+     */
+    EmbedEvent["EditLiveboard"] = "editLiveboard";
+    /**
+     * Emitted when a user clicks **Edit** on a visualization inside a
+     * Liveboard.
+     *
+     * Fired alongside {@link EmbedEvent.Edit} for backward compatibility;
+     * listen to this instead of `Edit` to target the visualization surface
+     * only.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.on(EmbedEvent.EditVisualization, payload => {
+     *    console.log('visualization edit', payload);
+     * })
+     * ```
+     */
+    EmbedEvent["EditVisualization"] = "editVisualization";
     /**
      * Emitted when a user clicks *Make a copy* on a Liveboard
      * @version SDK: 1.15.0 | ThoughtSpot: 8.7.0.cl, 8.8.1.sw
@@ -1217,6 +1321,7 @@ var EmbedEvent;
      *    console.log('Copy', payload);
      * })
      * ```
+     * Payload: {@link MakeACopyPayload}.
      */
     EmbedEvent["MakeACopy"] = "makeACopy";
     /**
@@ -1232,6 +1337,7 @@ var EmbedEvent;
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * })
      * ```
+     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Present"] = "present";
     /**
@@ -1242,6 +1348,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.Delete,
      *   {vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Delete"] = "delete";
     /**
@@ -1251,6 +1358,7 @@ var EmbedEvent;
      * ```js
      * liveboardEmbed.on(EmbedEvent.SchedulesList)
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["SchedulesList"] = "schedule-list";
     /**
@@ -1260,6 +1368,7 @@ var EmbedEvent;
      * ```js
      * liveboardEmbed.on(EmbedEvent.Cancel)
      * ```
+     * Payload: {@link LiveboardScope}.
      */
     EmbedEvent["Cancel"] = "cancel";
     /**
@@ -1270,6 +1379,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.Explore,  {
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
+     * Payload: {@link LiveboardVizScope}.
      */
     EmbedEvent["Explore"] = "explore";
     /**
@@ -1280,6 +1390,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.CopyLink, {
      *   vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
+     * Payload: {@link CopyLinkPayload}.
      */
     EmbedEvent["CopyLink"] = "embedDocument";
     /**
@@ -1291,6 +1402,7 @@ var EmbedEvent;
      * liveboardEmbed.on(EmbedEvent.CrossFilterChanged, {
      *    vizId: '730496d6-6903-4601-937e-2c691821af3c'})
      * ```
+     * Payload: {@link CrossFilterChangedPayload}.
      */
     EmbedEvent["CrossFilterChanged"] = "cross-filter-changed";
     /**
@@ -1302,6 +1414,7 @@ var EmbedEvent;
      *    console.log('VizPointClick', payload)
      * })
      * ```
+     * Payload: {@link VizInteractionPayload}.
      */
     EmbedEvent["VizPointRightClick"] = "vizPointRightClick";
     /**
@@ -1329,6 +1442,7 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.23.0 | ThoughtSpot: 9.4.0.cl, 9.5.0.sw
+     * Payload: {@link FilterChangedPayload}.
      */
     EmbedEvent["FilterChanged"] = "filterChanged";
     /**
@@ -1351,6 +1465,7 @@ var EmbedEvent;
      * @returns isPublic: boolean
      * @version SDK: 1.26.0 | ThoughtSpot: 9.7.0.cl, 9.8.0.sw
      * @deprecated SDK: 1.48.0 | ThoughtSpot: 26.5.0.cl
+     * Payload: {@link PersonalisedViewPayload}.
      */
     EmbedEvent["UpdatePersonalisedView"] = "updatePersonalisedView";
     /**
@@ -1372,6 +1487,7 @@ var EmbedEvent;
      * @returns isPublic: boolean
      * @version SDK: 1.26.0 | ThoughtSpot: 9.7.0.cl, 9.8.0.sw
      * @deprecated SDK: 1.48.0 | ThoughtSpot: 26.5.0.cl
+     * Payload: {@link PersonalisedViewPayload}.
      */
     EmbedEvent["SavePersonalisedView"] = "savePersonalisedView";
     /**
@@ -1446,6 +1562,7 @@ var EmbedEvent;
     /**
      * Emitted when a Liveboard or visualization is renamed.
      * @version SDK: 1.28.0 | ThoughtSpot: 9.10.5.cl, 10.1.0.sw
+     * Payload: {@link RenamePayload}.
      */
     EmbedEvent["Rename"] = "rename";
     /**
@@ -1531,6 +1648,7 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.29.0 | ThoughtSpot: 10.3.0.cl
+     * Payload: {@link ParameterChangedPayload}.
      */
     EmbedEvent["ParameterChanged"] = "parameterChanged";
     /**
@@ -1574,6 +1692,7 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.37.0 | ThoughtSpot: 10.8.0.cl
+     * Payload: {@link TableVizRenderedPayload}.
      */
     EmbedEvent["TableVizRendered"] = "TableVizRendered";
     /**
@@ -1598,12 +1717,14 @@ var EmbedEvent;
      * @hidden
      * Emitted when a user exits present mode.
      * @version SDK: 1.40.0 | ThoughtSpot: 10.11.0.cl
+     * Payload: {@link ExitPresentModePayload}.
      */
     EmbedEvent["ExitPresentMode"] = "exitPresentMode";
     /**
      * Emitted when a user requests the full height lazy load data.
      * @version SDK: 1.39.0 | ThoughtSpot: 10.10.0.cl
      * @hidden
+     * Payload: none.
      */
     EmbedEvent["RequestVisibleEmbedCoordinates"] = "requestVisibleEmbedCoordinates";
     /**
@@ -1637,6 +1758,7 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.45.0 | ThoughtSpot: 26.2.0.cl
+     * Payload: {@link VizScope}.
      */
     EmbedEvent["AddToCoaching"] = "addToCoaching";
     /**
@@ -1726,6 +1848,7 @@ var EmbedEvent;
      *     console.log('EmbedListenerReady');
      * })
      * ```
+     * Payload: none.
      */
     EmbedEvent["EmbedListenerReady"] = "EmbedListenerReady";
     /**
@@ -1879,6 +2002,25 @@ var EmbedEvent;
      * @version SDK: 1.52.0 | ThoughtSpot Cloud: 26.9.0.cl
      */
     EmbedEvent["SpotterShareConversationMenuItemSidebarClicked"] = "spotterShareConversationMenuItemSidebarClicked";
+    /**
+     * Emitted when the user clicks the upgrade button in the Spotter usage
+     * limit counter or banner. Requires `spotterUsageLimitConfig.isEnabled`.
+     * The host is expected to run its own upgrade flow, then trigger
+     * {@link HostEvent.SpotterRefreshUsageLimit} so Spotter picks up the new
+     * limits.
+     *
+     * `usageCount` is the total number of questions the user has asked across
+     * all sessions, not just the current one.
+     * @example
+     * ```js
+     * spotterEmbed.on(EmbedEvent.SpotterUsageLimitUpgrade, (payload) => {
+     *     // payload.data: { usageCount: number, usageLimit: number,
+     *     //                 status: 'withinLimit' | 'almostReached' | 'limitReached' }
+     * })
+     * ```
+     * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
+     */
+    EmbedEvent["SpotterUsageLimitUpgrade"] = "spotterUsageLimitUpgrade";
     /**
      * Emitted when a Spotter conversation is shared (recipients added, or a new
      * share created). The host builds its own link from shareId/convId + its
@@ -2100,6 +2242,7 @@ var EmbedEvent;
      * })
      * ```
      * @version SDK: 1.48.0 | ThoughtSpot Cloud: 26.5.0.cl
+     * Payload: {@link TestScheduleEmailPayload}.
      */
     EmbedEvent["SendTestScheduleEmail"] = "sendTestScheduleEmail";
     /**
@@ -2611,6 +2754,19 @@ var HostEvent;
      * ```
      */
     HostEvent["OpenAddParameterModal"] = "openAddParameterModal";
+    /**
+     * Add a tab to the Liveboard, the same action as the *Tab* option in the
+     * *Add* dropdown in the Liveboard edit header.
+     *
+     * The Liveboard must be in edit mode; the event is ignored otherwise.
+     *
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.trigger(HostEvent.OpenAddTabModal);
+     * ```
+     */
+    HostEvent["OpenAddTabModal"] = "openAddTabModal";
     /**
      * Open the parameter panel for a particular parameter on a Liveboard.
      * Mirrors {@link HostEvent.OpenFilter} for parameters.
@@ -3179,6 +3335,46 @@ var HostEvent;
      * @version SDK: 1.15.0 | ThoughtSpot: 8.7.0.cl, 8.8.1.sw
      */
     HostEvent["Edit"] = "edit";
+    /**
+     * Trigger the **Edit** action on a Liveboard only — does not affect a
+     * visualization's edit surface.
+     *
+     * Behaves like {@link HostEvent.Edit} restricted to the Liveboard
+     * surface. Use {@link HostEvent.EditVisualization} to target a
+     * visualization instead, or `HostEvent.Edit` to control whichever
+     * surface applies contextually (unchanged, existing behavior).
+     * @example
+     * ```js
+     * liveboardEmbed.trigger(HostEvent.EditLiveboard)
+     * ```
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     */
+    HostEvent["EditLiveboard"] = "editLiveboard";
+    /**
+     * Trigger the **Edit** action on a specific visualization inside a
+     * Liveboard only — does not affect the Liveboard-level edit surface.
+     * @param - Object parameter. Includes the following keys:
+     * - `vizId`: **Required.** The visualization to edit.
+     *
+     * @example
+     * ```js
+     * liveboardEmbed.trigger(HostEvent.EditVisualization, {vizId:
+     * '730496d6-6903-4601-937e-2c691821af3c'})
+     * ```
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     */
+    HostEvent["EditVisualization"] = "editVisualization";
+    /**
+     * Exits Liveboard edit mode , equivalent to clicking the
+     * *Cancel* button in the Liveboard edit header. The Liveboard returns to
+     * view mode and the embedded app emits the {@link EmbedEvent.Cancel} event.
+     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
+     * @example
+     * ```js
+     * liveboardEmbed.trigger(HostEvent.ExitEditMode);
+     * ```
+     */
+    HostEvent["ExitEditMode"] = "exitEditMode";
     /**
      * Trigger the **Copy link** action on a Liveboard or visualization
      * Payload: {@link VizScopedRequest}.
@@ -4488,6 +4684,29 @@ var HostEvent;
      */
     HostEvent["ExitSpotterSharedConversation"] = "ExitSpotterSharedConversation";
     /**
+     * Makes Spotter re-read the usage-limit data, for example after the host
+     * runs an upgrade flow or changes the user's limits or usage. Requires
+     * `spotterUsageLimitConfig.isEnabled`.
+     *
+     * The payload is optional. Both fields apply only to the current session,
+     * so the host must send them again after a reload.
+     * - `isUnlimited`: when `true`, hides usage tracking entirely
+     * - `isUpgradeButtonVisible`: when `false`, hides the upgrade button,
+     *   for hosts that allow upgrading only once. Overrides the initial value
+     *   from `spotterUsageLimitConfig.isUpgradeButtonVisible`
+     *
+     * Payload: {@link SpotterRefreshUsageLimitRequest}.
+     * @example
+     * ```js
+     * spotterEmbed.trigger(HostEvent.SpotterRefreshUsageLimit);
+     * spotterEmbed.trigger(HostEvent.SpotterRefreshUsageLimit, {
+     *     isUpgradeButtonVisible: false,
+     * });
+     * ```
+     * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
+     */
+    HostEvent["SpotterRefreshUsageLimit"] = "SpotterRefreshUsageLimit";
+    /**
      * Deletes the last prompt in spotter embed.
      * Payload: none.
      * @example
@@ -4714,6 +4933,39 @@ var HostEvent;
      * @version SDK: 1.49.0 | ThoughtSpot Cloud: 26.6.0.cl
      */
     HostEvent["RefreshLiveboardBrowserCache"] = "refreshLiveboardBrowserCache";
+    /**
+     * Switch the embed between dark appearance and its default appearance
+     * while it is open, without reloading it.
+     * Payload: {@link UpdateThemeRequest}.
+     *
+     * Use it to keep the embed in step with a theme switch in your
+     * application; the appearance the embed loads with is set by `isDarkMode`.
+     * The event resolves with the applied value, such as `{ isDarkMode: true }`.
+     * When dark appearance is not available in the embed, the embed does not
+     * change and the event rejects with an error message instead.
+     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
+     * @param - `isDarkMode` - `true` for dark appearance, `false` for the
+     * default appearance.
+     * @example
+     * ```js
+     * appEmbed.trigger(HostEvent.UpdateTheme, { isDarkMode: true });
+     * ```
+     * @example
+     * ```js
+     * // Follow a theme switch in your application
+     * const themeSwitch = document.querySelector('#theme-switch');
+     * themeSwitch.addEventListener('change', async (event) => {
+     *   try {
+     *     await appEmbed.trigger(HostEvent.UpdateTheme, {
+     *       isDarkMode: event.target.checked,
+     *     });
+     *   } catch (error) {
+     *     console.warn(error);
+     *   }
+     * });
+     * ```
+     */
+    HostEvent["UpdateTheme"] = "UpdateTheme";
 })(HostEvent || (HostEvent = {}));
 /**
  * The different visual modes that the data sources panel within
@@ -4741,6 +4993,23 @@ var DataSourceVisualMode;
 var Param;
 (function (Param) {
     Param["Tsmcp"] = "tsmcp";
+    /**
+     * Marker added by a host app replaying a stored conversation. Carries the
+     * analytical session (conversation) identifier, from which the renderer
+     * resolves the answer's current session parameters. Stripped before the
+     * URL reaches the ThoughtSpot application.
+     * @version SDK: 1.52.2 | ThoughtSpot Cloud: 26.9.0.cl
+     */
+    Param["TsmcpConversationId"] = "tsmcpConversationId";
+    /**
+     * Zero-based position of the answer within the conversation, counting only
+     * non-thinking answer items in message order. Accompanies
+     * {@link TsmcpConversationId}; defaults to 0 when absent. Stripped before
+     * the URL reaches the ThoughtSpot application.
+     * @version SDK: 1.52.2 | ThoughtSpot Cloud: 26.9.0.cl
+     */
+    Param["TsmcpAnswerIndex"] = "tsmcpAnswerIndex";
+    Param["IsMcpAnswerEmbed"] = "isMcpAnswerEmbed";
     Param["EmbedApp"] = "embedApp";
     Param["DataSources"] = "dataSources";
     Param["DataSourceMode"] = "dataSourceMode";
@@ -4904,6 +5173,9 @@ var Param;
     Param["SpotterDataSources"] = "spotterDataSources";
     Param["OpenSpotterOnLiveboardByDefault"] = "openSpotterOnLiveboardByDefault";
     Param["ShowAnswerEditPanel"] = "showAnswerEditPanel";
+    Param["IsDarkMode"] = "isDarkMode";
+    Param["RadiantThemeEnabled"] = "radiantThemeEnabled";
+    Param["SpotterExperienceVersion"] = "spotterExperienceVersion";
 })(Param || (Param = {}));
 /**
  * ThoughtSpot application pages include actions and menu commands
@@ -4940,6 +5212,21 @@ var Param;
 var Action;
 (function (Action) {
     /**
+     * The **Add** button on a Liveboard in edit mode.
+     * Controls the visibility and disabled state of the Add panel button
+     * in the Liveboard edit toolbar, which allows users to add
+     * visualizations, filters, parameters, and tabs.
+     * @example
+     * ```js
+     * hiddenActions: [Action.LiveboardAddPanel]
+     * // or
+     * disabledActions: [Action.LiveboardAddPanel]
+     * ```
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     */
+    Action["LiveboardAddPanel"] = "liveboardAddPanel";
+    /**
+     *
      * The **Save** action on an Answer or Liveboard.
      * Allows users to save the changes.
      * @example
@@ -5358,12 +5645,43 @@ var Action;
      * The *Edit* action on the Liveboard page and in the
      * visualization menu.
      * Opens a Liveboard or visualization in edit mode.
+     *
+     * Controls both surfaces together. To target one surface only, use
+     * {@link Action.EditLiveboard} or {@link Action.EditVisualization}.
      * @example
      * ```js
      * disabledActions: [Action.Edit]
      * ```
      */
     Action["Edit"] = "edit";
+    /**
+     * The *Edit* action on the Liveboard page only.
+     * Opens a Liveboard in edit mode.
+     *
+     * Does not affect the *Edit* action in the visualization menu; use
+     * {@link Action.EditVisualization} for that, or {@link Action.Edit} to
+     * control both surfaces together.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     * @example
+     * ```js
+     * disabledActions: [Action.EditLiveboard]
+     * ```
+     */
+    Action["EditLiveboard"] = "editLiveboard";
+    /**
+     * The *Edit* action in the visualization `...` menu only.
+     * Opens a visualization in the editor.
+     *
+     * Does not affect the *Edit* action on the Liveboard page; use
+     * {@link Action.EditLiveboard} for that, or {@link Action.Edit} to
+     * control both surfaces together.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
+     * @example
+     * ```js
+     * disabledActions: [Action.EditVisualization]
+     * ```
+     */
+    Action["EditVisualization"] = "editVisualization";
     /**
      * The text edit option for Liveboard and visualization titles.
      * @example
@@ -6909,6 +7227,28 @@ var Action;
      */
     Action["SpotterOnLiveboard"] = "spotterOnLiveboard";
     /**
+     * The **View explanation** button on Spotter answer cards, which opens the
+     * Answer Verification experience in `SpotterEmbed` (and the deprecated
+     * `ConversationEmbed`).
+     *
+     * Adding it to `hiddenActions` (or leaving it out of `visibleActions`)
+     * removes the button and restores the classic answer footer actions
+     * (Pin, Save, Download, Edit) with no explanation pane. Adding it to
+     * `disabledActions` keeps the button visible but inert, and shows the
+     * host's `disabledActionReason` as the tooltip.
+     *
+     * The button only exists when Answer Verification
+     * (`enableAnswerVerification`) is enabled on the cluster. This action
+     * controls its visibility; it does not turn the feature on.
+     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.11.0.cl
+     * @example
+     * ```js
+     * hiddenActions: [Action.SpotterViewExplanation]
+     * disabledActions: [Action.SpotterViewExplanation]
+     * ```
+     */
+    Action["SpotterViewExplanation"] = "spotterViewExplanation";
+    /***
      * Controls the visibility and disabled state of the "Chart Type" menu item
      * in Chart Settings V2.
      * @version SDK: 1.54.0 | ThoughtSpot Cloud: 26.11.0.cl
@@ -7139,6 +7479,149 @@ var Action;
      * ```
      */
     Action["CustomizeHomepage"] = "customizeHomepage";
+    /**
+     * Controls the visibility and disabled state of the rename button next to the Liveboard title in the Liveboard header.
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.RenameLiveboard],
+     *     disabledActions: [Action.RenameLiveboard],
+     * }
+     * ```
+     */
+    Action["RenameLiveboard"] = "renameLiveboard";
+    /**
+     * Controls the visibility and disabled state of the filter toggle button in the Liveboard header that opens and closes the filter panel.
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.FilterPanelToggle],
+     *     disabledActions: [Action.FilterPanelToggle],
+     * }
+     * ```
+     */
+    Action["FilterPanelToggle"] = "filterPanelToggle";
+    /**
+     * Controls the visibility and disabled state of the "Add scenario" action on an Answer.
+     * @version SDK: 1.56.0 | ThoughtSpot Cloud: 27.1.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.AddScenario],
+     *     disabledActions: [Action.AddScenario],
+     * }
+     * ```
+     */
+    Action["AddScenario"] = "addScenario";
+    /**
+     * Controls the visibility and disabled state of the *Cancel* button in the
+     * Liveboard edit header, the button that discards the changes made in edit
+     * mode and returns the Liveboard to view mode. The button is shown only
+     * while the Liveboard is in edit mode.
+     * @version SDK: 1.55.0 | ThoughtSpot Cloud: 26.12.0.cl
+     * @example
+     * ```js
+     * const liveboardEmbed = new LiveboardEmbed('#tsEmbed', {
+     *     ... // other embed view config
+     *     hiddenActions: [Action.Cancel],
+     * });
+     * ```
+     * @example
+     * ```js
+     * const liveboardEmbed = new LiveboardEmbed('#tsEmbed', {
+     *     ... // other embed view config
+     *     disabledActions: [Action.Cancel],
+     *     disabledActionReason: 'Save your changes to leave edit mode',
+     * });
+     * ```
+     */
+    Action["Cancel"] = "cancel";
+    /**
+     * Controls the visibility and disabled state of the "Version history" menu item for a Liveboard or Answer.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.8.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.ShowVersionHistory],
+     *     disabledActions: [Action.ShowVersionHistory],
+     * }
+     * ```
+     */
+    Action["ShowVersionHistory"] = "showVersionHistory";
+    /**
+     * Controls the visibility and disabled state of the "Enable version control" menu item for a Liveboard or Answer.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.10.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.EnableVersionControl],
+     *     disabledActions: [Action.EnableVersionControl],
+     * }
+     * ```
+     */
+    Action["EnableVersionControl"] = "enableVersionControl";
+    /**
+     * Controls the visibility and disabled state of the "Disable version control" menu item for a Liveboard or Answer.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.10.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.DisableVersionControl],
+     *     disabledActions: [Action.DisableVersionControl],
+     * }
+     * ```
+     */
+    Action["DisableVersionControl"] = "disableVersionControl";
+    /**
+     * Controls the visibility and disabled state of the "Withdraw verification" menu item for a verified Liveboard.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 9.8.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.WithdrawVerification],
+     *     disabledActions: [Action.WithdrawVerification],
+     * }
+     * ```
+     */
+    Action["WithdrawVerification"] = "withdrawVerification";
+    /**
+     * Controls the visibility and disabled state of the "Switch to new chart experience" menu item on an Answer.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.10.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.SwitchToNewChartExperience],
+     *     disabledActions: [Action.SwitchToNewChartExperience],
+     * }
+     * ```
+     */
+    Action["SwitchToNewChartExperience"] = "switchToNewChartExperience";
+    /**
+     * Controls the visibility and disabled state of the "Switch to classic chart experience" menu item on an Answer.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.10.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.SwitchToClassicChartExperience],
+     *     disabledActions: [Action.SwitchToClassicChartExperience],
+     * }
+     * ```
+     */
+    Action["SwitchToClassicChartExperience"] = "switchToClassicChartExperience";
+    /**
+     * Controls the visibility and disabled state of the "Monitor" menu item on an Answer, which includes the alert options.
+     * @version SDK: 1.54.0 | ThoughtSpot Cloud: 10.5.0.cl
+     * @example
+     * ```js
+     * {
+     *     hiddenActions: [Action.Monitor],
+     *     disabledActions: [Action.Monitor],
+     * }
+     * ```
+     */
+    Action["Monitor"] = "monitor";
 })(Action || (Action = {}));
 var PrefetchFeatures;
 (function (PrefetchFeatures) {
@@ -7165,9 +7648,7 @@ var CustomActionsPosition;
 (function (CustomActionsPosition) {
     /**
      * Shows the action as a primary button
-     * in the toolbar area of the embed. Up to
-     * 2 PRIMARY actions are supported per
-     * target; additional ones are rejected.
+     * in the toolbar area of the embed.
      */
     CustomActionsPosition["PRIMARY"] = "PRIMARY";
     /**
@@ -7645,7 +8126,7 @@ var TableContentDensity;
     TableContentDensity["Compact"] = "COMPACT";
 })(TableContentDensity || (TableContentDensity = {}));
 
-var version$1="1.52.1";var pkg = {version:version$1};
+var version$1="1.53.1";var pkg = {version:version$1};
 
 const { version } = pkg;
 
@@ -7830,8 +8311,8 @@ const CUSTOM_ACTIONS_ERROR_MESSAGE = {
     INVALID_METADATA_IDS: (targetType, invalidIds, supportedIds) => `Invalid metadata IDs for ${targetType.toLowerCase()}-level custom actions: ${invalidIds.join(', ')}. Supported metadata IDs: ${supportedIds}`,
     INVALID_DATA_MODEL_IDS: (targetType, invalidIds, supportedIds) => `Invalid data model IDs for ${targetType.toLowerCase()}-level custom actions: ${invalidIds.join(', ')}. Supported data model IDs: ${supportedIds}`,
     INVALID_FIELDS: (targetType, invalidFields, supportedFields) => `Invalid fields for ${targetType.toLowerCase()}-level custom actions: ${invalidFields.join(', ')}. Supported fields: ${supportedFields}`,
+    INVALID_MENU_INDEX_POSITION: (id, position) => `Custom Action Validation Error for '${id}': 'menuIndex' is only valid for position: MENU, but got position '${position}'`,
     DUPLICATE_IDS: (id, duplicateNames, keptName) => `Duplicate custom action ID '${id}' found. Actions with names '${duplicateNames.join("', '")}' will be ignored. Keeping '${keptName}'.`,
-    TOO_MANY_PRIMARY_ACTIONS: (id, targetType, max) => `Custom Action Validation Error for '${id}': Maximum of ${max} PRIMARY actions allowed for ${targetType.toLowerCase()}-level custom actions.`,
 };
 
 /**
@@ -8993,11 +9474,11 @@ var nativeObjectToString = objectProto$a.toString;
  * @param {*} value The value to convert.
  * @returns {string} Returns the converted string.
  */
-function objectToString(value) {
+function objectToString$1(value) {
   return nativeObjectToString.call(value);
 }
 
-var _objectToString = objectToString;
+var _objectToString = objectToString$1;
 
 /** `Object#toString` result references. */
 var nullTag$1 = '[object Null]',
@@ -10815,7 +11296,7 @@ class AnswerService {
     async getTML() {
         const { object } = await this.executeQuery(getAnswerTML, {});
         const edoc = object[0].edoc;
-        const YAML = await import('./index-C1pmYb5H.js');
+        const YAML = await import('./index-DoGWRrow.js');
         const parsedDoc = YAML.parse(edoc);
         return {
             answer: {
@@ -10926,7 +11407,7 @@ function getDisplayedViz(visualizations, displayMode) {
  * @param {Array} values The values to append.
  * @returns {Array} Returns `array`.
  */
-function arrayPush(array, values) {
+function arrayPush$1(array, values) {
   var index = -1,
       length = values.length,
       offset = array.length;
@@ -10937,7 +11418,7 @@ function arrayPush(array, values) {
   return array;
 }
 
-var _arrayPush = arrayPush;
+var _arrayPush = arrayPush$1;
 
 /** Built-in value references. */
 var spreadableSymbol = _Symbol ? _Symbol.isConcatSpreadable : undefined;
@@ -11667,7 +12148,7 @@ var _stringToPath = stringToPath;
 
 /** Used to convert symbols to primitives and strings. */
 var symbolProto$1 = _Symbol ? _Symbol.prototype : undefined,
-    symbolToString = symbolProto$1 ? symbolProto$1.toString : undefined;
+    symbolToString$1 = symbolProto$1 ? symbolProto$1.toString : undefined;
 
 /**
  * The base implementation of `_.toString` which doesn't convert nullish
@@ -11687,7 +12168,7 @@ function baseToString(value) {
     return _arrayMap(value, baseToString) + '';
   }
   if (isSymbol_1(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
+    return symbolToString$1 ? symbolToString$1.call(value) : '';
   }
   var result = (value + '');
   return (result == '0' && (1 / value) == -Infinity) ? '-0' : result;
@@ -13295,7 +13776,7 @@ var _baseOrderBy = baseOrderBy;
  * @param {Array} args The arguments to invoke `func` with.
  * @returns {*} Returns the result of `func`.
  */
-function apply(func, thisArg, args) {
+function apply$1(func, thisArg, args) {
   switch (args.length) {
     case 0: return func.call(thisArg);
     case 1: return func.call(thisArg, args[0]);
@@ -13305,7 +13786,7 @@ function apply(func, thisArg, args) {
   return func.apply(thisArg, args);
 }
 
-var _apply = apply;
+var _apply = apply$1;
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -13533,10 +14014,6 @@ var sortBy = _baseRest(function(collection, iteratees) {
 var sortBy_1 = sortBy;
 
 /**
- * Maximum number of PRIMARY-position custom actions allowed
- */
-const MAX_PRIMARY_ACTIONS_PER_TARGET = 2;
-/**
  * Configuration for custom action validation rules.
  * Defines allowed positions, metadata IDs, data model IDs, and fields for each target
  * type.
@@ -13547,32 +14024,31 @@ const customActionValidationConfig = {
         positions: [CustomActionsPosition.PRIMARY, CustomActionsPosition.MENU],
         allowedMetadataIds: ['liveboardIds'],
         allowedDataModelIds: [],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'menuIndex'],
     },
     [CustomActionTarget.VIZ]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.PRIMARY, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: ['liveboardIds', 'vizIds', 'answerIds'],
         allowedDataModelIds: ['modelIds', 'modelColumnNames'],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
     },
     [CustomActionTarget.ANSWER]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.PRIMARY, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: ['answerIds'],
         allowedDataModelIds: ['modelIds', 'modelColumnNames'],
-        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds'],
+        allowedFields: ['name', 'id', 'position', 'target', 'metadataIds', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
     },
     [CustomActionTarget.SPOTTER]: {
         positions: [CustomActionsPosition.MENU, CustomActionsPosition.CONTEXTMENU],
         allowedMetadataIds: [],
         allowedDataModelIds: ['modelIds'],
-        allowedFields: ['name', 'id', 'position', 'target', 'orgIds', 'groupIds', 'dataModelIds'],
+        allowedFields: ['name', 'id', 'position', 'target', 'orgIds', 'groupIds', 'dataModelIds', 'menuIndex'],
     },
 };
 /**
  * Validates a single custom action based on its target type
  * @param action - The custom action to validate
- * @param primaryActionsPerTarget - Map tracking PRIMARY actions accepted so
- * far, keyed by target
+ * @param primaryActionsPerTarget - Map to track primary actions per target
  * @returns CustomActionValidation with isValid flag and reason string
  *
  * @hidden
@@ -13590,6 +14066,10 @@ const validateCustomAction = (action, primaryActionsPerTarget) => {
     if (!arrayIncludesString(config.positions, position)) {
         const supportedPositions = config.positions.join(', ');
         errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.INVALID_POSITION(position, targetType, supportedPositions));
+    }
+    // menuIndex only makes sense for actions shown in the "More" menu
+    if (action.menuIndex != null && position !== CustomActionsPosition.MENU) {
+        errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.INVALID_MENU_INDEX_POSITION(actionId, position));
     }
     // Validate metadata IDs
     if (metadataIds) {
@@ -13613,16 +14093,6 @@ const validateCustomAction = (action, primaryActionsPerTarget) => {
     if (invalidFields.length > 0) {
         const supportedFields = config.allowedFields.join(', ');
         errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.INVALID_FIELDS(targetType, invalidFields, supportedFields));
-    }
-    // Enforce the max number of PRIMARY actions per target
-    if (position === CustomActionsPosition.PRIMARY && errors.length === 0) {
-        const acceptedPrimaryActions = primaryActionsPerTarget.get(targetType) || [];
-        if (acceptedPrimaryActions.length >= MAX_PRIMARY_ACTIONS_PER_TARGET) {
-            errors.push(CUSTOM_ACTIONS_ERROR_MESSAGE.TOO_MANY_PRIMARY_ACTIONS(actionId, targetType, MAX_PRIMARY_ACTIONS_PER_TARGET));
-        }
-        else {
-            primaryActionsPerTarget.set(targetType, [...acceptedPrimaryActions, action]);
-        }
     }
     return {
         isValid: errors.length === 0,
@@ -13679,7 +14149,6 @@ const filterDuplicateIds = (actions) => {
  */
 const getCustomActions = (customActions) => {
     const errors = [];
-    const primaryActionsPerTarget = new Map();
     if (!customActions || !Array.isArray(customActions)) {
         return { actions: [], errors: [] };
     }
@@ -13705,7 +14174,7 @@ const getCustomActions = (customActions) => {
     // Step 3: Validate actions with unique IDs
     const finalValidActions = [];
     actionsWithUniqueIds.forEach((action) => {
-        const { isValid, errors: validationErrors } = validateCustomAction(action, primaryActionsPerTarget);
+        const { isValid, errors: validationErrors } = validateCustomAction(action);
         validationErrors.forEach(error => errors.push(error));
         if (isValid) {
             finalValidActions.push(action);
@@ -13719,7 +14188,22 @@ const getCustomActions = (customActions) => {
     if (warnings.length > 0) {
         logger$3.warn(warnings);
     }
-    const sortedActions = sortBy_1(finalValidActions, (a) => a.name.toLocaleLowerCase());
+    // Actions with menuIndex are sorted by menuIndex ascending (stable, so
+    // ties keep their given order). Remaining are sorted alphabetically.
+    const actionsWithMenuIndex = [];
+    const actionsWithoutMenuIndex = [];
+    finalValidActions.forEach((action) => {
+        if (action.menuIndex != null) {
+            actionsWithMenuIndex.push(action);
+        }
+        else {
+            actionsWithoutMenuIndex.push(action);
+        }
+    });
+    const sortedActions = [
+        ...sortBy_1(actionsWithMenuIndex, (a) => a.menuIndex),
+        ...sortBy_1(actionsWithoutMenuIndex, (a) => a.name.toLocaleLowerCase()),
+    ];
     return {
         actions: sortedActions,
         errors: errors,
@@ -19875,6 +20359,7 @@ let mixpanelInstance;
 const MIXPANEL_EVENT = {
     VISUAL_SDK_RENDER_START: 'visual-sdk-render-start',
     VISUAL_SDK_CALLED_INIT: 'visual-sdk-called-init',
+    VISUAL_SDK_INIT_ACTIONS: 'visual-sdk-init-actions',
     VISUAL_SDK_RENDER_COMPLETE: 'visual-sdk-render-complete',
     VISUAL_SDK_RENDER_FAILED: 'visual-sdk-render-failed',
     VISUAL_SDK_TRIGGER: 'visual-sdk-trigger',
@@ -19948,6 +20433,32 @@ function initMixpanel(sessionInfo) {
         logger$3.error('Error initializing mixpanel', e);
     }
 }
+
+// Membership is checked, not just the key: a bare key allowlist would upload an
+// arbitrary customer string sitting under `operator` verbatim.
+const isEnumMember = (enumObject, value) => typeof value === 'string' && Object.values(enumObject).includes(value);
+const uniqueEnumMembers = (enumObject, values) => Array.from(new Set(values.filter((v) => isEnumMember(enumObject, v))));
+const describeRuntimeFilters = (runtimeFilters) => ({
+    count: runtimeFilters.length,
+    operators: uniqueEnumMembers(RuntimeFilterOp, runtimeFilters.map((filter) => filter === null || filter === void 0 ? void 0 : filter.operator)),
+});
+const describeRuntimeParameters = (runtimeParameters) => ({
+    count: runtimeParameters.length,
+    applicabilityLevels: uniqueEnumMembers(ApplicabilityLevel, runtimeParameters.map((parameter) => { var _a; return (_a = parameter === null || parameter === void 0 ? void 0 : parameter.applicability) === null || _a === void 0 ? void 0 : _a.level; })),
+});
+// Column names, parameter names and operands are customer data and must never
+// reach Mixpanel; an unrecognized shape is dropped rather than forwarded.
+const summarizeRuntimeDataForTelemetry = (viewConfig) => {
+    const { runtimeFilters, runtimeParameters, ...rest } = viewConfig !== null && viewConfig !== void 0 ? viewConfig : {};
+    const telemetryProps = { ...rest };
+    if (Array.isArray(runtimeFilters)) {
+        telemetryProps.runtimeFilters = describeRuntimeFilters(runtimeFilters);
+    }
+    if (Array.isArray(runtimeParameters)) {
+        telemetryProps.runtimeParameters = describeRuntimeParameters(runtimeParameters);
+    }
+    return telemetryProps;
+};
 
 var eventemitter3 = createCommonjsModule(function (module) {
 
@@ -20906,11 +21417,13 @@ const doBasicAuth = async (embedConfig) => {
  * @param ssoURL
  * @param triggerContainer
  * @param triggerText
+ * @param thoughtSpotHost
  */
-async function samlPopupFlow(ssoURL, triggerContainer, triggerText) {
+async function samlPopupFlow(ssoURL, triggerContainer, triggerText, thoughtSpotHost) {
+    const thoughtSpotOrigin = new URL(thoughtSpotHost).origin;
     let popupClosedCheck;
     const openPopup = () => {
-        if (samlAuthWindow === null || samlAuthWindow.closed) {
+        if (!samlAuthWindow || samlAuthWindow.closed) {
             samlAuthWindow = window.open(ssoURL, '_blank', 'location=no,height=570,width=520,scrollbars=yes,status=yes');
             if (samlAuthWindow) {
                 popupClosedCheck = setInterval(() => {
@@ -20938,7 +21451,14 @@ async function samlPopupFlow(ssoURL, triggerContainer, triggerText) {
     }
     samlCompletionPromise = samlCompletionPromise || new Promise((resolve, reject) => {
         window.addEventListener('message', (e) => {
-            if (e.data.type === EmbedEvent.SAMLComplete) {
+            var _a;
+            // Only the SSO popup we opened, on the ThoughtSpot origin, may
+            // complete the flow or hand us a token; anything else could
+            // inject an attacker's token into the auth cache.
+            if (e.origin !== thoughtSpotOrigin || !samlAuthWindow || e.source !== samlAuthWindow) {
+                return;
+            }
+            if (((_a = e.data) === null || _a === void 0 ? void 0 : _a.type) === EmbedEvent.SAMLComplete) {
                 if (e.data.accessToken) {
                     const decodedToken = decodeURIComponent(e.data.accessToken);
                     storeAuthTokenInCache(decodedToken);
@@ -20979,7 +21499,7 @@ const doSSOAuth = async (embedConfig, ssoEndPoint) => {
     }
     const ssoURL = `${thoughtSpotHost}${ssoEndPoint}`;
     if (embedConfig.inPopup) {
-        await samlPopupFlow(ssoURL, embedConfig.authTriggerContainer, embedConfig.authTriggerText);
+        await samlPopupFlow(ssoURL, embedConfig.authTriggerContainer, embedConfig.authTriggerText, thoughtSpotHost);
         const cachedToken = getCacheAuthToken();
         if (cachedToken) {
             loggedInStatus = true;
@@ -20991,12 +21511,22 @@ const doSSOAuth = async (embedConfig, ssoEndPoint) => {
     }
     window.location.href = ssoURL;
 };
+/**
+ * The popup's SSO completion page. hostAppOrigin tells ThoughtSpot which
+ * origin opened the popup; the cluster only posts a token back to it if it
+ * is an allowed redirect domain.
+ * @param thoughtSpotHost
+ */
+const getSSOCompletePageUrl = (thoughtSpotHost) => {
+    const hostAppOrigin = encodeURIComponent(window.location.origin);
+    return `${thoughtSpotHost}/v2/#/embed/saml-complete?hostAppOrigin=${hostAppOrigin}`;
+};
 const doSamlAuth = async (embedConfig) => {
     const { thoughtSpotHost } = embedConfig;
     // redirect for SSO, when the SSO authentication is done, this page will be
     // loaded again and the same JS will execute again.
     const ssoRedirectUrl = embedConfig.inPopup
-        ? `${thoughtSpotHost}/v2/#/embed/saml-complete`
+        ? getSSOCompletePageUrl(thoughtSpotHost)
         : getRedirectUrl(window.location.href, SSO_REDIRECTION_MARKER_GUID, embedConfig.redirectPath);
     // bring back the page to the same URL
     const ssoEndPoint = `${EndPoints.SAML_LOGIN_TEMPLATE(encodeURIComponent(ssoRedirectUrl))}`;
@@ -21008,7 +21538,7 @@ const doOIDCAuth = async (embedConfig) => {
     // redirect for SSO, when the SSO authentication is done, this page will be
     // loaded again and the same JS will execute again.
     const ssoRedirectUrl = embedConfig.noRedirect || embedConfig.inPopup
-        ? `${thoughtSpotHost}/v2/#/embed/saml-complete`
+        ? getSSOCompletePageUrl(thoughtSpotHost)
         : getRedirectUrl(window.location.href, SSO_REDIRECTION_MARKER_GUID, embedConfig.redirectPath);
     // bring back the page to the same URL
     const baseEndpoint = `${EndPoints.OIDC_LOGIN_TEMPLATE(encodeURIComponent(ssoRedirectUrl))}`;
@@ -22257,6 +22787,9 @@ const TS_EMBED_ID = '_thoughtspot-embed';
  */
 const PRERENDER_CONTAINER_ORIGINAL_POSITION_KEY = 'tsEmbedOriginalPosition';
 const PRERENDER_WRAPPER_ID_PREFIX = 'tsEmbed-pre-render-wrapper-';
+const PRERENDER_PARKED_TRANSFORM = 'translateY(-100%)';
+/** The height createPreRenderWrapper() seeds before anything is measured. */
+const UNMEASURED_WRAPPER_HEIGHT = '100vh';
 // The container applies UpdateEmbedParams through React state, so a delivered
 // post is not the same as the params being in effect.
 const UPDATE_EMBED_PARAMS_SETTLE_MS = 200;
@@ -22264,6 +22797,97 @@ const UPDATE_EMBED_PARAMS_SETTLE_MS = 200;
 // truthy, so null or '' leaves the previous embed's values in place. '&' is
 // truthy and parses to {}.
 const NO_RUNTIME_PARAMS = '&';
+/**
+ * Params kept on the iframe `src` when `excludeConfigFromURL` is set. The rest
+ * are sent in the APP_INIT payload.
+ * @internal
+ */
+const BOOTSTRAP_URL_PARAMS = new Set([
+    // Marks the app as embedded.
+    Param.EmbedApp,
+    // The host page URL, used to validate the postMessage origin.
+    Param.HostAppUrl,
+    // The SDK version.
+    Param.Version,
+    // The authentication type set in init.
+    Param.AuthType,
+    // Whether the app signs the user in automatically.
+    Param.AutoLogin,
+    // Stops the app from redirecting to its login page.
+    Param.DisableLoginRedirect,
+    // Forces the SAML redirect for EmbeddedSSO.
+    Param.ForceSAMLAutoRedirect,
+    // Set for cookieless trusted authentication.
+    Param.cookieless,
+    // Lets the app use the pre-fetched auth info.
+    Param.preAuthCache,
+    // Blocks access to the full app outside the embed.
+    Param.blockNonEmbedFullAppAccess,
+    // The org to load, which the auth info depends on.
+    Param.OverrideOrgId,
+    // The host window height when the iframe loads.
+    Param.ViewPortHeight,
+    // The host window width when the iframe loads.
+    Param.ViewPortWidth,
+    // The app's client log level.
+    Param.ClientLogLevel,
+    // Lets the app override the native console.
+    Param.OverrideNativeConsole,
+    // An extra Pendo tracking key.
+    Param.PendoTrackingKey,
+    // The locale for number formatting.
+    Param.NumberFormatLocale,
+    // The locale for date formatting.
+    Param.DateFormatLocale,
+    // The currency format.
+    Param.CurrencyFormat,
+    // The UI language.
+    Param.Locale,
+    // Turns on dark mode.
+    Param.IsDarkMode,
+    // Turns on the radiant theme that dark mode needs.
+    Param.RadiantThemeEnabled,
+    // Marks a SearchEmbed or SearchBarEmbed.
+    Param.searchEmbed,
+    // Marks a LiveboardEmbed.
+    Param.livedBoardEmbed,
+    // Marks a SpotterAgentEmbed.
+    Param.isSpotterAgentEmbed,
+    // Marks a SpotterEmbed.
+    Param.SpotterEnabled,
+    // Marks an AppEmbed.
+    Param.IsFullAppEmbed,
+    // Legacy flag for the onBeforeGetVizData API intercept.
+    Param.IsOnBeforeGetVizDataInterceptEnabled,
+    // Lets the host override links in the app.
+    Param.LinkOverride,
+    // Turns on version 2 of the link overrides.
+    Param.EnableLinkOverridesV2,
+    // Stops links from opening in a new tab.
+    Param.DisableRedirectionLinksInNewTab,
+    // Uses replaceState instead of pushState for app navigation.
+    Param.OverrideHistoryState,
+    // Shows search results as a table.
+    Param.ForceTable,
+    // The URL of the custom string IDs file.
+    Param.StringIDsUrl,
+    // The data sources that search opens with.
+    Param.DataSources,
+    // Exposes translation IDs in the app.
+    Param.ExposeTranslationIDs,
+    // The URL of the custom icon sprite.
+    Param.IconSpriteUrl,
+    // The tag that filters the metadata lists in an AppEmbed.
+    Param.Tag,
+    // Set when a Liveboard embed shows a single visualization (vizId).
+    Param.vizEmbed,
+    // Whether search opens with the last-selected data sources.
+    Param.UseLastSelectedDataSource,
+    // The query mode Spotter opens in.
+    Param.DefaultQueryMode,
+    // The initial search query. Omitted with excludeSearchTokenStringFromURL.
+    Param.searchTokenString,
+]);
 /**
  * The event id map from v2 event names to v1 event id
  * v1 events are the classic embed events implemented in Blink v1
@@ -22292,6 +22916,7 @@ class TsEmbed {
         this.embedNodeKey = '__tsEmbed';
         this.embedContainerLoadedKey = '__tsEmbedContainerLoaded';
         this.isAppInitialized = false;
+        this.initDataParams = {};
         /**
          * Should we encode URL Query Params using base64 encoding which ThoughtSpot
          * will generate for embedding. This provides additional security to
@@ -22301,7 +22926,6 @@ class TsEmbed {
         this.shouldEncodeUrlQueryParams = false;
         this.defaultHiddenActions = [Action.ReportError];
         this.preRenderContainerEl = document.body;
-        this.containerScrollListener = null;
         /**
          * Handler for fullscreen change events
          */
@@ -22327,7 +22951,7 @@ class TsEmbed {
          */
         this.appInitCb = async (_, responder) => {
             try {
-                const appInitData = await this.getAppInitData();
+                const appInitData = this.withInitDataParams(await this.getAppInitData());
                 this.isAppInitialized = true;
                 responder({
                     type: EmbedEvent.APP_INIT,
@@ -22481,9 +23105,7 @@ class TsEmbed {
             ...viewConfig,
         };
         this.registerAppInit();
-        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_EMBED_CREATE, {
-            ...viewConfig,
-        });
+        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_EMBED_CREATE, summarizeRuntimeDataForTelemetry(viewConfig));
         const embedConfig = getEmbedConfig();
         if (embedConfig) {
             this.embedConfig = embedConfig;
@@ -22755,6 +23377,18 @@ class TsEmbed {
     async getAppInitData() {
         return this.getDefaultAppInitData();
     }
+    withInitDataParams(appInitData) {
+        if (isEmpty_1(this.initDataParams)) {
+            return appInitData;
+        }
+        return {
+            ...appInitData,
+            embedParams: {
+                ...this.initDataParams,
+                ...(appInitData.embedParams || {}),
+            },
+        };
+    }
     /**
      * Helper method to refresh/update auth token for TrustedAuthTokenCookieless auth type
      * @param responder - Function to send response back
@@ -22814,7 +23448,7 @@ class TsEmbed {
      * @returns queryParams
      */
     getBaseQueryParams(queryParams = {}) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         let hostAppUrl = ((_a = window === null || window === void 0 ? void 0 : window.location) === null || _a === void 0 ? void 0 : _a.host) || '';
         // The below check is needed because TS Cloud firewall, blocks
         // localhost/127.0.0.1 in any url param.
@@ -22850,6 +23484,15 @@ class TsEmbed {
         }
         if (this.embedConfig.currencyFormat) {
             queryParams[Param.CurrencyFormat] = this.embedConfig.currencyFormat;
+        }
+        // The view config wins over init, so an embed can opt out of a dark
+        // mode set in `init`. `??` and not `||`, so that an explicit `false`
+        // overrides an init-level `true`.
+        const isDarkMode = (_c = this.viewConfig.isDarkMode) !== null && _c !== void 0 ? _c : this.embedConfig.isDarkMode;
+        setParamIfDefined(queryParams, Param.IsDarkMode, isDarkMode, true);
+        // The app's dark mode lives in its radiant theme, so turn that on too.
+        if (isDarkMode) {
+            queryParams[Param.RadiantThemeEnabled] = true;
         }
         const { disabledActions, disabledActionReason, hiddenActions, visibleActions, hiddenTabs, visibleTabs, showAlerts, additionalFlags: additionalFlagsFromView, locale, customizations, contextMenuTrigger, linkOverride, enableLinkOverridesV2, insertInToSlide, disableRedirectionLinksInNewTab, overrideOrgId, overrideHistoryState, exposeTranslationIDs, primaryAction, } = this.viewConfig;
         const { additionalFlags: additionalFlagsFromInit } = this.embedConfig;
@@ -22916,7 +23559,7 @@ class TsEmbed {
         if (spriteUrl) {
             queryParams[Param.IconSpriteUrl] = spriteUrl.replace('https://', '');
         }
-        const stringIDsUrl = ((_c = customizations === null || customizations === void 0 ? void 0 : customizations.content) === null || _c === void 0 ? void 0 : _c.stringIDsUrl) || ((_d = embedCustomizations === null || embedCustomizations === void 0 ? void 0 : embedCustomizations.content) === null || _d === void 0 ? void 0 : _d.stringIDsUrl);
+        const stringIDsUrl = ((_d = customizations === null || customizations === void 0 ? void 0 : customizations.content) === null || _d === void 0 ? void 0 : _d.stringIDsUrl) || ((_e = embedCustomizations === null || embedCustomizations === void 0 ? void 0 : embedCustomizations.content) === null || _e === void 0 ? void 0 : _e.stringIDsUrl);
         if (stringIDsUrl) {
             queryParams[Param.StringIDsUrl] = stringIDsUrl;
         }
@@ -22970,12 +23613,31 @@ class TsEmbed {
         return path;
     }
     getEmbedParams() {
-        const queryParams = this.getEmbedParamsObject();
+        const queryParams = this.getUrlQueryParamsObject();
         return getQueryParamString(queryParams);
     }
     getEmbedParamsObject() {
         const params = this.getBaseQueryParams();
         return params;
+    }
+    getUrlQueryParamsObject() {
+        const queryParams = this.getEmbedParamsObject();
+        if (!this.isConfigExcludedFromUrl()) {
+            this.initDataParams = {};
+            return queryParams;
+        }
+        const urlParams = {};
+        const excludedParams = {};
+        Object.entries(queryParams).forEach(([key, value]) => {
+            if (BOOTSTRAP_URL_PARAMS.has(key)) {
+                urlParams[key] = value;
+            }
+            else {
+                excludedParams[key] = deserializeParam(value);
+            }
+        });
+        this.initDataParams = excludedParams;
+        return urlParams;
     }
     getRootIframeSrc() {
         const query = this.getEmbedParams();
@@ -23147,7 +23809,7 @@ class TsEmbed {
             top: '0',
             left: '0',
             width: '100vw',
-            height: '100vh',
+            height: UNMEASURED_WRAPPER_HEIGHT,
         };
         setStyleProperties(preRenderWrapper, initialPreRenderWrapperStyle);
         return preRenderWrapper;
@@ -23215,10 +23877,12 @@ class TsEmbed {
         return placeholder;
     }
     /**
-     * Resolves the configured preRenderContainer to a live element, falling
-     * back to `document.body`. A string selector is re-queried on every call so
-     * a remounted container (E.g.: React replacing the node) resolves to the
-     * fresh element; an element passed directly cannot be re-resolved.
+     * Resolves the configured preRenderContainer, or defaults to the host's
+     * nearest scrolling ancestor (document.body if none). The absolutely
+     * positioned wrapper only follows the page while it sits inside what
+     * scrolls, so body is right only when the document itself scrolls — an inner
+     * scroller left the frame pinned to the viewport (SCAL-338563). A string
+     * selector is re-queried each call so a remounted container resolves fresh.
      */
     resolvePreRenderContainerTarget() {
         var _a;
@@ -23238,7 +23902,13 @@ class TsEmbed {
         else if (containerConfig) {
             container = containerConfig;
         }
-        return (_a = container) !== null && _a !== void 0 ? _a : document.body;
+        if (container) {
+            return container;
+        }
+        if (!this.hostElement) {
+            return document.body;
+        }
+        return (_a = getScrollableAncestors(this.hostElement)[0]) !== null && _a !== void 0 ? _a : document.body;
     }
     inheritPreRenderContainer() {
         var _a;
@@ -23283,8 +23953,9 @@ class TsEmbed {
      * Re-attaches the wrapper to a live container when the previously resolved
      * one has been detached or no longer holds the wrapper — e.g. the host app
      * remounted a custom preRenderContainer, which would otherwise leave a stale
-     * reference and collapse the wrapper. Only string selectors can be
-     * re-resolved; a container passed as an element is left untouched.
+     * reference and collapse the wrapper. Selectors and the auto-resolved
+     * scrolling ancestor are both re-resolved; a container passed as an element
+     * is left untouched, as there is nothing to re-query.
      */
     reconcilePreRenderContainer() {
         const wrapper = this.preRenderWrapper;
@@ -23302,14 +23973,6 @@ class TsEmbed {
         // do, e.g. a detached container passed as an HTMLElement.
         if (resolved === stored && stored.contains(wrapper)) {
             return;
-        }
-        if (this.containerScrollListener && stored !== resolved) {
-            if (stored !== document.body) {
-                stored.removeEventListener('scroll', this.containerScrollListener);
-            }
-            if (resolved !== document.body) {
-                resolved.addEventListener('scroll', this.containerScrollListener);
-            }
         }
         this.preRenderContainerEl = resolved;
         this.applyPreRenderContainerPositioning();
@@ -23372,11 +24035,12 @@ class TsEmbed {
      */
     setIFrameHeight(height) {
         if (this.isPreRendered) {
+            const next = getCssDimension(height);
             if (this.insertedDomEl) {
-                this.insertedDomEl.style.height = getCssDimension(height);
+                this.insertedDomEl.style.height = next;
             }
             else if (this.preRenderWrapper) {
-                this.preRenderWrapper.style.height = getCssDimension(height);
+                this.preRenderWrapper.style.height = next;
             }
         }
         else {
@@ -23660,8 +24324,15 @@ class TsEmbed {
      * @param args
      */
     async render() {
+        var _a, _b, _c;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_RENDER_CALLED, {
             embedComponentType: this.viewConfig.embedComponentType,
+        });
+        uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_INIT_ACTIONS, {
+            embedComponentType: this.viewConfig.embedComponentType,
+            hiddenActions: (_a = this.viewConfig.hiddenActions) !== null && _a !== void 0 ? _a : [],
+            visibleActions: (_b = this.viewConfig.visibleActions) !== null && _b !== void 0 ? _b : [],
+            disabledActions: (_c = this.viewConfig.disabledActions) !== null && _c !== void 0 ? _c : [],
         });
         if (!getIsInitCalled()) {
             logger$3.error(ERROR_MESSAGE.RENDER_CALLED_BEFORE_INIT);
@@ -23811,34 +24482,47 @@ class TsEmbed {
         delete container.dataset[PRERENDER_CONTAINER_ORIGINAL_POSITION_KEY];
     }
     /**
-     * Detaches and clears the container scroll listener, if one is attached.
+     * Re-sizes the wrapper when its placeholder changes size.
+     *
+     * Position deliberately has no equivalent. An absolutely positioned wrapper
+     * follows its containing block for free, so a correctly placed frame is the
+     * browser's job and costs nothing; repositioning it on scroll would mean a
+     * layout read and a style write per frame to compensate for placing it in
+     * the wrong box. Size is the one thing the browser will not do for us: the
+     * placeholder grows when the embedded app reports a new height, and the
+     * wrapper has to be told.
      */
-    removeContainerScrollListener() {
-        if (!this.containerScrollListener) {
+    observePreRenderSize() {
+        var _a;
+        if (this.getPreRenderConfig().doNotTrackSize || typeof ResizeObserver === 'undefined') {
             return;
         }
-        const customContainer = this.getCustomPreRenderContainer();
-        customContainer === null || customContainer === void 0 ? void 0 : customContainer.removeEventListener('scroll', this.containerScrollListener);
-        this.containerScrollListener = null;
+        const placeholder = this.getPreRenderPlaceHolderElement();
+        if (!placeholder) {
+            return;
+        }
+        (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+        this.resizeObserver = new ResizeObserver(() => this.syncPreRenderStyle());
+        this.resizeObserver.observe(placeholder);
     }
     /**
      * Destroys the ThoughtSpot embed, and remove any nodes from the DOM.
      * @version SDK: 1.19.1 | ThoughtSpot: *
      */
     destroy() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         try {
             this.removeFullscreenChangeHandler();
-            this.removeContainerScrollListener();
+            (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
             this.unsubscribeToEvents();
-            (_a = this.preRenderWrapper) === null || _a === void 0 ? void 0 : _a.remove();
+            (_b = this.preRenderWrapper) === null || _b === void 0 ? void 0 : _b.remove();
             this.restorePreRenderContainerPosition();
             if (!this.isRendered) {
                 return;
             }
             if (!getEmbedConfig().waitForCleanupOnDestroy) {
                 this.trigger(HostEvent.DestroyEmbed);
-                (_c = (_b = this.insertedDomEl) === null || _b === void 0 ? void 0 : _b.parentNode) === null || _c === void 0 ? void 0 : _c.removeChild(this.insertedDomEl);
+                (_d = (_c = this.insertedDomEl) === null || _c === void 0 ? void 0 : _c.parentNode) === null || _d === void 0 ? void 0 : _d.removeChild(this.insertedDomEl);
             }
             else {
                 const cleanupTimeout = getEmbedConfig().cleanupTimeout;
@@ -23884,6 +24568,26 @@ class TsEmbed {
         this.isRendered = true;
         return this.renderIFrame(prerenderFrameSrc);
     }
+    isConfigExcludedFromUrl() {
+        var _a, _b, _c;
+        const flag = (_b = (_a = this.viewConfig.additionalFlags) === null || _a === void 0 ? void 0 : _a.excludeConfigFromURL) !== null && _b !== void 0 ? _b : (_c = this.embedConfig.additionalFlags) === null || _c === void 0 ? void 0 : _c.excludeConfigFromURL;
+        return flag === true || flag === 'true';
+    }
+    async triggerUpdateEmbedParams() {
+        try {
+            const params = await this.getUpdateEmbedParamsObject();
+            this.trigger(HostEvent.UpdateEmbedParams, params);
+        }
+        catch (error) {
+            logger$3.error(ERROR_MESSAGE.UPDATE_PARAMS_FAILED, error);
+            this.handleError({
+                errorType: ErrorDetailsTypes.API,
+                message: (error === null || error === void 0 ? void 0 : error.message) || ERROR_MESSAGE.UPDATE_PARAMS_FAILED,
+                code: EmbedErrorCodes.UPDATE_PARAMS_FAILED,
+                error: (error === null || error === void 0 ? void 0 : error.message) || error,
+            });
+        }
+    }
     beforePrerenderVisible() {
         // We can ignore this as its a bit expensive and the newer customers
         // have moved on to UpdateEmbedParams supported clusters
@@ -23894,17 +24598,7 @@ class TsEmbed {
         this.preRenderParamsApplied = new Promise((resolve) => {
             this.executeAfterEmbedContainerLoaded(async () => {
                 try {
-                    const params = await this.getUpdateEmbedParamsObject();
-                    this.trigger(HostEvent.UpdateEmbedParams, params);
-                }
-                catch (error) {
-                    logger$3.error(ERROR_MESSAGE.UPDATE_PARAMS_FAILED, error);
-                    this.handleError({
-                        errorType: ErrorDetailsTypes.API,
-                        message: (error === null || error === void 0 ? void 0 : error.message) || ERROR_MESSAGE.UPDATE_PARAMS_FAILED,
-                        code: EmbedErrorCodes.UPDATE_PARAMS_FAILED,
-                        error: (error === null || error === void 0 ? void 0 : error.message) || error,
-                    });
+                    await this.triggerUpdateEmbedParams();
                 }
                 finally {
                     setTimeout(resolve, UPDATE_EMBED_PARAMS_SETTLE_MS);
@@ -23919,7 +24613,7 @@ class TsEmbed {
      * wrapper to overlay it.
      */
     async showPreRender() {
-        var _a, _b;
+        var _a;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_SHOW_PRE_RENDER, {
             preRenderId: this.getPreRenderConfig().id,
             embedComponentType: this.viewConfig.embedComponentType,
@@ -23938,14 +24632,16 @@ class TsEmbed {
         this.beforePrerenderVisible();
         if (this.hostElement) {
             this.insertedDomEl = this.createPreRenderPlaceholder();
-            if (this.viewConfig.fullHeight) {
-                // If fullHeight has already sized the wrapper, seed the
-                // placeholder with the same height so syncPreRenderStyle gets
-                // an accurate rect.
-                const existingHeight = this.preRenderWrapper.style.height;
-                if (existingHeight) {
-                    this.insertedDomEl.style.height = existingHeight;
-                }
+            // Carry a height fullHeight has already measured onto the fresh
+            // placeholder, so a re-show does not flash at frameParams height.
+            // UNMEASURED_WRAPPER_HEIGHT is what createPreRenderWrapper() seeds
+            // before anything has been measured; treating that as a measurement
+            // is what made a first reveal overshoot to a full viewport.
+            const wrapperHeight = this.preRenderWrapper.style.height;
+            if (this.viewConfig.fullHeight
+                && wrapperHeight
+                && wrapperHeight !== UNMEASURED_WRAPPER_HEIGHT) {
+                this.insertedDomEl.style.height = wrapperHeight;
             }
             const placeHolderId = this.getPreRenderIds().placeHolder;
             // Remove any stale placeholder from a previous cycle. It is located
@@ -23959,29 +24655,19 @@ class TsEmbed {
             (_a = this.hostElement.querySelector(`#${placeHolderId}`)) === null || _a === void 0 ? void 0 : _a.remove();
             this.hostElement.appendChild(this.insertedDomEl);
             this.syncPreRenderStyle();
-            const customContainer = this.getCustomPreRenderContainer();
-            if (customContainer && !this.containerScrollListener) {
-                this.containerScrollListener = () => this.syncPreRenderStyle();
-                customContainer.addEventListener('scroll', this.containerScrollListener);
-            }
-            if (!this.getPreRenderConfig().doNotTrackSize) {
-                const observeTarget = (_b = this.insertedDomEl) !== null && _b !== void 0 ? _b : this.hostElement;
-                this.resizeObserver = new ResizeObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.target === observeTarget) {
-                            this.syncPreRenderStyle();
-                        }
-                    });
-                });
-                this.resizeObserver.observe(observeTarget);
-            }
+            this.observePreRenderSize();
         }
         removeStyleProperties(this.preRenderWrapper, [
             'z-index',
             'opacity',
-            'pointer-events',
             'overflow',
+            'transform',
         ]);
+        // Set rather than removed: a container that carries `pointer-events:
+        // none` — the usual styling for a parking root that must not swallow
+        // clicks — passes it down, and dropping the property here would leave
+        // the inherited `none` in force and the frame dead to input.
+        setStyleProperties(this.preRenderWrapper, { pointerEvents: 'auto' });
         this.subscribeToEvents();
         // Setup fullscreen change handler for prerendered components
         if (this.iFrame) {
@@ -24034,6 +24720,7 @@ class TsEmbed {
      * If the component is not preRendered, it issues a warning.
      */
     hidePreRender() {
+        var _a;
         uploadMixpanelEvent(MIXPANEL_EVENT.VISUAL_SDK_HIDE_PRE_RENDER, {
             preRenderId: this.getPreRenderConfig().id,
             embedComponentType: this.viewConfig.embedComponentType,
@@ -24045,20 +24732,25 @@ class TsEmbed {
             return;
         }
         const { zIndex } = this.getPreRenderConfig();
+        // A hidden pre-render frame must add no scroll space to the host page.
         const preRenderHideStyles = {
             opacity: '0',
             pointerEvents: 'none',
             zIndex: zIndex !== undefined ? String(zIndex) : '-1000',
-            position: 'absolute',
+            // Resolves to the viewport, so the hidden frame belongs to no
+            // scroll container's overflow; syncPreRenderStyle restores absolute
+            // on show.
+            position: 'fixed',
             top: '0',
             left: '0',
             overflow: 'hidden',
+            // The one exception: a transformed or contained ancestor captures
+            // `fixed`; parking above the top edge keeps it out of that
+            // overflow.
+            transform: PRERENDER_PARKED_TRANSFORM,
         };
         setStyleProperties(this.preRenderWrapper, preRenderHideStyles);
-        this.removeContainerScrollListener();
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect();
-        }
+        (_a = this.resizeObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
         const placeHolderEle = this.getPreRenderPlaceHolderElement();
         if (placeHolderEle) {
             placeHolderEle.parentElement.removeChild(placeHolderEle);
@@ -24224,8 +24916,11 @@ function buildSpotterSidebarAppInitData(defaultAppInitData, viewConfig, handleEr
             embedParams: { visualOverridesParams: visualOverrides },
         };
     }
+    // The app reads enableSpotterInstructionAndMoreSettings from the top level
+    // of embedParams, so lift it out of the sidebar config.
+    const { enableSpotterInstructionAndMoreSettings, ...sidebarConfigRest } = spotterSidebarConfig || {};
     const resolvedSidebarConfig = {
-        ...spotterSidebarConfig,
+        ...sidebarConfigRest,
         ...(resolvedEnablePastConversations !== undefined && {
             enablePastConversationsSidebar: resolvedEnablePastConversations,
         }),
@@ -24247,6 +24942,9 @@ function buildSpotterSidebarAppInitData(defaultAppInitData, viewConfig, handleEr
         embedParams: {
             ...(defaultAppInitData.embedParams || {}),
             spotterSidebarConfig: resolvedSidebarConfig,
+            ...(enableSpotterInstructionAndMoreSettings !== undefined
+                ? { enableSpotterInstructionAndMoreSettings }
+                : {}),
             ...(visualOverrides !== undefined ? { visualOverridesParams: visualOverrides } : {}),
         },
     };
@@ -24288,6 +24986,31 @@ function buildSpotterAnalystAppInitData(initData, viewConfig) {
         },
     };
 }
+function buildSpotterUsageLimitAppInitData(initData, viewConfig) {
+    const { spotterUsageLimitConfig } = viewConfig;
+    if (!spotterUsageLimitConfig || Object.keys(spotterUsageLimitConfig).length === 0) {
+        return initData;
+    }
+    return {
+        ...initData,
+        embedParams: {
+            ...(initData.embedParams || {}),
+            spotterUsageLimitConfig,
+        },
+    };
+}
+/**
+ * The Spotter experience version to load in the embedded view.
+ * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
+ * @group Embed components
+ */
+var SpotterExperienceVersion;
+(function (SpotterExperienceVersion) {
+    /**
+     * The Spotter experience version introduced in ThoughtSpot 26.11.
+     */
+    SpotterExperienceVersion["SPOTTER_2026_11"] = "spotter_2026_11";
+})(SpotterExperienceVersion || (SpotterExperienceVersion = {}));
 
 function buildSpotterVizAppInitData(initData, viewConfig) {
     const { spotterViz } = viewConfig;
@@ -24477,19 +25200,20 @@ class AppEmbed extends V1Embed {
         const sidebarInitData = buildSpotterSidebarAppInitData(defaultAppInitData, this.viewConfig, this.handleError.bind(this));
         const vizInitData = buildSpotterVizAppInitData(sidebarInitData, this.viewConfig);
         const shareInitData = buildSpotterShareConversationAppInitData(vizInitData, this.viewConfig);
-        return buildStarterPromptsAppInitData(shareInitData, this.viewConfig);
+        const starterPromptsInitData = buildStarterPromptsAppInitData(shareInitData, this.viewConfig);
+        return buildSpotterUsageLimitAppInitData(starterPromptsInitData, this.viewConfig);
     }
     /**
      * Constructs a map of parameters to be passed on to the
      * embedded Liveboard or visualization.
      */
     getEmbedParams() {
-        const params = this.getEmbedParamsObject();
+        const params = this.getUrlQueryParamsObject();
         return getQueryParamString(params, true);
     }
     getEmbedParamsObject() {
         var _a;
-        const { tag, hideTagFilterChips, hideObjects, liveboardV2, showPrimaryNavbar, disableProfileAndHelp, hideHamburger, hideObjectSearch, hideNotification, hideApplicationSwitcher, hideOrgSwitcher, enableSearchAssist, newConnectionsExperience, dataPanelV2 = true, updatedSpotterExperience, hideLiveboardHeader = false, showLiveboardTitle = true, showLiveboardDescription = true, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, hideHomepageLeftNav = false, modularHomeExperience, isLiveboardHeaderSticky = true, enableAskSage, collapseSearchBarInitially = false, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, enableCustomColumnGroups = false, dataPanelCustomGroupsAccordionInitialState = DataPanelCustomColumnGroupsAccordionState$1.EXPAND_ALL, collapseSearchBar = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, isEnhancedFilterInteractivityEnabled, homePageSearchBarMode, isUnifiedSearchExperienceEnabled = true, enablePendoHelp = true, discoveryExperience, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, defaultQueryMode, enableStopAnswerGenerationEmbed, spotterChatConfig, spotterDataSources, isThisPeriodInDateFiltersEnabled, enableHomepageAnnouncement = false, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, hideAnswerEditPanel, } = this.viewConfig;
+        const { tag, hideTagFilterChips, hideObjects, liveboardV2, showPrimaryNavbar, disableProfileAndHelp, hideHamburger, hideObjectSearch, hideNotification, hideApplicationSwitcher, hideOrgSwitcher, enableSearchAssist, newConnectionsExperience, dataPanelV2 = true, updatedSpotterExperience, hideLiveboardHeader = false, showLiveboardTitle = true, showLiveboardDescription = true, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, hideHomepageLeftNav = false, modularHomeExperience, isLiveboardHeaderSticky = true, enableAskSage, collapseSearchBarInitially = false, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, enableCustomColumnGroups = false, dataPanelCustomGroupsAccordionInitialState = DataPanelCustomColumnGroupsAccordionState$1.EXPAND_ALL, collapseSearchBar = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, isEnhancedFilterInteractivityEnabled, homePageSearchBarMode, isUnifiedSearchExperienceEnabled = true, enablePendoHelp = true, discoveryExperience, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, defaultQueryMode, enableStopAnswerGenerationEmbed, spotterChatConfig, spotterDataSources, isThisPeriodInDateFiltersEnabled, enableHomepageAnnouncement = false, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, hideAnswerEditPanel, spotterExperienceVersion, } = this.viewConfig;
         let params = {};
         params[Param.PrimaryNavHidden] = !showPrimaryNavbar;
         params[Param.HideProfleAndHelp] = !!disableProfileAndHelp;
@@ -24543,6 +25267,9 @@ class AppEmbed extends V1Embed {
         }
         if (spotterDataSources && spotterDataSources.length) {
             params[Param.SpotterDataSources] = JSON.stringify(spotterDataSources);
+        }
+        if (spotterExperienceVersion !== undefined) {
+            params[Param.SpotterExperienceVersion] = spotterExperienceVersion;
         }
         // Handle spotterChatConfig params
         if (spotterChatConfig) {
@@ -24662,7 +25389,7 @@ class AppEmbed extends V1Embed {
         }
         // Navigation V1/V2 and home page V1/V2 are deprecated. V3 is now the
         // default experience, Need to send navigationVersion=v3 and
-        // homepageVersion=v3 even when the no discoveryExperience / 
+        // homepageVersion=v3 even when the no discoveryExperience /
         // modularHomeExperience config is set. Without these
         // params, older TSA versions (< 26.7) fall back to V2 for nav and
         // home page, so the defaults must be sent explicitly from the SDK.
@@ -24801,6 +25528,46 @@ class AppEmbed extends V1Embed {
     }
 }
 
+/**
+ * This method is like `_.isEqual` except that it accepts `customizer` which
+ * is invoked to compare values. If `customizer` returns `undefined`, comparisons
+ * are handled by the method instead. The `customizer` is invoked with up to
+ * six arguments: (objValue, othValue [, index|key, object, other, stack]).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @param {Function} [customizer] The function to customize comparisons.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * function isGreeting(value) {
+ *   return /^h(?:i|ello)$/.test(value);
+ * }
+ *
+ * function customizer(objValue, othValue) {
+ *   if (isGreeting(objValue) && isGreeting(othValue)) {
+ *     return true;
+ *   }
+ * }
+ *
+ * var array = ['hello', 'goodbye'];
+ * var other = ['hi', 'goodbye'];
+ *
+ * _.isEqualWith(array, other, customizer);
+ * // => true
+ */
+function isEqualWith(value, other, customizer) {
+  customizer = typeof customizer == 'function' ? customizer : undefined;
+  var result = customizer ? customizer(value, other) : undefined;
+  return result === undefined ? _baseIsEqual(value, other, undefined, customizer) : !!result;
+}
+
+var isEqualWith_1 = isEqualWith;
+
 const getPreviewQuery = `
 query GetEurekaVizSnapshots(
     $vizId: String!, $liveboardId: String!) {
@@ -24915,6 +25682,11 @@ const HOME_SETTLE_MS = 200;
  * })
  * ```
  */
+/**
+ * A shallow copy without the keys whose value is `undefined`, so a key that was
+ * assigned `undefined` compares equal to one that was never set.
+ */
+const definedEntries = (config = {}) => Object.fromEntries(Object.entries(config).filter(([, value]) => value !== undefined));
 class LiveboardEmbed extends V1Embed {
     constructor(domSelector, viewConfig) {
         viewConfig.embedComponentType = 'LiveboardEmbed';
@@ -24958,7 +25730,7 @@ class LiveboardEmbed extends V1Embed {
      * embedded Liveboard or visualization.
      */
     getEmbedParams() {
-        const params = this.getEmbedParamsObject();
+        const params = this.getUrlQueryParamsObject();
         const queryParams = getQueryParamString(params, true);
         return queryParams;
     }
@@ -24966,7 +25738,7 @@ class LiveboardEmbed extends V1Embed {
         var _a;
         let params = {};
         params = this.getBaseQueryParams(params);
-        const { enableVizTransformations, visibleVizs, liveboardV2, vizId, hideTabPanel, activeTabId, hideLiveboardHeader, showLiveboardDescription, showLiveboardTitle, isLiveboardHeaderSticky = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, isEnhancedFilterInteractivityEnabled, enableAskSage, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, dataPanelV2 = true, updatedSpotterExperience, enableCustomColumnGroups = false, oAuthPollingInterval, isForceRedirect, dataSourceId, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, showSpotterLimitations, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, enableStopAnswerGenerationEmbed, spotterChatConfig, isThisPeriodInDateFiltersEnabled, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, } = this.viewConfig;
+        const { enableVizTransformations, visibleVizs, liveboardV2, vizId, hideTabPanel, activeTabId, hideLiveboardHeader, showLiveboardDescription, showLiveboardTitle, isLiveboardHeaderSticky = true, isLiveboardCompactHeaderEnabled, showLiveboardVerifiedBadge = true, showLiveboardReverifyBanner = true, hideIrrelevantChipsInLiveboardTabs, showMaskedFilterChip = false, isLiveboardMasterpiecesEnabled, newChartsLibrary, isEnhancedFilterInteractivityEnabled, enableAskSage, enable2ColumnLayout, isLiveboardAlwaysOn12ColLayout, dataPanelV2 = true, updatedSpotterExperience, enableCustomColumnGroups = false, oAuthPollingInterval, isForceRedirect, dataSourceId, coverAndFilterOptionInPDF, isLiveboardStylingAndGroupingEnabled, liveboardGutter, isPNGInScheduledEmailsEnabled = false, isLiveboardXLSXCSVDownloadEnabled, isGranularXLSXCSVSchedulesEnabled, showSpotterLimitations, isCentralizedLiveboardFilterUXEnabled = false, isScopedLiveboardFilteringEnabled, isLinkParametersEnabled, updatedSpotterChatPrompt, showSpotterRadiance, enableStopAnswerGenerationEmbed, spotterChatConfig, isThisPeriodInDateFiltersEnabled, isContinuousLiveboardPDFEnabled, enableLiveboardDataCache, spotterExperienceVersion, } = this.viewConfig;
         const preventLiveboardFilterRemoval = this.viewConfig.preventLiveboardFilterRemoval
             || this.viewConfig.preventPinboardFilterRemoval;
         (_a = this.fullHeightController) === null || _a === void 0 ? void 0 : _a.addQueryParams(params);
@@ -25027,6 +25799,9 @@ class LiveboardEmbed extends V1Embed {
         }
         if (isLiveboardStylingAndGroupingEnabled !== undefined) {
             params[Param.IsLiveboardStylingAndGroupingEnabled] = isLiveboardStylingAndGroupingEnabled;
+        }
+        if (spotterExperienceVersion !== undefined) {
+            params[Param.SpotterExperienceVersion] = spotterExperienceVersion;
         }
         if (liveboardGutter !== undefined) {
             params[Param.LiveboardGutter] = liveboardGutter;
@@ -25177,13 +25952,19 @@ class LiveboardEmbed extends V1Embed {
                 return;
             }
             addPreviewStylesIfNotPresent();
-            const div = document.createElement('div');
-            div.innerHTML = `
-                <div class=ts-viz-preview-loader>
-                    ${preview.vizContent}
-                </div>
-                `;
-            const previewDiv = div.firstElementChild;
+            const previewDiv = document.createElement('div');
+            previewDiv.className = 'ts-viz-preview-loader';
+            // vizContent is a stored, client-supplied snapshot that is rendered
+            // in the embedding page's own origin (outside the ThoughtSpot
+            // iframe). Injecting it raw is an XSS sink — event handlers/scripts
+            // in the snapshot would run in the embedder's origin. Sanitize it
+            // before injecting (SCAL-344913 / OFFSEC-1120).
+            //
+            // DOMPurify is loaded on demand so its ~8kB (gzipped) only ships to
+            // consumers that opt into the preview loader, keeping it out of the
+            // main bundle for everyone else.
+            const { default: DOMPurify } = await import('./purify.es-S6LMjzzI.js');
+            previewDiv.innerHTML = DOMPurify.sanitize(preview.vizContent);
             this.hostElement.appendChild(previewDiv);
             this.hostElement.style.position = 'relative';
             this.on(EmbedEvent.Data, () => {
@@ -25197,16 +25978,18 @@ class LiveboardEmbed extends V1Embed {
     beforePrerenderVisible() {
         super.beforePrerenderVisible();
         // Captured before showPreRender() hands the wrapper over to this
-        // instance. Itself means a hide/show, not a hand-over, so there is
-        // nothing stale to clear.
+        // instance. React builds a new instance per mount, so an equal config
+        // is a hide/show, not a hand-over: there is nothing stale to clear.
         const previous = this.getPreRenderObj();
-        const showing = previous === this ? undefined : previous === null || previous === void 0 ? void 0 : previous.currentLiveboardState;
+        const previousRoute = this.isSameEmbedConfig(previous)
+            ? undefined
+            : previous === null || previous === void 0 ? void 0 : previous.currentLiveboardState;
         this.executeAfterEmbedContainerLoaded(async () => {
             // Without this the params callback suspends on its await and
             // Navigate goes out first, so the container loads with the previous
             // config's filters.
             await this.preRenderParamsApplied;
-            if (this.isShowingLiveboardRoute(showing)) {
+            if (this.isAlreadyOnSameRoute(previousRoute)) {
                 // Navigate to the route we are already on is a no-op, so the
                 // liveboard keeps its state. Home unmounts the container, which
                 // clears it.
@@ -25227,17 +26010,27 @@ class LiveboardEmbed extends V1Embed {
             };
         });
     }
+    // definedEntries drops undefined-valued keys: a shown instance carries
+    // vizId/activeTabId/etc as undefined, so a raw isEqual never matches again.
+    // Functions compare equal, since React passes a fresh closure per render.
+    isSameEmbedConfig(previous) {
+        if (!previous)
+            return false;
+        if (previous === this)
+            return true;
+        return isEqualWith_1(definedEntries(previous.viewConfig), definedEntries(this.viewConfig), (a, b) => (typeof a === 'function' && typeof b === 'function' ? true : undefined));
+    }
     // The whole route, not just the liveboard id: the path is built from the
     // viz, tab and view too, so a same-liveboard show onto another tab is a
     // real navigation.
-    isShowingLiveboardRoute(showing) {
-        if (!(showing === null || showing === void 0 ? void 0 : showing.liveboardId))
+    isAlreadyOnSameRoute(previousRoute) {
+        if (!(previousRoute === null || previousRoute === void 0 ? void 0 : previousRoute.liveboardId))
             return false;
         const { liveboardId, vizId, activeTabId, personalizedViewId, } = this.viewConfig;
-        return showing.liveboardId === liveboardId
-            && showing.vizId === vizId
-            && showing.activeTabId === activeTabId
-            && showing.personalizedViewId === personalizedViewId;
+        return previousRoute.liveboardId === liveboardId
+            && previousRoute.vizId === vizId
+            && previousRoute.activeTabId === activeTabId
+            && previousRoute.personalizedViewId === personalizedViewId;
     }
     async handleRenderForPrerender() {
         if (isUndefined$1(this.viewConfig.liveboardId)) {
@@ -25489,7 +26282,7 @@ class SearchEmbed extends TsEmbed {
     }
     getEmbedParams() {
         const { runtimeParameters, runtimeFilters, excludeRuntimeParametersfromURL, excludeRuntimeFiltersfromURL, } = this.viewConfig;
-        const queryParams = this.getEmbedParamsObject();
+        const queryParams = this.getUrlQueryParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -25577,7 +26370,7 @@ class SearchBarEmbed extends TsEmbed {
      * @param dataSources A list of data source GUIDs
      */
     getIFrameSrc() {
-        const queryParams = this.getEmbedParamsObject();
+        const queryParams = this.getUrlQueryParamsObject();
         const path = 'search-bar-embed';
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
@@ -26011,7 +26804,7 @@ class ConversationMessage extends TsEmbed {
     getIframeSrc() {
         const { sessionId, genNo, acSessionId, acGenNo, convId, messageId, } = this.viewConfig;
         const path = 'conv-assist-answer';
-        const queryParams = this.getEmbedParamsObject();
+        const queryParams = this.getUrlQueryParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -26138,6 +26931,52 @@ var SpotterQueryMode;
     SpotterQueryMode["RESEARCH"] = "research";
 })(SpotterQueryMode || (SpotterQueryMode = {}));
 /**
+ * When the Spotter usage counter is shown, set through
+ * {@link SpotterUsageLimitConfig.usageCounterDisplayMode}.
+ * @group Embed components
+ * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
+ */
+var SpotterUsageCounterDisplayMode;
+(function (SpotterUsageCounterDisplayMode) {
+    /**
+     * Always show the usage counter.
+     */
+    SpotterUsageCounterDisplayMode["AlwaysVisible"] = "alwaysVisible";
+    /**
+     * Never show the usage counter.
+     */
+    SpotterUsageCounterDisplayMode["AlwaysHidden"] = "alwaysHidden";
+    /**
+     * Show the usage counter once usage reaches the warning threshold.
+     */
+    SpotterUsageCounterDisplayMode["VisibleAfterWarning"] = "visibleAfterWarning";
+    /**
+     * Show the usage counter once usage reaches the limit.
+     */
+    SpotterUsageCounterDisplayMode["VisibleAfterLimit"] = "visibleAfterLimit";
+})(SpotterUsageCounterDisplayMode || (SpotterUsageCounterDisplayMode = {}));
+/**
+ * Usage-limit status reported in the {@link EmbedEvent.SpotterUsageLimitUpgrade}
+ * payload.
+ * @group Embed components
+ * @version SDK: 1.53.0 | ThoughtSpot Cloud: 26.11.0.cl
+ */
+var SpotterUsageLimitStatus;
+(function (SpotterUsageLimitStatus) {
+    /**
+     * Usage is below the warning threshold.
+     */
+    SpotterUsageLimitStatus["WithinLimit"] = "withinLimit";
+    /**
+     * Usage has reached the warning threshold but not the limit.
+     */
+    SpotterUsageLimitStatus["AlmostReached"] = "almostReached";
+    /**
+     * Usage has reached the limit, so new questions are blocked.
+     */
+    SpotterUsageLimitStatus["LimitReached"] = "limitReached";
+})(SpotterUsageLimitStatus || (SpotterUsageLimitStatus = {}));
+/**
  * Embed ThoughtSpot AI Conversation.
  * @version SDK: 1.37.0 | ThoughtSpot: 10.9.0.cl
  * @group Embed components
@@ -26180,7 +27019,8 @@ class SpotterEmbed extends TsEmbed {
         const sidebarInitData = buildSpotterSidebarAppInitData(defaultAppInitData, this.viewConfig, this.handleError.bind(this));
         const shareInitData = buildSpotterShareConversationAppInitData(sidebarInitData, this.viewConfig);
         const starterPromptsInitData = buildStarterPromptsAppInitData(shareInitData, this.viewConfig);
-        return buildSpotterAnalystAppInitData(starterPromptsInitData, this.viewConfig);
+        const analystInitData = buildSpotterAnalystAppInitData(starterPromptsInitData, this.viewConfig);
+        return buildSpotterUsageLimitAppInitData(analystInitData, this.viewConfig);
     }
     getEmbedParamsObject() {
         const { searchOptions, disableSourceSelection, hideSourceSelection, dataPanelV2, updatedSpotterExperience, showSpotterLimitations, hideSampleQuestions, runtimeFilters, excludeRuntimeFiltersfromURL, runtimeParameters, excludeRuntimeParametersfromURL, updatedSpotterChatPrompt, showSpotterRadiance, defaultQueryMode, enableStopAnswerGenerationEmbed, spotterChatConfig, } = this.viewConfig;
@@ -26208,18 +27048,22 @@ class SpotterEmbed extends TsEmbed {
             }
         }
         setParamIfDefined(queryParams, Param.UpdatedSpotterExperience, updatedSpotterExperience, true);
+        setParamIfDefined(queryParams, Param.SpotterExperienceVersion, this.viewConfig.spotterExperienceVersion);
         return queryParams;
     }
     getIframeSrc() {
-        const { worksheetId, searchOptions, runtimeFilters, excludeRuntimeFiltersfromURL, runtimeParameters, excludeRuntimeParametersfromURL, sharedConversationId, dataSources, } = this.viewConfig;
+        const { worksheetId, searchOptions, runtimeFilters, excludeRuntimeFiltersfromURL, runtimeParameters, excludeRuntimeParametersfromURL, sharedConversationId, dataSources, spotterExperienceVersion, } = this.viewConfig;
         // Deep-link into the read-only shared-conversation reader view when a
         // shared conversation id is supplied (e.g. a recipient landing from a
         // host-configured CONVERSATION_URL share link); otherwise the normal
         // Spotter conversation surface.
-        const path = sharedConversationId
+        let path = sharedConversationId
             ? `insights/conv-assist/s/${encodeURIComponent(sharedConversationId)}`
             : 'insights/conv-assist';
-        const queryParams = this.getEmbedParamsObject();
+        if (spotterExperienceVersion === SpotterExperienceVersion.SPOTTER_2026_11) {
+            path = path.replace('insights/conv-assist', 'insights/spotter');
+        }
+        const queryParams = this.getUrlQueryParamsObject();
         let query = '';
         const queryParamsString = getQueryParamString(queryParams, true);
         if (queryParamsString) {
@@ -27010,6 +27854,41 @@ function convertFilterChangedToUpdateFiltersPayload(filterChangedPayload) {
 }
 
 /**
+ * Route the ThoughtSpot application uses to render a single conversational
+ * answer. Used when a replayed frame carries no route of its own.
+ */
+const CONV_ASSIST_ANSWER_ROUTE = '/embed/conv-assist-answer';
+/**
+ * Base path of the conversation service, proxied by the cluster's nginx as
+ * the `convex` upstream. These are the same handlers the public
+ * `/api/rest/2.0/ai/agent/conversations/...` endpoints proxy to, so the
+ * response shapes are identical, but calling them directly skips the prism
+ * hop and its error re-wrapping.
+ */
+const CONVERSATION_SERVICE_PATH = '/conversation/v2';
+const DEFAULT_STALE_ANSWER_NOTICE = 'This data may have changed since the last time you had a chat.';
+/**
+ * Actions hidden by default on Answers rendered by the ThoughtSpot MCP server
+ * (iframes carrying the `tsmcp=true` marker). Applied automatically by
+ * {@link AutoFrameRenderer} so the auto-rendered answer exposes a curated set of
+ * controls: Pin/Save/Download at the top level, Aggregate/Filter/Sort/Position in
+ * the column menu, and Exclude/Only include/Drill down/Show underlying data in the
+ * axis menu remain visible, while the actions below are removed.
+ *
+ * This is a denylist merged into {@link Param.HideActions}; anything not listed
+ * here stays visible. It is skipped when the caller supplies a `visibleActions`
+ * allowlist (see {@link AutoFrameRenderer.getEmbedParamsObject}).
+ */
+const HiddenActionItemByDefaultForMCPAnswers = [
+    Action.Edit,
+    Action.InConversationTraining,
+    Action.AxisMenuConditionalFormat,
+    Action.AxisMenuRename,
+    Action.AxisMenuEdit,
+    Action.AxisMenuRemove,
+    Action.MakeACopy,
+];
+/**
  * Starts an automatic renderer that watches the DOM for iframes containing
  * the `tsmcp=true` query parameter and replaces them with fully configured
  * ThoughtSpot embed iframes. The query parameter is automatically added by
@@ -27071,6 +27950,141 @@ function startAutoMCPFrameRenderer(viewConfig = {}) {
     observer.observe(document.body, { childList: true, subtree: true });
     return observer;
 }
+/**
+ * Writes resolved session parameters into the route's hash query string,
+ * preserving the route and any other hash params the source URL carried.
+ *
+ * @param sourceHash - The source URL's hash, with or without a leading `#`.
+ *   Falls back to the conversational-answer route when empty, so a host app
+ *   replaying a chat need only supply the conversation identifier.
+ */
+function buildAnswerHash(sourceHash, resolved) {
+    const withoutHash = (sourceHash || '').replace('#', '');
+    const [route, existingQuery] = withoutHash.split('?');
+    const params = new URLSearchParams(existingQuery || '');
+    Object.entries(resolved).forEach(([key, value]) => params.set(key, value));
+    return `${route || CONV_ASSIST_ANSWER_ROUTE}?${params.toString()}`;
+}
+/**
+ * Reads {@link Param.TsmcpAnswerIndex} as a whole, non-negative array index.
+ *
+ * Anything else - absent, malformed, fractional, negative - falls back to the
+ * first answer rather than indexing with a value that can never match.
+ */
+function answerIndexFromParam(raw) {
+    const parsed = Number(raw);
+    return Number.isInteger(parsed) && parsed >= 0 ? parsed : 0;
+}
+/**
+ * In-flight answer-id list requests, keyed by conversation-service URL.
+ *
+ * Replaying a stored chat mounts every one of its frames at once, and each
+ * frame resolves on its own. Without this, N frames from one conversation make
+ * N identical list calls. Sharing the in-flight request collapses them to one.
+ *
+ * Only the id list is shared, and only while its request is in flight: the
+ * entry is dropped once the request settles, whether it succeeded or not. A
+ * failed response is therefore never reused, and a frame mounted later always
+ * reads a fresh list. The per-answer load call is never shared - it returns
+ * live session state with its own expiry.
+ */
+const answerIdListRequests = new Map();
+/**
+ * Lists a conversation's answer ids: its non-thinking `answer` items, in
+ * message order. The host app counts answers the same way, so the Nth id here
+ * is the Nth stored answer.
+ *
+ * @param conversationUrl - The conversation's base URL on the conversation
+ *   service, `{host}/conversation/v2/{encoded id}`.
+ * @param conversationId - The conversation identifier, used in log messages.
+ * @returns The ids, or `null` when the conversation cannot be read. Never
+ *   rejects, so callers sharing the request need no error handling of their own.
+ */
+async function fetchAnswerIds(conversationUrl, conversationId) {
+    try {
+        const messagesResponse = await tokenizedFetch(`${conversationUrl}/public`, {
+            credentials: 'include',
+            headers: { Accept: 'application/json' },
+        });
+        if (!messagesResponse.ok) {
+            logger$3.warn(`[AutoFrameRenderer] Conversation fetch failed for ${conversationId}: ${messagesResponse.status}`);
+            return null;
+        }
+        const messagesBody = await messagesResponse.json();
+        const messages = messagesBody === null || messagesBody === void 0 ? void 0 : messagesBody.messages;
+        const answerIds = [];
+        for (const message of Array.isArray(messages) ? messages : []) {
+            for (const item of (message === null || message === void 0 ? void 0 : message.response_items) || []) {
+                if ((item === null || item === void 0 ? void 0 : item.type) === 'answer' && (item === null || item === void 0 ? void 0 : item.is_thinking) === false && (item === null || item === void 0 ? void 0 : item.answer_id)) {
+                    answerIds.push(item.answer_id);
+                }
+            }
+        }
+        return answerIds;
+    }
+    catch (e) {
+        logger$3.warn(`[AutoFrameRenderer] Failed to list answers for ${conversationId}: ${e}`);
+        return null;
+    }
+}
+/**
+ * The answer-id list for a conversation, joining a request already in flight
+ * for it.
+ *
+ * @param conversationUrl - The conversation's base URL on the conversation
+ *   service. Also the key requests are shared under.
+ * @param conversationId - The conversation identifier, used in log messages.
+ * @param stale - A request the caller already read and found too short. It is
+ *   not reused; the first caller to pass it starts a new request, and the
+ *   others join that one.
+ * @returns The shared request: the ids, or `null` when the conversation cannot
+ *   be read. Never rejects.
+ */
+function getAnswerIds(conversationUrl, conversationId, stale) {
+    const inFlight = answerIdListRequests.get(conversationUrl);
+    if (inFlight && inFlight !== stale) {
+        return inFlight;
+    }
+    const request = fetchAnswerIds(conversationUrl, conversationId);
+    answerIdListRequests.set(conversationUrl, request);
+    const release = () => {
+        if (answerIdListRequests.get(conversationUrl) === request) {
+            answerIdListRequests.delete(conversationUrl);
+        }
+    };
+    request.then(release, release);
+    return request;
+}
+/**
+ * Normalizes a `hideAction` value into an array of action ids. The SDK-side value
+ * is already an `Action[]`; a value coming off the source iframe URL is a string
+ * that may be a JSON array (`["edit","save"]`) or a comma-separated list.
+ */
+function parseHideActions(value) {
+    if (Array.isArray(value)) {
+        return value;
+    }
+    if (typeof value !== 'string' || value === '') {
+        return [];
+    }
+    try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+            return parsed.map(String);
+        }
+    }
+    catch (e) {
+        // Not JSON — fall back to a comma-separated list.
+    }
+    return value.split(',').map((s) => s.trim()).filter(Boolean);
+}
+/**
+ * Unions two `hideAction` values (SDK-computed and source-iframe) into a single
+ * de-duplicated array of action ids.
+ */
+function unionHideActions(sdkValue, sourceValue) {
+    return Array.from(new Set([...parseHideActions(sdkValue), ...parseHideActions(sourceValue)]));
+}
 function isTSMCPIframe(iframe) {
     try {
         const url = new URL(iframe.src);
@@ -27098,25 +28112,155 @@ class AutoFrameRenderer extends TsEmbed {
         this.viewConfig = viewConfig;
     }
     /**
+     * Extends the base embed params with the curated MCP-answer denylist
+     * ({@link HiddenActionItemByDefaultForMCPAnswers}) and a marker letting
+     * the ThoughtSpot app detect this answer was rendered via the MCP
+     * auto-frame-renderer ({@link Param.IsMcpAnswerEmbed}).
+     *
+     * Precedence — merge, allowlist wins:
+     * - When the caller supplies a `visibleActions` allowlist, the base already
+     *   set {@link Param.VisibleActions}; the denylist is skipped so the allowlist
+     *   fully controls visibility.
+     * - Otherwise the denylist is unioned onto {@link Param.HideActions}, which the
+     *   base has already populated with the default hidden actions plus any
+     *   caller-supplied `hiddenActions`.
+     */
+    getEmbedParamsObject() {
+        const queryParams = super.getEmbedParamsObject();
+        if (!queryParams[Param.VisibleActions]) {
+            // `additionalFlags` can override this with a non-array value, so
+            // normalize it rather than spreading it directly.
+            queryParams[Param.HideActions] = unionHideActions(queryParams[Param.HideActions], HiddenActionItemByDefaultForMCPAnswers);
+        }
+        queryParams[Param.IsMcpAnswerEmbed] = true;
+        return queryParams;
+    }
+    /**
      * Builds the final iframe `src` by merging the SDK embed parameters
      * with the query parameters already present on the source iframe URL.
+     *
      * The `tsmcp` marker param is removed so it does not propagate to the
-     * ThoughtSpot application.
+     * ThoughtSpot application. This is not just cosmetic: `tsmcp=true` is
+     * also how {@link isTSMCPIframe} recognizes an iframe as one this
+     * renderer must process. If the marker survived onto the iframe this
+     * class inserts, the same {@link MutationObserver} would immediately
+     * detect its own output as a new MCP iframe and re-process it, causing
+     * infinite recursive replacement. Do not re-add `tsmcp` here.
      *
      * @param sourceSrc - The original iframe's `src` URL string.
+     * @param preserveSourceUrl - When true, return the source URL unchanged.
      * @returns The constructed URL to use for the ThoughtSpot embed iframe.
      */
-    getMCPIframeSrc(sourceSrc) {
-        const queryParams = this.getEmbedParamsObject();
+    getMCPIframeSrc(sourceSrc, resolved, preserveSourceUrl = false) {
+        if (preserveSourceUrl) {
+            return sourceSrc;
+        }
+        const queryParams = this.getUrlQueryParamsObject();
         const sourceURL = new URL(sourceSrc);
         const existingQueryParams = sourceURL.searchParams;
         const existingQueryParamsObject = Object.fromEntries(existingQueryParams);
         delete existingQueryParamsObject[Param.Tsmcp];
+        // Replay markers address the SDK, not the ThoughtSpot application.
+        delete existingQueryParamsObject[Param.TsmcpConversationId];
+        delete existingQueryParamsObject[Param.TsmcpAnswerIndex];
+        // Source-iframe params win over SDK params on merge. Hidden actions
+        // are the exception: union them so a `hideAction` on the source iframe
+        // does not clobber the SDK-computed denylist (and vice versa).
+        const mergedHideActions = unionHideActions(queryParams[Param.HideActions], existingQueryParamsObject[Param.HideActions]);
+        delete existingQueryParamsObject[Param.HideActions];
         const mergedQueryParams = { ...queryParams, ...existingQueryParamsObject };
+        if (mergedHideActions.length) {
+            mergedQueryParams[Param.HideActions] = mergedHideActions;
+        }
         const mergedQueryParamsString = getQueryParamString(mergedQueryParams, true);
         const queryString = mergedQueryParamsString ? `?${mergedQueryParamsString}` : '';
-        const frameSrc = `${this.getEmbedBasePath(queryString)}${sourceURL.hash.replace('#', '')}`;
+        const hash = resolved
+            ? buildAnswerHash(sourceURL.hash, resolved)
+            : sourceURL.hash.replace('#', '');
+        const frameSrc = `${this.getEmbedBasePath(queryString)}${hash}`;
         return frameSrc;
+    }
+    /**
+     * Resolves the current session parameters for an answer stored only as a
+     * conversation identifier plus an ordinal position.
+     *
+     * The answer object behind `sessionId`/`genNo` expires (roughly 8 hours),
+     * so a host app replaying a stored chat cannot persist those values. It
+     * persists the conversation identifier instead, and this walks the two
+     * conversation-service APIs to rebuild them:
+     *
+     * 1. `GET {conv}/public` lists the conversation's messages; the
+     *    non-thinking `answer` items, in message order, give the answer ids.
+     *    Frames from the same conversation share one in-flight call - see
+     *    {@link getAnswerIds}.
+     * 2. `POST {conv}/message/{id}/load/public` turns the answer id at
+     *    `answerIndex` into a live session identifier, generation number and
+     *    agent-context state.
+     *
+     * @returns The resolved parameters, or `null` when resolution fails - the
+     *   caller then falls back to whatever the source URL already carried.
+     */
+    async resolveAnswerSessionParams(conversationId, answerIndex) {
+        const base = `${this.thoughtSpotHost}${CONVERSATION_SERVICE_PATH}/${encodeURIComponent(conversationId)}`;
+        try {
+            const listRequest = getAnswerIds(base, conversationId);
+            let answerIds = await listRequest;
+            if (answerIds && !answerIds[answerIndex]) {
+                // The list only grows, so a short one may predate this answer:
+                // a frame that joined a request started before it was added.
+                // Read the list once more before giving up.
+                answerIds = await getAnswerIds(base, conversationId, listRequest);
+            }
+            if (!answerIds) {
+                return null;
+            }
+            const answerId = answerIds[answerIndex];
+            if (!answerId) {
+                logger$3.warn(`[AutoFrameRenderer] No answer at index ${answerIndex} in conversation ${conversationId} (found ${answerIds.length}).`);
+                return null;
+            }
+            // The load handler is a POST upstream; the public REST endpoint
+            // exposed it as a GET and supplied this body on the caller's
+            // behalf.
+            const detailsResponse = await tokenizedFetch(`${base}/message/${encodeURIComponent(answerId)}/load/public`, {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    'x-requested-by': 'ThoughtSpot',
+                },
+                body: JSON.stringify({ type: 'TS_ANSWER' }),
+            });
+            if (!detailsResponse.ok) {
+                logger$3.warn(`[AutoFrameRenderer] Answer load failed for ${answerId}: ${detailsResponse.status}`);
+                return null;
+            }
+            const detailsBody = await detailsResponse.json();
+            const answer = detailsBody === null || detailsBody === void 0 ? void 0 : detailsBody.answer;
+            const acState = answer === null || answer === void 0 ? void 0 : answer.ac_state;
+            // All four are nullable in the load-answer response. A missing
+            // generation number is as unusable as a missing session id:
+            // stringifying it would put a literal "null" in the hash. Fail
+            // the resolve instead and let the caller fall back.
+            if (!(answer === null || answer === void 0 ? void 0 : answer.session_identifier)
+                || !(acState === null || acState === void 0 ? void 0 : acState.transaction_identifier)
+                || !(Number.isInteger(answer.generation_number) && answer.generation_number > 0)
+                || !(Number.isInteger(acState.generation_number) && acState.generation_number > 0)) {
+                logger$3.warn(`[AutoFrameRenderer] Answer load returned incomplete session state for ${answerId}.`);
+                return null;
+            }
+            return {
+                sessionId: answer.session_identifier,
+                genNo: String(answer.generation_number),
+                acSessionId: acState.transaction_identifier,
+                acGenNo: String(acState.generation_number),
+            };
+        }
+        catch (e) {
+            logger$3.warn(`[AutoFrameRenderer] Failed to resolve stored answer: ${e}`);
+            return null;
+        }
     }
     /**
      * Overrides the base insertion behavior so the new embed iframe
@@ -27146,10 +28290,37 @@ class AutoFrameRenderer extends TsEmbed {
         if (this.shouldWaitForRenderPromise) {
             await this.isReadyForRenderPromise;
         }
-        const src = this.getMCPIframeSrc(iframe.src);
+        // Only frames that ask for it take the replay path. A frame straight
+        // from the MCP server carries its own session params and no
+        // conversation id, so it renders exactly as it always has.
+        const sourceParams = new URL(iframe.src).searchParams;
+        const conversationId = sourceParams.get(Param.TsmcpConversationId);
+        let resolved = null;
+        if (conversationId) {
+            resolved = await this.resolveAnswerSessionParams(conversationId, answerIndexFromParam(sourceParams.get(Param.TsmcpAnswerIndex)));
+        }
+        const src = this.getMCPIframeSrc(iframe.src, resolved !== null && resolved !== void 0 ? resolved : undefined, Boolean(conversationId) && !resolved);
         await this.renderIFrame(src);
+        // Mark only answers actually re-resolved: their numbers were computed
+        // now, not when the conversation happened.
+        if (resolved && !this.viewConfig.suppressStaleAnswerNotice) {
+            this.markAsStaleAnswer();
+        }
         this.isRendered = true;
+    }
+    /**
+     * Adds the "data may have changed" notice to the rendered frame as a
+     * native tooltip, so it needs no stylesheet and cannot disturb the host
+     * app's layout.
+     */
+    markAsStaleAnswer() {
+        if (!this.iFrame) {
+            return;
+        }
+        this.iFrame.title = this.viewConfig.staleAnswerNoticeText || DEFAULT_STALE_ANSWER_NOTICE;
+        // Exposed so a host app can style or replace the native tooltip.
+        this.iFrame.dataset.tsStaleAnswer = 'true';
     }
 }
 
-export { Action, AnswerService, AppEmbed, ApplicabilityLevel, AuthEvent, AuthFailureType, AuthStatus, AuthType, BackgroundFormatType, BodylessConversation, ConditionalFormattingComparisonType, ConditionalFormattingOperator, ContextMenuTriggerOptions, ContextType, ConversationEmbed, CustomActionTarget, CustomActionsPosition, DataLabelFilterOperator, DataPanelCustomColumnGroupsAccordionState$1 as DataPanelCustomColumnGroupsAccordionState, DataSourceVisualMode, EmbedErrorCodes, EmbedErrorSeverity, EmbedEvent, ErrorDetailsTypes, HomeLeftNavItem, HomePage, HomePageSearchBarMode, HomepageModule, HostEvent, InterceptedApiType, LegendPosition, ListPage, ListPageColumns, LiveboardEmbed, LogLevel, MIXPANEL_EVENT, Page, PinboardEmbed, PrefetchFeatures, PrimaryNavbarVersion, RuntimeFilterOp, SearchBarEmbed, SearchEmbed, SpotterAgentEmbed, SpotterEmbed, SpotterQueryMode, TableContentDensity, TableTheme, UIPassthroughEvent, convertFilterChangedToUpdateFiltersPayload, createLiveboardWithAnswers, executeTML, exportTML, getAnswerFromQuery, getEmbedConfig as getInitConfig, getSessionInfo, init, logout, prefetch, reloadIframe, resetCachedAuthToken, startAutoMCPFrameRenderer, tokenizedFetch, uploadMixpanelEvent };
+export { Action, AnswerService, AppEmbed, ApplicabilityLevel, AuthEvent, AuthFailureType, AuthStatus, AuthType, BackgroundFormatType, BodylessConversation, ConditionalFormattingComparisonType, ConditionalFormattingOperator, ContextMenuTriggerOptions, ContextType, ConversationEmbed, CustomActionTarget, CustomActionsPosition, DataLabelFilterOperator, DataPanelCustomColumnGroupsAccordionState$1 as DataPanelCustomColumnGroupsAccordionState, DataSourceVisualMode, EmbedErrorCodes, EmbedErrorSeverity, EmbedEvent, ErrorDetailsTypes, HomeLeftNavItem, HomePage, HomePageSearchBarMode, HomepageModule, HostEvent, InterceptedApiType, LegendPosition, ListPage, ListPageColumns, LiveboardEmbed, LogLevel, MIXPANEL_EVENT, Page, PinboardEmbed, PrefetchFeatures, PrimaryNavbarVersion, RuntimeFilterOp, SearchBarEmbed, SearchEmbed, SpotterAgentEmbed, SpotterEmbed, SpotterExperienceVersion, SpotterQueryMode, SpotterUsageCounterDisplayMode, SpotterUsageLimitStatus, TableContentDensity, TableTheme, UIPassthroughEvent, convertFilterChangedToUpdateFiltersPayload, createLiveboardWithAnswers, executeTML, exportTML, getAnswerFromQuery, getEmbedConfig as getInitConfig, getSessionInfo, init, logout, prefetch, reloadIframe, resetCachedAuthToken, startAutoMCPFrameRenderer, tokenizedFetch, uploadMixpanelEvent };
